@@ -1,0 +1,41 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="shadow_height">4dp</dimen>
+    <dimen name="content_padding">16dp</dimen>
+
+    <!--LoginActivity-->
+    <dimen name="fragment_container_horizontal_margin">32dp</dimen>
+
+    <dimen name="btns_text_size">14sp</dimen>
+    <dimen name="et_text_size">18sp</dimen>
+
+    <!--OrderFragment-->
+    <dimen name="content_left_padding">72dp</dimen>
+
+    <!--OrderHistoryFragment-->
+    <dimen name="exec_status_text_size">16sp</dimen>
+    <dimen name="cost_text_size">@dimen/exec_status_text_size</dimen>
+    <dimen name="address_text_size">14sp</dimen>
+    <dimen name="date_text_size">10sp</dimen>
+
+    <!--EnterAddressDialog-->
+    <dimen name="dialog_content_horizontal_margin">24dp</dimen>
+    <dimen name="dialog_content_bottom_margin">24dp</dimen>
+    <dimen name="dialog_content_top_margin">20dp</dimen>
+
+    <!--ProfileFragment-->
+    <dimen name="profile_item_vertical_margin">8dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+
+    <!--Fab's margins-->
+    <dimen name="fab_margin">0dp</dimen>
+    <dimen name="fab_mini_margin">0dp</dimen>
+
+    <!--CardView padding-->
+    <dimen name="card_view_padding">10dp</dimen>
+</resources>

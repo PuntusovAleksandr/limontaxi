@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup
+    android:id="@+id/rg_modes"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/rb_type"
+        android:text="@string/cemd_mode_type"
+        style="@style/AppTheme.RadioButton"
+        />
+
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/rb_map"
+        android:text="@string/cemd_mode_map"
+        style="@style/AppTheme.RadioButton"
+        />
+
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/rb_city"
+        android:text="@string/cemd_mode_city"
+        style="@style/AppTheme.RadioButton"
+        />
+
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/rb_phone"
+        android:text="@string/cemd_mode_phone"
+        style="@style/AppTheme.RadioButton"
+        />
+
+</RadioGroup>

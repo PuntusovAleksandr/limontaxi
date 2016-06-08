@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/pm_update_name"
+        android:title="@string/pf_update_name"
+        />
+    <item
+        android:id="@+id/pm_update_address"
+        android:title="@string/pf_update_address"
+        />
+    <item
+        android:id="@+id/pm_update_phone"
+        android:title="@string/pf_update_phone"
+        />
+    <item
+        android:id="@+id/pm_change_password"
+        android:title="@string/pf_change_password"
+        />
+</menu>

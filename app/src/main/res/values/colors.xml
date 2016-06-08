@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796B</color>
+    <color name="colorAccent">#FF5722</color>
+    <color name="colorLightPrimary">#B2DFDB</color>
+    <color name="textColorPrimary">#212121</color>
+    <color name="textColorSecondary">#727272</color>
+
+    <color name="pressedButtonColor">#99009688</color>
+
+    <color name="nav_bar_end_color">@color/colorPrimaryDark</color>
+    <color name="nav_bar_start_color">@color/colorLightPrimary</color>
+    <color name="nav_bar_center_color">@color/colorPrimary</color>
+
+    <color name="dividerColor">#B6B6B6</color>
+    <color name="showcase">@color/colorPrimary</color>
+</resources>

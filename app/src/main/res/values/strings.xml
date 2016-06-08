@@ -1,0 +1,194 @@
+<resources>
+    <string name="app_name">CabsDemo</string>
+    <string name="content_logo">Logo</string>
+    <string name="content_icon">Icon</string>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyCYtxuZCdviIJIDI7rck5HJNNO7m-jf1Yg
+    </string>
+    <string name="geocoding_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyBwzzfXJAwiOlmTNYBTRlZ28jpMGoBCsiY
+    </string>
+    <string name="directions_key" templateMergeStrategy="preserve" translatable="false">
+         AIzaSyBLc1dYq4JgFOMzQ6gLDtFUlYBkcQmIx1g
+    </string>
+
+    <string name="gps_network_not_enabled">Не удалось определить местоположение</string>
+    <string name="failed_determine_address">Не удалось определить адресс</string>
+    <string name="open_location_settings">Настройки</string>
+    <string name="shared_text">"A new CabsDemo app available at http://digitalpromo.com.ua/"</string>
+    <string name="share_via">Поделиться через…</string>
+    <string name="btn_ok">Ок</string>
+    <string name="btn_cancel">Отмена</string>
+    <string name="showcase_text">Для добавления адреса используйте эту кнопку</string>
+    <string name="error_field_must_not_be_blank">Это поле не должно быть пустым.</string>
+    <string name="error_invalid_phone_format">Неверный формат (38 (ХХХ) ХХХ-ХХ-ХХ).</string>
+    <string name="error_passwords_mismatch">Пароли не совпадают.</string>
+    <string name="err_cant_get_lat_lng">Не удалось получить координаты.</string>
+    <string name="error_no_house_number">Укажите номер дома.</string>
+    <string name="error_no_internet">Отсутствует интернет соединение.</string>
+    <string name="error_no_street">Укажите улицу</string>
+
+    <!--SplashScreen-->
+    <string name="ss_app_name_demo">Cabs\nDemo</string>
+
+    <!--LoginActivity-->
+    <string name="la_title">Авторизация</string>
+    <!--LoginFragment-->
+    <string name="menu_skip">Пропустить</string>
+    <string name="lf_title_sign_in">Вход</string>
+    <string name="lf_hint_login">Логин</string>
+    <string name="lf_hint_password">Пароль</string>
+    <string name="lf_auto_login">Входить автоматически</string>
+    <string name="lf_btn_login">Войти</string>
+    <!--<string name="lf_btn_register">Регистрация</string>-->
+    <!--<string name="lf_btn_skip">Пропустить</string>-->
+    <string name="lf_tv_forgot_password"><u>Забыли пароль?</u></string>
+    <!--RegisterFragment-->
+    <string name="rf_title_registration">Регистрация</string>
+    <string name="rf_hint_name">Ф.И.О.</string>
+    <string name="rf_hint_phone">Номер телефона</string>
+    <string name="rf_hint_password">Пароль</string>
+    <string name="rf_hint_confirm_password">Подтверждение пароля</string>
+    <string name="rf_hint_code">Код из СМС</string>
+    <string name="rf_btn_register">Зарегистрироваться</string>
+    <string name="rf_btn_confirm">Подтвердить</string>
+    <!--RestorePasswordFragment-->
+    <string name="rpf_title_restore_password">Восстановление пароля</string>
+    <string name="rpf_hint_phone">Номер телефона</string>
+    <string name="rpf_btn_restore">Восстановить</string>
+    <!--MyLocationFragment-->
+    <string name="mlf_title_my_location">Где я?</string>
+    <!--OrderHistoryFragment-->
+    <string name="ohf_title_orders_history">История заказов</string>
+    <string name="ohf_pick_date">Выбор даты</string>
+    <string name="ohf_make_order">Заказать</string>
+    <!--OrderFragment-->
+    <string name="of_title_order_fragment">Заказ</string>
+    <string name="fab_label_choose_on_map">Выбрать на карте</string>
+    <string name="fab_label_type_address">Ввести адрес</string>
+    <string name="of_btn_delete">Удалить</string>
+    <string name="of_btn_edit">Изменить</string>
+    <string name="of_preferences">Дополнительные параметры</string>
+    <string name="of_call">Заказать</string>
+    <string name="of_notify_phone">Телефон для обратной связи</string>
+    <!--EnterCommentDialog-->
+    <string name="ecd_title_comment">Комментарий</string>
+    <string name="ecd_et_comment">Комментарий для водителя</string>
+    <!--EnterAddressDialog-->
+    <string name="ead_title_start_address">Откуда?</string>
+    <string name="ead_title_end_address">Куда?</string>
+    <string name="ead_title_edit">Редактирование</string>
+    <string name="ead_et_street">Улица</string>
+    <string name="ead_et_house">Дом</string>
+    <string name="ead_actv_address">Адрес</string>
+    <!--NavigationMenu-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="item_call_taxi">Вызвать такси</string>
+    <string name="item_my_location">Где я?</string>
+    <string name="item_history">История заказов</string>
+    <string name="item_share">Поделиться</string>
+    <string name="item_comment">Отзыв</string>
+    <string name="item_logout">Выйти</string>
+    <string name="item_profile">Профиль</string>
+    <string name="guest">Гость</string>
+    <!--ProfileFragment-->
+    <string name="pf_title_profile">Профиль</string>
+    <string name="pf_login">Логин:</string>
+    <string name="pf_fio">Ф.И.О.:</string>
+    <string name="pf_phone">№ телефона:</string>
+    <string name="pf_balance">Баланс:</string>
+    <string name="pf_address">Адрес:</string>
+    <string name="pf_orders_count">Количество заказов:</string>
+    <string name="pf_discount">Скидка:</string>
+    <string name="pf_payment_type">Категория оплаты:</string>
+    <string name="pf_bonuses">Бонусы (1 бонус = 1 д.е.):</string>
+    <string name="pf_entrance">Подъезд</string>
+    <string name="pf_update_name">Изменить имя</string>
+    <string name="pf_update_address">Изменить адрес</string>
+    <string name="pf_update_phone">Изменить телефон</string>
+    <string name="pf_change_password">Изменить пароль</string>
+    <!--UpdateProfileActivity-->
+    <!--UpdateNameFragment-->
+    <string name="unf_title_update_name">Смена имени</string>
+    <string name="unf_first_name">Имя</string>
+    <string name="unf_middle_name">Отчество</string>
+    <string name="unf_last_name">Фамилия</string>
+    <!--UpdateAddressFragment-->
+    <string name="uaf_title_update_address">Смена адреса</string>
+    <string name="uaf_address_from">Улица</string>
+    <string name="uaf_address_number_from">Дом</string>
+    <string name="uaf_address_entrance_from">Подъезд</string>
+    <string name="uaf_address_apartment_from">Квартира</string>
+    <!--UpdatePhoneFragment-->
+    <string name="upf_title_update_phone">Смена телефона</string>
+    <string name="upf_hint_phone">Новый номер</string>
+    <string name="upf_change">Сменить</string>
+    <!--UpdatePasswordFragment-->
+    <string name="upwf_title_update_password">Смена пароля</string>
+    <string name="upwf_old_password">Старый пароль</string>
+    <string name="upwf_new_password">Новый пароль</string>
+    <string name="upwf_rep_new_password">Повтор нового пароля</string>
+    <string name="upwf_change">Сменить</string>
+    <!--PreferencesActivity-->
+    <string name="pa_title_preferences">Параметры</string>
+    <string name="pa_section_comment">Комментарий:</string>
+    <string name="pa_section_pre_order_time">Время подачи:</string>
+    <string name="pa_section_rate_type">Тип тарифа:</string>
+    <string name="pa_section_extra">Дополнительно:</string>
+    <string name="pa_section_add_cost">Доп. стоимость к заказу:</string>
+    <string name="pa_notify_phone_undefined">Не указан</string>
+    <string name="pa_pre_order">Предварительный заказ</string>
+    <string name="pa_pay_by_bonuses">Оплата бонусами</string>
+    <string name="pa_date">Дата: </string>
+    <string name="pa_time">Время: </string>
+    <string name="pa_pre_order_time_undefined">Не указано</string>
+    <string name="pa_minibus">Микроавтобус</string>
+    <string name="pa_wagon">Универсал</string>
+    <string name="pa_premium">Премиум</string>
+    <string name="pa_base">Базовый</string>
+    <string name="pa_truck">Груз</string>
+    <string name="pa_business">Бизнес</string>
+    <string name="pa_empty_trunk">Пустой багажник</string>
+    <string name="pa_baggage">Загрузка салона</string>
+    <string name="pa_animal">Перевозка животного</string>
+    <string name="pa_conditioner">Кондиционер</string>
+    <string name="pa_courier_delivery">Курьерская доставка</string>
+    <string name="pa_route_undefined">По городу</string>
+    <string name="pa_add_cost_undefined">0 д.е.</string>
+    <string name="pa_comment_init_content">Информация которая может помочь водителю.</string>
+    <string name="pa_terminal">Терминал</string>
+    <string name="pa_receipt">Требовнаие чека за поездку</string>
+    <string name="pa_meet_with_table">Встреча с табличкой</string>
+    <string name="pa_btn_save">Сохранить</string>
+    <!--EnterDataDialog-->
+    <string name="edd_title_notify_phone">Телефон для обратной связи</string>
+    <string name="edd_title_add_cost">Доп. стоимость к заказу</string>
+    <string name="edd_hint_phone">№ телефона</string>
+    <string name="edd_hint_amount">Сумма</string>
+    <!--MapActivity-->
+    <string name="ma_title_pick_address">Выбор адреса</string>
+    <string name="ma_try_to_detect_location">Определение местоположения…</string>
+    <!--ChooseEditModeDialog-->
+    <string name="cemd_title_edit_mode">Продолжить используя:</string>
+    <string name="cemd_mode_type">Ввести используя диалог</string>
+    <string name="cemd_mode_map">Выбрать на карте</string>
+    <string name="cemd_mode_city">Сменить город</string>
+    <string name="cemd_mode_phone">Сменить телефон</string>
+    <!--ChooseCityDialog-->
+    <string name="ccd_title_choose_city">Выберите город:</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_main">MainActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_update_profile">UpdateProfileActivity</string>
+    <string name="title_activity_preferences">PreferencesActivity</string>
+    <string name="title_activity_map">Выбор адреса</string>
+    <string name="pwb">powered_by</string>
+    <string name="ad_title_no_active_connection">Предупреждение</string>
+    <string name="ad_message_no_active_connection">Отсутствует интернет соединение. Перейти к настройкам?</string>
+    <string name="ad_pos_btn_settings">settings</string>
+</resources>

@@ -1,0 +1,241 @@
+package digitalpromo.cabsdemo.fragments;
+
+import android.content.Context;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.androidquery.AQuery;
+
+import digitalpromo.cabsdemo.App;
+import digitalpromo.cabsdemo.R;
+import digitalpromo.cabsdemo.api.ApiClient;
+import digitalpromo.cabsdemo.api.BaseResponse;
+import digitalpromo.cabsdemo.api.CheckConfirmationCodeRequest;
+import digitalpromo.cabsdemo.utils.PhoneUtils;
+import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link FragmentsInteractionListener} interface
+ * to handle interaction events.
+ */
+public class UpdatePhoneFragment extends BaseFragment implements View.OnClickListener {
+    public static final String TAG = UpdatePhoneFragment.class.getSimpleName();
+
+    private AQuery aq;
+
+    private FragmentsInteractionListener mListener;
+
+    private TextInputLayout tilNewPhone, tilCode;
+
+    private String newPhone;
+
+    private TextWatcher mTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            tilNewPhone.setError(null);
+            tilNewPhone.setErrorEnabled(false);
+            tilCode.setError(null);
+            tilCode.setErrorEnabled(false);
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
+    /**
+     * On click listener with logic for the navigation button
+     */
+    private View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            doBack();
+        }
+    };
+
+    public UpdatePhoneFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    protected void initViews() {
+        aq.id(R.id.get_code).visible();
+        aq.id(R.id.code_confirm).gone();
+
+        aq.id(R.id.et_phone).getEditText().addTextChangedListener(mTextWatcher);
+        aq.id(R.id.et_code).getEditText().addTextChangedListener(mTextWatcher);
+
+        aq.id(R.id.btn_get_code).clicked(this);
+        aq.id(R.id.btn_confirm).clicked(this);
+    }
+
+    @Override
+    protected void doBack() {
+        if (aq.id(R.id.get_code).getView().getVisibility() == View.VISIBLE) {
+            super.onBackPressed();
+        } else {
+            aq.id(R.id.get_code).visible();
+            aq.id(R.id.code_confirm).gone();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mListener.changeTitle(getString(R.string.upf_title_update_phone));
+        mListener.showBackButton(listener);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_update_phone, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        aq = new AQuery(view);
+
+        tilNewPhone = (TextInputLayout) view.findViewById(R.id.til_new_phone);
+        tilCode = (TextInputLayout) view.findViewById(R.id.til_code);
+
+        initViews();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof FragmentsInteractionListener) {
+            mListener = (FragmentsInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_get_code:
+                newPhone = aq.id(R.id.et_phone).getEditable().toString();
+
+                newPhone = PhoneUtils.replaceNonDigitCharacters(newPhone);
+
+                if (!newPhone.isEmpty()) {
+                    if (PhoneUtils.isPhoneValid(newPhone)) {
+                        getConfirmCode(newPhone);
+                    } else {
+                        tilNewPhone.setError(getString(R.string.error_invalid_phone_format));
+                    }
+                } else {
+                    tilNewPhone.setError(getString(R.string.error_field_must_not_be_blank));
+                }
+                break;
+            case R.id.btn_confirm:
+                String code = aq.id(R.id.et_code).getEditable().toString();
+                
+                if (!code.isEmpty()) {
+                    confirmPhoneChanging(Integer.parseInt(code));
+                } else {
+                    tilCode.setError(getString(R.string.error_field_must_not_be_blank));
+                }
+                break;
+        }
+    }
+
+    private void confirmPhoneChanging(Integer code) {
+        mListener.displayProgress(true);
+        ApiClient.getInstance().checkConfirmationCode(CheckConfirmationCodeRequest.PHONE_CHANGE, code, new ApiClient.ApiCallback<BaseResponse>() {
+            @Override
+            public void response(BaseResponse response) {
+                mListener.displayProgress(false);
+                if (response.isOK()) {
+                    Log.d(TAG, "response: success");
+                    SharedPreferencesManager.getInstance().saveUserLogin(newPhone);
+                    getActivity().finish();
+                } else {
+                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void error() {
+                mListener.displayProgress(false);
+                Log.d(TAG, "error: ");
+            }
+
+            @Override
+            public void noInternetConnection() {
+                mListener.displayProgress(false);
+                ApiClient.getInstance().showAlert(getActivity());
+            }
+        });
+    }
+
+    private void getConfirmCode(String phone) {
+        mListener.displayProgress(true);
+        ApiClient.getInstance().changePhone(phone, new ApiClient.ApiCallback<BaseResponse>() {
+            @Override
+            public void response(BaseResponse response) {
+                mListener.displayProgress(false);
+                if (response.isOK()) {
+                    Log.d(TAG, "response: success");
+                    aq.id(R.id.get_code).gone();
+                    aq.id(R.id.code_confirm).visible();
+                } else {
+                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void error() {
+                mListener.displayProgress(false);
+                Log.d(TAG, "error: ");
+            }
+
+            @Override
+            public void noInternetConnection() {
+                mListener.displayProgress(false);
+                ApiClient.getInstance().showAlert(getActivity());
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        doBack();
+    }
+}

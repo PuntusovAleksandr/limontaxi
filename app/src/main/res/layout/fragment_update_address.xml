@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="digitalpromo.cabsdemo.fragments.UpdateAddressFragment"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    >
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_street"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <EditText
+            android:id="@+id/et_address_from"
+            style="@style/AppTheme.EditText"
+            android:hint="@string/uaf_address_from"
+            android:inputType="text"
+            android:nextFocusDown="@+id/et_address_number_from"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_house"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <EditText
+            android:id="@+id/et_address_number_from"
+            style="@style/AppTheme.EditText"
+            android:hint="@string/uaf_address_number_from"
+            android:inputType="text"
+            android:nextFocusDown="@+id/et_address_entrance_from"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <EditText
+            android:id="@+id/et_address_entrance_from"
+            style="@style/AppTheme.EditText"
+            android:hint="@string/uaf_address_entrance_from"
+            android:inputType="number"
+            android:nextFocusDown="@+id/et_address_apartment_from"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!-->-->
+        <!--<EditText-->
+        <!--android:id="@+id/et_address_apartment_from"-->
+        <!--style="@style/AppTheme.EditText"-->
+        <!--android:hint="@string/uaf_address_apartment_from"-->
+        <!--android:inputType="number"-->
+        <!--/>-->
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+
+    <Button
+        android:id="@+id/btn_confirm"
+        style="@style/AppTheme.Button"
+        android:text="@string/rf_btn_confirm"
+        android:layout_gravity="center_horizontal"
+        />
+
+
+</LinearLayout>

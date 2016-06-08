@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="@string/pa_section_extra"
+        style="@style/AppTheme.PreferencesSection"
+        />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/cb_empty_trunk"
+        android:text="@string/pa_empty_trunk"
+        style="@style/AppTheme.CheckButton"
+        />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/cb_baggage"
+        android:text="@string/pa_baggage"
+        style="@style/AppTheme.CheckButton"
+        />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/cb_animal"
+        android:text="@string/pa_animal"
+        style="@style/AppTheme.CheckButton"
+        />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/cb_conditioner"
+        android:text="@string/pa_conditioner"
+        style="@style/AppTheme.CheckButton"
+        />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/cb_courier_delivery"
+        android:text="@string/pa_courier_delivery"
+        style="@style/AppTheme.CheckButton"
+        />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/cb_meet_with_table"
+        android:text="@string/pa_meet_with_table"
+        style="@style/AppTheme.CheckButton"
+        />
+
+    <!--<android.support.v7.widget.AppCompatCheckBox-->
+        <!--android:id="@+id/cb_terminal"-->
+        <!--android:text="@string/pa_terminal"-->
+        <!--style="@style/AppTheme.CheckButton"-->
+        <!--/>-->
+
+    <!--<android.support.v7.widget.AppCompatCheckBox-->
+        <!--android:id="@+id/cb_receipt"-->
+        <!--android:text="@string/pa_receipt"-->
+        <!--style="@style/AppTheme.CheckButton"-->
+        <!--/>-->
+
+</LinearLayout>

@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="digitalpromo.cabsdemo.fragments.LoginFragment"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    >
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <EditText
+            android:id="@+id/et_login"
+            android:hint="@string/lf_hint_login"
+            android:inputType="text"
+            android:drawableLeft="@drawable/ic_login"
+            android:drawableStart="@drawable/ic_login"
+            style="@style/AppTheme.EditText"
+            android:nextFocusDown="@+id/et_password"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <EditText
+            android:id="@+id/et_password"
+            android:hint="@string/lf_hint_password"
+            android:inputType="textPassword"
+            android:drawableLeft="@drawable/ic_password"
+            android:drawableStart="@drawable/ic_password"
+            style="@style/AppTheme.EditText"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/cb_auto_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lf_auto_login"
+        style="@style/AppTheme.CheckButton"
+        />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:text="@string/lf_btn_login"
+        android:layout_width="match_parent"
+        style="@style/AppTheme.Button"
+        />
+
+    <Button
+        android:id="@+id/btn_restore_password"
+        android:text="@string/lf_tv_forgot_password"
+        android:layout_gravity="center"
+        android:textSize="@dimen/btns_text_size"
+        style="@style/AppTheme.BorderlessButton"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.TextView"
+        />
+
+
+</LinearLayout>

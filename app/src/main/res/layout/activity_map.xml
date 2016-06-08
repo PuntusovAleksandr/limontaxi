@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="digitalpromo.cabsdemo.activities.MapActivity"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        >
+
+        <include layout="@layout/toolbar"/>
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:gravity="center"
+            android:text="@string/ma_try_to_detect_location"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/pb_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_useIntrinsicPadding="false"
+            app:mpb_showTrack="false"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding"
+            android:background="@color/colorPrimary"
+            android:tint="@android:color/white"
+            />
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include
+        android:id="@+id/map"
+        layout="@layout/content_map"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_confirm"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchor="@+id/map"
+        app:layout_anchorGravity="bottom|end"
+        />
+
+</android.support.design.widget.CoordinatorLayout>

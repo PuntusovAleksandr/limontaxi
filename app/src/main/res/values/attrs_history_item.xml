@@ -1,0 +1,12 @@
+<resources>
+    <declare-styleable name="HistoryItemView">
+        <attr name="statusColor" format="color"/>
+        <attr name="addressColor" format="color"/>
+        <attr name="costColor" format="color"/>
+        <attr name="dateColor" format="color"/>
+        <attr name="statusSize" format="dimension"/>
+        <attr name="addressSize" format="dimension"/>
+        <attr name="costSize" format="dimension"/>
+        <attr name="dateSize" format="dimension"/>
+    </declare-styleable>
+</resources>

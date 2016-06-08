@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="@string/pa_section_rate_type"
+        style="@style/AppTheme.PreferencesSection"
+        />
+
+    <RadioGroup
+        android:id="@+id/rg_rate_types"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_base"
+            android:text="@string/pa_base"
+            style="@style/AppTheme.RadioButton"
+            />
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_premium"
+            android:text="@string/pa_premium"
+            style="@style/AppTheme.RadioButton"
+            />
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_truck"
+            android:text="@string/pa_truck"
+            style="@style/AppTheme.RadioButton"
+            />
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_wagon"
+            android:text="@string/pa_wagon"
+            style="@style/AppTheme.RadioButton"
+            />
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_minibus"
+            android:text="@string/pa_minibus"
+            style="@style/AppTheme.RadioButton"
+            />
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_business"
+            android:text="@string/pa_business"
+            style="@style/AppTheme.RadioButton"
+            />
+    </RadioGroup>
+
+</LinearLayout>

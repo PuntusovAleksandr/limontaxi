@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <EditText
+            android:id="@+id/et_code"
+            android:hint="@string/rf_hint_code"
+            android:inputType="number"
+            style="@style/AppTheme.EditText"
+            android:drawableLeft="@drawable/ic_code"
+            android:drawableStart="@drawable/ic_code"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        style="@style/AppTheme.Button"
+        android:text="@string/rf_btn_confirm"
+        android:layout_gravity="center_horizontal"
+        />
+
+</LinearLayout>

@@ -7,7 +7,7 @@ public class BaseRequest {
     /**
      * Prefix for client requests
      */
-    public static final String USER = "user/";
+    public static final String USER = "account/";
 
     /**
      * Prefix for order requests

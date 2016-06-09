@@ -1,7 +1,6 @@
 package digitalpromo.cabsdemo.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
@@ -20,7 +18,7 @@ import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
 import digitalpromo.cabsdemo.api.ApiClient;
 import digitalpromo.cabsdemo.api.BaseResponse;
-import digitalpromo.cabsdemo.api.CheckConfirmationCodeRequest;
+import digitalpromo.cabsdemo.api.GetConfirmationCodeRequest;
 import digitalpromo.cabsdemo.utils.PhoneUtils;
 import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
 
@@ -177,32 +175,32 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void confirmPhoneChanging(Integer code) {
-        mListener.displayProgress(true);
-        ApiClient.getInstance().checkConfirmationCode(CheckConfirmationCodeRequest.PHONE_CHANGE, code, new ApiClient.ApiCallback<BaseResponse>() {
-            @Override
-            public void response(BaseResponse response) {
-                mListener.displayProgress(false);
-                if (response.isOK()) {
-                    Log.d(TAG, "response: success");
-                    SharedPreferencesManager.getInstance().saveUserLogin(newPhone);
-                    getActivity().finish();
-                } else {
-                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void error() {
-                mListener.displayProgress(false);
-                Log.d(TAG, "error: ");
-            }
-
-            @Override
-            public void noInternetConnection() {
-                mListener.displayProgress(false);
-                ApiClient.getInstance().showAlert(getActivity());
-            }
-        });
+//        mListener.displayProgress(true);
+//        ApiClient.getInstance().getConfirmationCode(GetConfirmationCodeRequest.PHONE_CHANGE, code, new ApiClient.ApiCallback<BaseResponse>() {
+//            @Override
+//            public void response(BaseResponse response) {
+//                mListener.displayProgress(false);
+//                if (response.isOK()) {
+//                    Log.d(TAG, "response: success");
+//                    SharedPreferencesManager.getInstance().saveUserLogin(newPhone);
+//                    getActivity().finish();
+//                } else {
+//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void error() {
+//                mListener.displayProgress(false);
+//                Log.d(TAG, "error: ");
+//            }
+//
+//            @Override
+//            public void noInternetConnection() {
+//                mListener.displayProgress(false);
+//                ApiClient.getInstance().showAlert(getActivity());
+//            }
+//        });
     }
 
     private void getConfirmCode(String phone) {

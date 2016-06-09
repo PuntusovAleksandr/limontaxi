@@ -39,7 +39,7 @@ public class ApiClient {
     /**
      * Base url
      */
-    private static final String BASE_URL = "http://ndes.digitalpromo.com.ua/clientapi/";
+    private static final String BASE_URL = "http://95.67.73.202:6969/api/";
 
     /**
      * Connection timeout
@@ -278,10 +278,10 @@ public class ApiClient {
     /**
      * Request to confirmation code check
      * @param serviceName name of check confirmation code request
-     * @param code confirmation code
+     * @param phone phone for confirmation
      * @param callback callback for ui updates
      */
-    public void checkConfirmationCode(@NonNull String serviceName, @NonNull Integer code, final ApiCallback<BaseResponse> callback) {
+    public void getConfirmationCode(@NonNull String serviceName, @NonNull String phone, final ApiCallback<BaseResponse> callback) {
         AjaxCallback<BaseResponse> cb = new AjaxCallback<BaseResponse>() {
             @Override
             public void callback(String url, BaseResponse response, AjaxStatus status) {
@@ -298,7 +298,7 @@ public class ApiClient {
             }
         };
 
-        CheckConfirmationCodeRequest request = new CheckConfirmationCodeRequest(serviceName, code);
+        GetConfirmationCodeRequest request = new GetConfirmationCodeRequest(serviceName, phone);
         doRequest(request, BaseResponse.class, cb, true);
     }
 

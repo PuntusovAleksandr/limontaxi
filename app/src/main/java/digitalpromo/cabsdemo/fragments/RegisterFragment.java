@@ -19,7 +19,7 @@ import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
 import digitalpromo.cabsdemo.api.ApiClient;
 import digitalpromo.cabsdemo.api.BaseResponse;
-import digitalpromo.cabsdemo.api.CheckConfirmationCodeRequest;
+import digitalpromo.cabsdemo.api.GetConfirmationCodeRequest;
 import digitalpromo.cabsdemo.utils.PhoneUtils;
 
 /**
@@ -145,13 +145,19 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
                 }
                 break;
             case R.id.btn_confirm:
-                String code = aq.id(R.id.et_code).getEditable().toString();
-
-                if (!code.isEmpty()) {
-                    checkCode(Integer.parseInt(code));
-                } else {
-                    tilCode.setError(getString(R.string.error_field_must_not_be_blank));
+                String phone_confirm = aq.id(R.id.et_phone_for_code).getEditable().toString();
+                phone_confirm = PhoneUtils.replaceNonDigitCharacters(phone_confirm);
+                if(PhoneUtils.isPhoneValid(phone_confirm)) {
+                    getConfirmCode(phone_confirm);
                 }
+
+//                String code = aq.id(R.id.et_code).getEditable().toString();
+
+//                if (!code.isEmpty()) {
+//                    getConfirmCode(Integer.parseInt(code));
+//                } else {
+//                    tilCode.setError(getString(R.string.error_field_must_not_be_blank));
+//                }
                 break;
         }
     }
@@ -160,8 +166,10 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
      * Initiate all views of the fragment
      */
     protected void initViews() {
-        aq.id(R.id.ll_reg_info_container).visible();
-        aq.id(R.id.code_confirm).gone();
+//        aq.id(R.id.ll_reg_info_container).visible();
+//        aq.id(R.id.code_confirm).gone();
+        aq.id(R.id.ll_reg_info_container).gone();
+        aq.id(R.id.code_confirm).visible();
 
         aq.id(R.id.et_name).getEditText().addTextChangedListener(mTextWatcher);
         aq.id(R.id.et_phone).getEditText().addTextChangedListener(mTextWatcher);
@@ -277,11 +285,11 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
 
     /**
      * Check confirmation code
-     * @param code confirmation code
+     * @param phone phone for confirmation
      */
-    private void checkCode(@NonNull Integer code) {
+    private void getConfirmCode(@NonNull String phone) {
         mListener.displayProgress(true);
-        ApiClient.getInstance().checkConfirmationCode(CheckConfirmationCodeRequest.REGISTRATION, code, new ApiClient.ApiCallback<BaseResponse>() {
+        ApiClient.getInstance().getConfirmationCode(GetConfirmationCodeRequest.REGISTRATION, phone, new ApiClient.ApiCallback<BaseResponse>() {
             @Override
             public void response(BaseResponse response) {
                 mListener.displayProgress(false);

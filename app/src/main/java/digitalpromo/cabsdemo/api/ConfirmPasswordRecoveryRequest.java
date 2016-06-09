@@ -7,7 +7,10 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Request for confirmation of password recovery request
  */
-public class ConfirmPasswordRecoveryRequest extends CheckConfirmationCodeRequest {
+
+//todo do this func
+
+public class ConfirmPasswordRecoveryRequest/* extends GetConfirmationCodeRequest */ extends BaseRequest{
     public static final String SERVICE_NAME = "checkcodepass";
 
     /**
@@ -22,7 +25,8 @@ public class ConfirmPasswordRecoveryRequest extends CheckConfirmationCodeRequest
      * @param newPassword new user's password
      */
     public ConfirmPasswordRecoveryRequest(@NonNull Integer code, String newPassword) {
-        super(SERVICE_NAME, code);
+//        super(SERVICE_NAME, code);
+        super(SERVICE_NAME);
         this.newPassword = newPassword;
     }
 }

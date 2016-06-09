@@ -249,7 +249,8 @@ public class ApiClient {
      * @param userPassword password
      * @param callback callback for ui updates
      */
-    public void registerUser(@NonNull String userName, @NonNull final String userPhone, @NonNull final String userPassword, final ApiCallback<BaseResponse> callback) {
+    public void registerUser(@NonNull String userName, @NonNull final String userPhone, @NonNull final String userPassword,
+                             @NonNull final String userConfirmPassword, @NonNull final String confirmCode, final ApiCallback<BaseResponse> callback) {
         AjaxCallback<BaseResponse> cb = new AjaxCallback<BaseResponse>() {
             @Override
             public void callback(String url, BaseResponse response, AjaxStatus status) {
@@ -272,7 +273,7 @@ public class ApiClient {
             }
         };
 
-        RegisterUserRequest request = new RegisterUserRequest(userName, userPhone, MD5(userPassword));
+        RegisterUserRequest request = new RegisterUserRequest(userName, userPhone, SHA512(userPassword), SHA512(userConfirmPassword), confirmCode);
         doRequest(request, BaseResponse.class, cb, false);
     }
 
@@ -326,7 +327,7 @@ public class ApiClient {
             }
         };
 
-        AuthorizationRequest request = new AuthorizationRequest(login, MD5(password));
+        AuthorizationRequest request = new AuthorizationRequest(login, SHA512(password));
         doRequest(request, BaseResponse.class, cb, false);
     }
 
@@ -408,7 +409,7 @@ public class ApiClient {
             }
         };
 
-        ChangePasswordRequest request = new ChangePasswordRequest(MD5(oldPassword), MD5(newPassword));
+        ChangePasswordRequest request = new ChangePasswordRequest(SHA512(oldPassword), SHA512(newPassword));
         doRequest(request, BaseResponse.class, cb, true);
     }
 
@@ -487,7 +488,7 @@ public class ApiClient {
             }
         };
 
-        ConfirmPasswordRecoveryRequest request = new ConfirmPasswordRecoveryRequest(code, MD5(newPassword));
+        ConfirmPasswordRecoveryRequest request = new ConfirmPasswordRecoveryRequest(code, SHA512(newPassword));
         doRequest(request, BaseResponse.class, cb, false);
     }
 
@@ -670,24 +671,24 @@ public class ApiClient {
         if (login.isEmpty() || password.isEmpty()) {
             return "";
         } else {
-            Log.d(TAG, "getSecureHeader: " + login + "&" + MD5(password));
-            return login + "&" + MD5(password);
+            Log.d(TAG, "getSecureHeader: " + login + "&" + SHA512(password));
+            return login + "&" + SHA512(password);
         }
     }
 
     /**
-     * Encode input parameter into MD5 and return result of encoding
-     * @param md5 string to encode
+     * Encode input parameter into SHA512 and return result of encoding
+     * @param sha512 string to encode
      * @return encoded string or null in order to NoSuchAlgorithmException
      */
-    private String MD5(String md5) {
+    private String SHA512(String sha512) {
         try {
-            java.security.MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] array = md.digest(md5.getBytes());
+            java.security.MessageDigest sha5121 = MessageDigest.getInstance("SHA512");
+            byte[] array = sha5121.digest(sha512.getBytes());
             //convert the byte to hex format
             StringBuilder sb = new StringBuilder();
             for (byte anArray : array) {
-                sb.append(Integer.toHexString((anArray & 0xFF) | 0x100).substring(1, 3));
+                sb.append(Integer.toHexString((anArray & 0xFF) | 0x100).substring(1));
             }
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {

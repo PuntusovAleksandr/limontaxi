@@ -2,6 +2,8 @@ package digitalpromo.cabsdemo.api;
 
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Request for checking confirmation code
  */
@@ -12,6 +14,7 @@ public class GetConfirmationCodeRequest extends BaseRequest {
     /**
      * Phone for confirmation
      */
+    @SerializedName("phone")
     private String phone;
 
     /**

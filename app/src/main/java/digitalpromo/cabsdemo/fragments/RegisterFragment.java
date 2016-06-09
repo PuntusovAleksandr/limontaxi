@@ -133,12 +133,13 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
                 String phone = aq.id(R.id.et_phone).getEditable().toString();
                 String password = aq.id(R.id.et_password).getEditable().toString();
                 String confirmPassword = aq.id(R.id.et_confirm_password).getEditable().toString();
+                String confirmCode = aq.id(R.id.et_code).getEditable().toString();
 
                 phone = PhoneUtils.replaceNonDigitCharacters(phone);
 
-                if (!isFieldsEmpty(name, phone, password, confirmPassword) && isPasswordsMatch(password, confirmPassword)) {
+                if (!isFieldsEmpty(name, phone, password, confirmPassword, confirmCode) && isPasswordsMatch(password, confirmPassword)) {
                     if (PhoneUtils.isPhoneValid(phone)) {
-                        register(name, phone, password);
+                        register(name, phone, password, confirmPassword, confirmCode);
                     } else {
                         tilPhone.setError(getString(R.string.error_invalid_phone_format));
                     }
@@ -169,8 +170,6 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
      * Initiate all views of the fragment
      */
     protected void initViews() {
-//        aq.id(R.id.ll_reg_info_container).visible();
-//        aq.id(R.id.code_confirm).gone();
         aq.id(R.id.ll_reg_info_container).gone();
         aq.id(R.id.code_confirm).visible();
 
@@ -192,7 +191,7 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
      * @param confirmPassword confirm password field
      * @return false if fields ain't empty, true - otherwise
      */
-    private boolean isFieldsEmpty(String name, String phone, String password, String confirmPassword) {
+    private boolean isFieldsEmpty(String name, String phone, String password, String confirmPassword, String confirmCode) {
         TextInputLayout layout = null;
         if (name.isEmpty()) {
             layout = tilName;
@@ -202,6 +201,8 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
             layout = tilPassword;
         } else if (confirmPassword.isEmpty()) {
             layout = tilConfirmPassword;
+        } else if (confirmCode.isEmpty()) {
+            layout = tilCode;
         }
 
         if (layout != null) {
@@ -256,17 +257,16 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
      * @param userPhone user's phone
      * @param userPassword user's password
      */
-    private void register(@NonNull String userName, @NonNull String userPhone, @NonNull String userPassword) {
+    private void register(@NonNull String userName, @NonNull String userPhone, @NonNull String userPassword, @NonNull String userConfirmPassword, @NonNull String confirmCode) {
         mListener.displayProgress(true);
-        ApiClient.getInstance().registerUser(userName, userPhone, userPassword, new ApiClient.ApiCallback<BaseResponse>() {
+        ApiClient.getInstance().registerUser(userName, userPhone, userPassword, userConfirmPassword, confirmCode, new ApiClient.ApiCallback<BaseResponse>() {
             @Override
             public void response(BaseResponse response) {
                 mListener.displayProgress(false);
                 if (response.isOK()) {
                     Log.d(TAG, "response: success");
-
-                    aq.id(R.id.ll_reg_info_container).gone();
-                    aq.id(R.id.code_confirm).visible();
+                    doBack();
+                    mRegSuccessListener.onRegSuccess();
                 } else {
                     Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -298,8 +298,6 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
                 mListener.displayProgress(false);
                 if (response.isOK()) {
                     Log.d(TAG, "response: success");
-                    doBack();
-                    mRegSuccessListener.onRegSuccess();
                 } else {
                     Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
                 }

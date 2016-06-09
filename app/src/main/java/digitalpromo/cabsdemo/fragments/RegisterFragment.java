@@ -149,6 +149,9 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
                 phone_confirm = PhoneUtils.replaceNonDigitCharacters(phone_confirm);
                 if(PhoneUtils.isPhoneValid(phone_confirm)) {
                     getConfirmCode(phone_confirm);
+                    aq.id(R.id.et_phone).getEditText().setText(phone_confirm);
+                    aq.id(R.id.ll_reg_info_container).visible();
+                    aq.id(R.id.code_confirm).gone();
                 }
 
 //                String code = aq.id(R.id.et_code).getEditable().toString();

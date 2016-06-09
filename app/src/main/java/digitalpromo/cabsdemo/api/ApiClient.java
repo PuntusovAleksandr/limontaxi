@@ -185,7 +185,8 @@ public class ApiClient {
     private <T> void doRequest(BaseRequest request, Class<T> type, AjaxCallback<T> callback, boolean addSecureHeader) {
         Map<String, String> params = new HashMap<>();
         String value = new Gson().toJson(request);
-        params.put("request", value);
+        Gson gson = new Gson();
+        params = gson.fromJson(value, params.getClass());
 
         Log.d(TAG, "doRequest: url - " + BASE_URL + request.getServiceName());
         Log.d(TAG, "doRequest: params - " + params.toString());
@@ -201,7 +202,7 @@ public class ApiClient {
         }
         callback.params(params);
 
-        aq.transformer(new ApiResponseTransformer()).ajax(callback);
+//        aq.transformer(new ApiResponseTransformer()).ajax(callback);
     }
 
     /**

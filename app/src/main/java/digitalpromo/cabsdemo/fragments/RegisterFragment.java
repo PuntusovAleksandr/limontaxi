@@ -17,9 +17,9 @@ import com.androidquery.AQuery;
 
 import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
-import digitalpromo.cabsdemo.api.ApiClient;
-import digitalpromo.cabsdemo.api.BaseResponse;
-import digitalpromo.cabsdemo.api.GetConfirmationCodeRequest;
+import digitalpromo.cabsdemo.api.old_api.ApiClient;
+import digitalpromo.cabsdemo.api.old_api.BaseResponse;
+import digitalpromo.cabsdemo.api.old_api.GetConfirmationCodeRequest;
 import digitalpromo.cabsdemo.utils.PhoneUtils;
 
 /**

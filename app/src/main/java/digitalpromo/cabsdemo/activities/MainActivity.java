@@ -1,7 +1,6 @@
 package digitalpromo.cabsdemo.activities;
 
 import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -20,7 +19,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,10 +34,8 @@ import java.io.OutputStream;
 
 import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
-import digitalpromo.cabsdemo.api.ApiClient;
-import digitalpromo.cabsdemo.api.GetUserProfileResponse;
-import digitalpromo.cabsdemo.dialogs.DialogButtonsListener;
-import digitalpromo.cabsdemo.dialogs.EnterDataDialog;
+import digitalpromo.cabsdemo.api.old_api.ApiClient;
+import digitalpromo.cabsdemo.api.old_api.GetUserProfileResponse;
 import digitalpromo.cabsdemo.events.MessageEvent;
 import digitalpromo.cabsdemo.fragments.FragmentsInteractionListener;
 import digitalpromo.cabsdemo.fragments.MyLocationFragment;

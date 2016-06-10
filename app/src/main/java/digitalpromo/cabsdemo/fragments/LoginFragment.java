@@ -2,12 +2,10 @@ package digitalpromo.cabsdemo.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,9 +24,8 @@ import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
 import digitalpromo.cabsdemo.activities.MainActivity;
 import digitalpromo.cabsdemo.activities.RestorePasswordActivity;
-import digitalpromo.cabsdemo.api.ApiClient;
-import digitalpromo.cabsdemo.api.BaseResponse;
-import digitalpromo.cabsdemo.api.GetUserProfileResponse;
+import digitalpromo.cabsdemo.api.old_api.ApiClient;
+import digitalpromo.cabsdemo.api.old_api.BaseResponse;
 import digitalpromo.cabsdemo.utils.PhoneUtils;
 import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
 

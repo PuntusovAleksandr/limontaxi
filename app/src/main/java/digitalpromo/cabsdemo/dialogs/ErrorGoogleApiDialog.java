@@ -8,7 +8,7 @@ import android.support.v4.app.DialogFragment;
 
 import com.google.android.gms.common.GoogleApiAvailability;
 
-import digitalpromo.cabsdemo.api.MyGoogleApiClient;
+import digitalpromo.cabsdemo.api.old_api.MyGoogleApiClient;
 
 /**
  * Created by Takeitez on 17.02.2016.

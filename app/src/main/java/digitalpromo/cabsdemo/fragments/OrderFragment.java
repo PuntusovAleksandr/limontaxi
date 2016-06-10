@@ -12,7 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
@@ -37,18 +36,15 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-
 import digitalpromo.cabsdemo.R;
 import digitalpromo.cabsdemo.activities.MapActivity;
 import digitalpromo.cabsdemo.activities.PreferencesActivity;
 import digitalpromo.cabsdemo.adapters.OnDataChanged;
 import digitalpromo.cabsdemo.adapters.RouteAdapter;
-import digitalpromo.cabsdemo.api.ApiClient;
-import digitalpromo.cabsdemo.api.BaseResponse;
-import digitalpromo.cabsdemo.api.DirectionsResponse;
-import digitalpromo.cabsdemo.api.GetCitiesResponse;
-import digitalpromo.cabsdemo.api.GetOrderCostResponse;
+import digitalpromo.cabsdemo.api.old_api.ApiClient;
+import digitalpromo.cabsdemo.api.old_api.BaseResponse;
+import digitalpromo.cabsdemo.api.old_api.GetCitiesResponse;
+import digitalpromo.cabsdemo.api.old_api.GetOrderCostResponse;
 import digitalpromo.cabsdemo.dialogs.ChooseCityDialog;
 import digitalpromo.cabsdemo.dialogs.ChooseDialog;
 import digitalpromo.cabsdemo.dialogs.DialogButtonsListener;
@@ -58,7 +54,6 @@ import digitalpromo.cabsdemo.events.MessageEvent;
 import digitalpromo.cabsdemo.helper.ItemTouchHelperCallback;
 import digitalpromo.cabsdemo.models.Order;
 import digitalpromo.cabsdemo.models.RouteItem;
-import digitalpromo.cabsdemo.models.UserProfile;
 import uk.co.deanwild.materialshowcaseview.IShowcaseListener;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 

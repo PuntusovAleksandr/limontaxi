@@ -2,7 +2,6 @@ package digitalpromo.cabsdemo.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -19,8 +18,8 @@ import com.androidquery.AQuery;
 import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
 import digitalpromo.cabsdemo.activities.LoginActivity;
-import digitalpromo.cabsdemo.api.ApiClient;
-import digitalpromo.cabsdemo.api.BaseResponse;
+import digitalpromo.cabsdemo.api.old_api.ApiClient;
+import digitalpromo.cabsdemo.api.old_api.BaseResponse;
 import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
 
 /**

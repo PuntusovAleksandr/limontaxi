@@ -1,7 +1,6 @@
 package digitalpromo.cabsdemo.activities;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,8 +16,8 @@ import com.androidquery.AQuery;
 
 import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
-import digitalpromo.cabsdemo.api.ApiClient;
-import digitalpromo.cabsdemo.api.BaseResponse;
+import digitalpromo.cabsdemo.api.old_api.ApiClient;
+import digitalpromo.cabsdemo.api.old_api.BaseResponse;
 import digitalpromo.cabsdemo.utils.PhoneUtils;
 import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
 

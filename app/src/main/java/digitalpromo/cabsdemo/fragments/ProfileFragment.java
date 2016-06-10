@@ -2,12 +2,10 @@ package digitalpromo.cabsdemo.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,14 +17,9 @@ import java.util.ArrayList;
 
 import digitalpromo.cabsdemo.R;
 import digitalpromo.cabsdemo.activities.UpdateProfileActivity;
-import digitalpromo.cabsdemo.adapters.HistoryAdapter;
 import digitalpromo.cabsdemo.adapters.ProfileAdapter;
-import digitalpromo.cabsdemo.api.ApiClient;
-import digitalpromo.cabsdemo.api.GetUserProfileResponse;
-import digitalpromo.cabsdemo.models.HistoryItem;
 import digitalpromo.cabsdemo.models.ProfileItem;
 import digitalpromo.cabsdemo.models.UserProfile;
-import digitalpromo.cabsdemo.views.DividerItemDecoration;
 
 /**
  * A simple {@link Fragment} subclass.

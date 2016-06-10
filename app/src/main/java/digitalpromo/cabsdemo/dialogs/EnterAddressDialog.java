@@ -9,7 +9,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,8 +20,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 import digitalpromo.cabsdemo.R;
 import digitalpromo.cabsdemo.adapters.PlaceAutocompleteAdapter;
-import digitalpromo.cabsdemo.api.ApiClient;
-import digitalpromo.cabsdemo.api.GeoCodingResponse;
+import digitalpromo.cabsdemo.api.old_api.ApiClient;
+import digitalpromo.cabsdemo.api.old_api.GeoCodingResponse;
 import digitalpromo.cabsdemo.models.Order;
 import digitalpromo.cabsdemo.models.RouteItem;
 

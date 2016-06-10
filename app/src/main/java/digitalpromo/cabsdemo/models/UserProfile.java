@@ -1,11 +1,8 @@
 package digitalpromo.cabsdemo.models;
 
-import android.support.v4.app.Fragment;
-import android.util.Log;
-
 import java.util.ArrayList;
 
-import digitalpromo.cabsdemo.api.GetUserProfileResponse;
+import digitalpromo.cabsdemo.api.old_api.GetUserProfileResponse;
 
 /**
  * User's profile

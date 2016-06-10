@@ -9,9 +9,9 @@ import com.google.gson.annotations.SerializedName;
  */
 public class GetConfirmCodeRequest {
     @SerializedName("phone")
-    private String userName;
+    private String userPhone;
 
-    public GetConfirmCodeRequest(@NonNull String userName) {
-        this.userName = userName;
+    public GetConfirmCodeRequest(@NonNull String userPhone) {
+        this.userPhone = userPhone;
     }
 }

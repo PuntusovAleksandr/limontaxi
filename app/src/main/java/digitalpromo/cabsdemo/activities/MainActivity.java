@@ -34,6 +34,8 @@ import java.io.OutputStream;
 
 import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
+import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
+import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.api.old_api.ApiClient;
 import digitalpromo.cabsdemo.api.old_api.GetUserProfileResponse;
 import digitalpromo.cabsdemo.events.MessageEvent;
@@ -45,6 +47,10 @@ import digitalpromo.cabsdemo.fragments.ProfileFragment;
 import digitalpromo.cabsdemo.models.Order;
 import digitalpromo.cabsdemo.models.UserProfile;
 import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentsInteractionListener {
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -343,38 +349,57 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
      */
     private void getUserProfile() {
         displayProgress(true);
-        ApiClient.getInstance().getUserProfile(new ApiClient.ApiCallback<GetUserProfileResponse>() {
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class,
+                SharedPreferencesManager.getInstance().loadUserLogin(),
+                SharedPreferencesManager.getInstance().loadUserPassword());
+        Call<UserProfile> call = client.getUserProfile();
+        call.enqueue(new Callback<UserProfile>() {
             @Override
-            public void response(GetUserProfileResponse response) {
-                displayProgress(false);
-
-                if (response.isOK()) {
-                    Log.d(TAG, "response: success");
-
-                    if (UserProfile.getInstance() == null) {
-                        UserProfile.initInstance(response);
-                    } else {
-                        UserProfile.getInstance().updateData(response);
+            public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
+                if(response.isSuccessful()) {
+                    if(UserProfile.getInstance() == null) {
+                        UserProfile.initInstance(response.body());
                     }
-
-                    setUserName(UserProfile.getInstance().getName().trim());
-                    Order.getInstance().setPhone(UserProfile.getInstance().getPhone());
-                    EventBus.getDefault().post(new MessageEvent(MessageEvent.EVENT_SET_USER_PHONE));
-                } else {
-                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void error() {
-                Log.d(TAG, "error: ");
-                displayProgress(false);
-            }
+            public void onFailure(Call<UserProfile> call, Throwable t) {
 
-            @Override
-            public void noInternetConnection() {
-                displayProgress(false);
             }
         });
+//        ApiClient.getInstance().getUserProfile(new ApiClient.ApiCallback<GetUserProfileResponse>() {
+//            @Override
+//            public void response(GetUserProfileResponse response) {
+//                displayProgress(false);
+//
+//                if (response.isOK()) {
+//                    Log.d(TAG, "response: success");
+//
+//                    if (UserProfile.getInstance() == null) {
+//                        UserProfile.initInstance(response);
+//                    } else {
+//                        UserProfile.getInstance().updateData(response);
+//                    }
+//
+//                    setUserName(UserProfile.getInstance().getName().trim());
+//                    Order.getInstance().setPhone(UserProfile.getInstance().getPhone());
+//                    EventBus.getDefault().post(new MessageEvent(MessageEvent.EVENT_SET_USER_PHONE));
+//                } else {
+//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void error() {
+//                Log.d(TAG, "error: ");
+//                displayProgress(false);
+//            }
+//
+//            @Override
+//            public void noInternetConnection() {
+//                displayProgress(false);
+//            }
+//        });
     }
 }

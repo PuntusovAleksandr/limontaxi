@@ -1,5 +1,7 @@
 package digitalpromo.cabsdemo.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 import digitalpromo.cabsdemo.api.old_api.GetUserProfileResponse;
@@ -14,19 +16,16 @@ public class UserProfile {
 
     private ArrayList<DataChanged> subscribers = new ArrayList<>();
 
-    /**
-     * User's first name
-     */
+    @SerializedName("user_login")
+    private String userLogin;
+
+    @SerializedName("user_first_name")
     private String firstName;
 
-    /**
-     * User's middle name
-     */
+    @SerializedName("user_middle_name")
     private String middleName;
 
-    /**
-     * User's last name
-     */
+
     private String lastName;
 
     /**
@@ -63,7 +62,7 @@ public class UserProfile {
      * Init instance
      * @param userProfile profile info holder
      */
-    public static void initInstance(GetUserProfileResponse userProfile) {
+    public static void initInstance(UserProfile userProfile) {
         ourInstance = new UserProfile(
                 userProfile.getFirstName(),
                 userProfile.getMiddleName(),

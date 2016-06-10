@@ -1,6 +1,7 @@
 package digitalpromo.cabsdemo.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -24,10 +25,17 @@ import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
 import digitalpromo.cabsdemo.activities.MainActivity;
 import digitalpromo.cabsdemo.activities.RestorePasswordActivity;
+import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
+import digitalpromo.cabsdemo.api.new_api.AuthorizationRequest;
+import digitalpromo.cabsdemo.api.new_api.AuthorizationResponse;
+import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.api.old_api.ApiClient;
 import digitalpromo.cabsdemo.api.old_api.BaseResponse;
 import digitalpromo.cabsdemo.utils.PhoneUtils;
 import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -239,30 +247,50 @@ public class LoginFragment extends BasePagerFragment implements View.OnClickList
      */
     private void login(final String login, final String password) {
         mListener.displayProgress(true);
-        ApiClient.getInstance().authorization(login, password, new ApiClient.ApiCallback<BaseResponse>() {
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class);
+        Call<AuthorizationResponse> call = client.authorization(new AuthorizationRequest(login, password));
+        call.enqueue(new Callback<AuthorizationResponse>() {
             @Override
-            public void response(BaseResponse response) {
+            public void onResponse(Call<AuthorizationResponse> call, Response<AuthorizationResponse> response) {
                 mListener.displayProgress(false);
-                if (response.isOK()) {
+                if(response.isSuccessful()) {
                     SharedPreferencesManager.getInstance().saveUserLogin(login);
                     SharedPreferencesManager.getInstance().saveUserPassword(password);
                     openMainActivity(true);
                 } else {
-                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void error() {
+            public void onFailure(Call<AuthorizationResponse> call, Throwable t) {
                 mListener.displayProgress(false);
-            }
-
-            @Override
-            public void noInternetConnection() {
-                mListener.displayProgress(false);
-                ApiClient.getInstance().showAlert(getActivity());
             }
         });
+//        ApiClient.getInstance().authorization(login, password, new ApiClient.ApiCallback<BaseResponse>() {
+//            @Override
+//            public void response(BaseResponse response) {
+//                mListener.displayProgress(false);
+//                if (response.isOK()) {
+//                    SharedPreferencesManager.getInstance().saveUserLogin(login);
+//                    SharedPreferencesManager.getInstance().saveUserPassword(password);
+//                    openMainActivity(true);
+//                } else {
+//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void error() {
+//                mListener.displayProgress(false);
+//            }
+//
+//            @Override
+//            public void noInternetConnection() {
+//                mListener.displayProgress(false);
+//                ApiClient.getInstance().showAlert(getActivity());
+//            }
+//        });
     }
 
 }

@@ -17,10 +17,15 @@ import com.androidquery.AQuery;
 
 import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
-import digitalpromo.cabsdemo.api.old_api.ApiClient;
-import digitalpromo.cabsdemo.api.old_api.BaseResponse;
-import digitalpromo.cabsdemo.api.old_api.GetConfirmationCodeRequest;
+import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
+import digitalpromo.cabsdemo.api.new_api.GetConfirmCodeRequest;
+import digitalpromo.cabsdemo.api.new_api.RegisterUserRequest;
+import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.utils.PhoneUtils;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -259,62 +264,93 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
      */
     private void register(@NonNull String userName, @NonNull String userPhone, @NonNull String userPassword, @NonNull String userConfirmPassword, @NonNull String confirmCode) {
         mListener.displayProgress(true);
-        ApiClient.getInstance().registerUser(userName, userPhone, userPassword, userConfirmPassword, confirmCode, new ApiClient.ApiCallback<BaseResponse>() {
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class);
+        Call<ResponseBody> call = client.registerUser(new RegisterUserRequest(userName, userPhone, userPassword, userConfirmPassword, confirmCode));
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void response(BaseResponse response) {
-                mListener.displayProgress(false);
-                if (response.isOK()) {
-                    Log.d(TAG, "response: success");
-                    doBack();
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    mListener.displayProgress(false);
                     mRegSuccessListener.onRegSuccess();
                 } else {
-                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void error() {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 mListener.displayProgress(false);
-                Log.d(TAG, "error: ");
-            }
-
-            @Override
-            public void noInternetConnection() {
-                mListener.displayProgress(false);
-                ApiClient.getInstance().showAlert(getActivity());
             }
         });
+//        ApiClient.getInstance().registerUser(userName, userPhone, userPassword, userConfirmPassword, confirmCode, new ApiClient.ApiCallback<BaseResponse>() {
+//            @Override
+//            public void response(BaseResponse response) {
+//                mListener.displayProgress(false);
+//                if (response.isOK()) {
+//                    Log.d(TAG, "response: success");
+//                    doBack();
+//                    mRegSuccessListener.onRegSuccess();
+//                } else {
+//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void error() {
+//                mListener.displayProgress(false);
+//                Log.d(TAG, "error: ");
+//            }
+//
+//            @Override
+//            public void noInternetConnection() {
+//                mListener.displayProgress(false);
+//                ApiClient.getInstance().showAlert(getActivity());
+//            }
+//        });
     }
 
     /**
-     * Check confirmation code
+     * Get confirmation code
      * @param phone phone for confirmation
      */
     private void getConfirmCode(@NonNull String phone) {
         mListener.displayProgress(true);
-        ApiClient.getInstance().getConfirmationCode(GetConfirmationCodeRequest.REGISTRATION, phone, new ApiClient.ApiCallback<BaseResponse>() {
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class);
+        Call<ResponseBody> call = client.getConfirmCode(new GetConfirmCodeRequest(phone));
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void response(BaseResponse response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 mListener.displayProgress(false);
-                if (response.isOK()) {
-                    Log.d(TAG, "response: success");
-                } else {
-                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
-                }
             }
 
             @Override
-            public void error() {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 mListener.displayProgress(false);
-                Log.d(TAG, "error: ");
-            }
-
-            @Override
-            public void noInternetConnection() {
-                mListener.displayProgress(false);
-                ApiClient.getInstance().showAlert(getActivity());
             }
         });
+//        ApiClient.getInstance().getConfirmationCode(GetConfirmationCodeRequest.REGISTRATION, phone, new ApiClient.ApiCallback<BaseResponse>() {
+//            @Override
+//            public void response(BaseResponse response) {
+//                mListener.displayProgress(false);
+//                if (response.isOK()) {
+//                    Log.d(TAG, "response: success");
+//                } else {
+//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void error() {
+//                mListener.displayProgress(false);
+//                Log.d(TAG, "error: ");
+//            }
+//
+//            @Override
+//            public void noInternetConnection() {
+//                mListener.displayProgress(false);
+//                ApiClient.getInstance().showAlert(getActivity());
+//            }
+//        });
     }
 
 }

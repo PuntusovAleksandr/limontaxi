@@ -1,8 +1,12 @@
 package digitalpromo.cabsdemo.api.new_api;
 
+import digitalpromo.cabsdemo.models.UserProfile;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 /**
@@ -11,4 +15,13 @@ import retrofit2.http.POST;
 public interface ApiTaxiClient {
     @POST("account/register/sendConfirmCode")
     Call<ResponseBody> getConfirmCode(@Body GetConfirmCodeRequest request);
+
+    @POST("account/register")
+    Call<ResponseBody> registerUser(@Body RegisterUserRequest request);
+
+    @POST("account")
+    Call<AuthorizationResponse> authorization(@Body AuthorizationRequest request);
+
+    @GET("clients/profile")
+    Call<UserProfile> getUserProfile();
 }

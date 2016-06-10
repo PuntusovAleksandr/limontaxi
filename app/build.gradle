@@ -9,6 +9,13 @@ android {
 //            storePassword 'RjHdbC41189'
 //        }
 //    }
+
+    dexOptions {
+        incremental = true;
+        preDexLibraries = false
+        javaMaxHeapSize "4g" // 2g should be also OK
+    }
+
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
     defaultConfig {
@@ -17,6 +24,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 //        signingConfig signingConfigs.config
     }
     buildTypes {

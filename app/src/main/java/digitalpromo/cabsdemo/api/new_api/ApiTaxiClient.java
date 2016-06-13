@@ -26,4 +26,13 @@ public interface ApiTaxiClient {
 
     @PUT("clients/profile")
     Call<ResponseBody> editUserInfo(@Body EditUserInfoRequest request);
+
+    @POST("clients/changePhone/sendConfirmCode")
+    Call<ResponseBody> getConfirmCodeForChangePhone(@Body GetConfirmCodeForChangePhoneRequest request);
+
+    @POST("clients/changePhone")
+    Call<ResponseBody> changePhoneRequest(@Body ChangePhoneRequest request);
+
+    @PUT("account/changepassword")
+    Call<ResponseBody> changePassword(@Body ChangePasswordRequest request);
 }

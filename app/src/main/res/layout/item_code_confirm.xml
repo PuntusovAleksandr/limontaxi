@@ -11,7 +11,7 @@
         >
         <EditText
             android:id="@+id/et_phone_for_code"
-            android:hint="@string/rf_hint_phone"
+            android:hint="@string/rf_hint_code"
             android:inputType="phone"
             style="@style/AppTheme.EditText"
             android:drawableStart="@drawable/ic_phone"

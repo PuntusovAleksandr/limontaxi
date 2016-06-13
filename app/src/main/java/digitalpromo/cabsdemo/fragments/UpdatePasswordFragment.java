@@ -18,9 +18,16 @@ import com.androidquery.AQuery;
 import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
 import digitalpromo.cabsdemo.activities.LoginActivity;
+import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
+import digitalpromo.cabsdemo.api.new_api.ChangePasswordRequest;
+import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.api.old_api.ApiClient;
 import digitalpromo.cabsdemo.api.old_api.BaseResponse;
 import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -145,12 +152,13 @@ public class UpdatePasswordFragment extends BaseFragment implements View.OnClick
 
     private void changePassword(String oldPassword, final String newPassword) {
         mListener.displayProgress(true);
-        ApiClient.getInstance().changePassword(oldPassword, newPassword, new ApiClient.ApiCallback<BaseResponse>() {
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
+        Call<ResponseBody> call = client.changePassword(new ChangePasswordRequest(oldPassword, newPassword, newPassword));
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void response(BaseResponse response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 mListener.displayProgress(false);
-                if (response.isOK()) {
-                    Log.d(TAG, "response: success");
+                if(response.isSuccessful()) {
                     SharedPreferencesManager.getInstance().saveUserPassword("");
                     SharedPreferencesManager.getInstance().saveAutoLoginFlag(false);
                     SharedPreferencesManager.getInstance().saveUserLoggedInFlag(false);
@@ -159,22 +167,46 @@ public class UpdatePasswordFragment extends BaseFragment implements View.OnClick
                     intent.addFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void error() {
-                mListener.displayProgress(false);
-                Log.d(TAG, "error: ");
-            }
-
-            @Override
-            public void noInternetConnection() {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 mListener.displayProgress(false);
                 ApiClient.getInstance().showAlert(getActivity());
             }
         });
+//        ApiClient.getInstance().changePassword(oldPassword, newPassword, new ApiClient.ApiCallback<BaseResponse>() {
+//            @Override
+//            public void response(BaseResponse response) {
+//                mListener.displayProgress(false);
+//                if (response.isOK()) {
+//                    Log.d(TAG, "response: success");
+//                    SharedPreferencesManager.getInstance().saveUserPassword("");
+//                    SharedPreferencesManager.getInstance().saveAutoLoginFlag(false);
+//                    SharedPreferencesManager.getInstance().saveUserLoggedInFlag(false);
+//
+//                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+//                    intent.addFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    startActivity(intent);
+//                } else {
+//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void error() {
+//                mListener.displayProgress(false);
+//                Log.d(TAG, "error: ");
+//            }
+//
+//            @Override
+//            public void noInternetConnection() {
+//                mListener.displayProgress(false);
+//                ApiClient.getInstance().showAlert(getActivity());
+//            }
+//        });
     }
 
     /**

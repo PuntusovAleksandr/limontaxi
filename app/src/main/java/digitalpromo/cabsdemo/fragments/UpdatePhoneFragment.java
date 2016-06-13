@@ -13,12 +13,22 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.google.android.gms.common.api.Api;
 
 import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
+import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
+import digitalpromo.cabsdemo.api.new_api.ChangePhoneRequest;
+import digitalpromo.cabsdemo.api.new_api.GetConfirmCodeForChangePhoneRequest;
+import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.api.old_api.ApiClient;
 import digitalpromo.cabsdemo.api.old_api.BaseResponse;
 import digitalpromo.cabsdemo.utils.PhoneUtils;
+import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,8 +86,8 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
         aq.id(R.id.get_code).visible();
         aq.id(R.id.code_confirm).gone();
 
-        aq.id(R.id.et_phone).getEditText().addTextChangedListener(mTextWatcher);
-        aq.id(R.id.et_code).getEditText().addTextChangedListener(mTextWatcher);
+//        aq.id(R.id.et_phone).getEditText().addTextChangedListener(mTextWatcher);
+//        aq.id(R.id.et_code).getEditText().addTextChangedListener(mTextWatcher);
 
         aq.id(R.id.btn_get_code).clicked(this);
         aq.id(R.id.btn_confirm).clicked(this);
@@ -152,7 +162,7 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
 
                 if (!newPhone.isEmpty()) {
                     if (PhoneUtils.isPhoneValid(newPhone)) {
-                        getConfirmCode(newPhone);
+                        getConfirmCode();
                     } else {
                         tilNewPhone.setError(getString(R.string.error_invalid_phone_format));
                     }
@@ -161,10 +171,10 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
                 }
                 break;
             case R.id.btn_confirm:
-                String code = aq.id(R.id.et_code).getEditable().toString();
+                String code = aq.id(R.id.et_phone_for_code).getEditable().toString();
                 
                 if (!code.isEmpty()) {
-                    confirmPhoneChanging(Integer.parseInt(code));
+                    confirmPhoneChanging(code);
                 } else {
                     tilCode.setError(getString(R.string.error_field_must_not_be_blank));
                 }
@@ -172,8 +182,28 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
         }
     }
 
-    private void confirmPhoneChanging(Integer code) {
-//        mListener.displayProgress(true);
+    private void confirmPhoneChanging(String code) {
+        mListener.displayProgress(true);
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class);
+        Call<ResponseBody> call = client.changePhoneRequest(new ChangePhoneRequest(newPhone, code));
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                mListener.displayProgress(false);
+                if(response.isSuccessful()) {
+                    SharedPreferencesManager.getInstance().saveUserLogin(newPhone);
+                    getActivity().finish();
+                } else {
+                    Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                mListener.displayProgress(false);
+                ApiClient.getInstance().showAlert(getActivity());
+            }
+        });
 //        ApiClient.getInstance().getConfirmationCode(GetConfirmationCodeRequest.PHONE_CHANGE, code, new ApiClient.ApiCallback<BaseResponse>() {
 //            @Override
 //            public void response(BaseResponse response) {
@@ -201,33 +231,53 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
 //        });
     }
 
-    private void getConfirmCode(String phone) {
+    private void getConfirmCode() {
         mListener.displayProgress(true);
-        ApiClient.getInstance().changePhone(phone, new ApiClient.ApiCallback<BaseResponse>() {
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class);
+        Call<ResponseBody> call = client.getConfirmCodeForChangePhone(new GetConfirmCodeForChangePhoneRequest(SharedPreferencesManager.getInstance().loadUserLogin()));
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void response(BaseResponse response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 mListener.displayProgress(false);
-                if (response.isOK()) {
-                    Log.d(TAG, "response: success");
+                if(response.isSuccessful()) {
                     aq.id(R.id.get_code).gone();
                     aq.id(R.id.code_confirm).visible();
                 } else {
-                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void error() {
-                mListener.displayProgress(false);
-                Log.d(TAG, "error: ");
-            }
-
-            @Override
-            public void noInternetConnection() {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 mListener.displayProgress(false);
                 ApiClient.getInstance().showAlert(getActivity());
             }
         });
+//        ApiClient.getInstance().changePhone(phone, new ApiClient.ApiCallback<BaseResponse>() {
+//            @Override
+//            public void response(BaseResponse response) {
+//                mListener.displayProgress(false);
+//                if (response.isOK()) {
+//                    Log.d(TAG, "response: success");
+//                    aq.id(R.id.get_code).gone();
+//                    aq.id(R.id.code_confirm).visible();
+//                } else {
+//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void error() {
+//                mListener.displayProgress(false);
+//                Log.d(TAG, "error: ");
+//            }
+//
+//            @Override
+//            public void noInternetConnection() {
+//                mListener.displayProgress(false);
+//                ApiClient.getInstance().showAlert(getActivity());
+//            }
+//        });
     }
 
     @Override

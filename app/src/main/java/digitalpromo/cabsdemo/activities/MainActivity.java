@@ -359,13 +359,22 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 if(response.isSuccessful()) {
                     if(UserProfile.getInstance() == null) {
                         UserProfile.initInstance(response.body());
+                    } else {
+                        UserProfile.getInstance().updateData(response.body());
                     }
+
+                    setUserName(UserProfile.getInstance().getName().trim());
+                    Order.getInstance().setPhone(UserProfile.getInstance().getPhone());
+                    EventBus.getDefault().post(new MessageEvent(MessageEvent.EVENT_SET_USER_PHONE));
+                }
+                else {
+                    Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<UserProfile> call, Throwable t) {
-
+                displayProgress(false);
             }
         });
 //        ApiClient.getInstance().getUserProfile(new ApiClient.ApiCallback<GetUserProfileResponse>() {

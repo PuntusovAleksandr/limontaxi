@@ -6,7 +6,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,15 @@ import com.androidquery.AQuery;
 
 import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
-import digitalpromo.cabsdemo.api.old_api.ApiClient;
-import digitalpromo.cabsdemo.api.old_api.BaseResponse;
+import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
+import digitalpromo.cabsdemo.api.new_api.EditUserInfoRequest;
+import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.models.UserProfile;
+import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -130,39 +135,59 @@ public class UpdateNameFragment extends BaseFragment implements View.OnClickList
             editUserInfo(
                     firstName,
                     middleName,
-                    lastName,
-                    UserProfile.getInstance().getAddress(),
-                    UserProfile.getInstance().getEntrance());
+                    lastName);
         } else {
             tilFirstName.setError(getString(R.string.error_field_must_not_be_blank));
         }
     }
 
-    private void editUserInfo(String firstName, String middleName, String lastName, String address, String entrance) {
+    private void editUserInfo(final String firstName, final String middleName, final String lastName) {
         mListener.displayProgress(true);
-        ApiClient.getInstance().editUserInfo(firstName, middleName, lastName, address, entrance, new ApiClient.ApiCallback<BaseResponse>() {
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
+        Call<ResponseBody> call = client.editUserInfo(new EditUserInfoRequest(firstName, middleName, lastName,
+                SharedPreferencesManager.getInstance().loadUserAddress()[0], SharedPreferencesManager.getInstance().loadUserAddress()[1],
+                SharedPreferencesManager.getInstance().loadUserAddress()[2], SharedPreferencesManager.getInstance().loadUserAddress()[3]));
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void response(BaseResponse response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 mListener.displayProgress(false);
-                Log.d(TAG, "response() called with: " + "response = [" + response + "]");
-                if (response.isOK()) {
+                if(response.isSuccessful()) {
+                    SharedPreferencesManager.getInstance().saveUserName(firstName, middleName, lastName);
                     getActivity().finish();
                 } else {
-                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void error() {
-                Log.d(TAG, "error: ");
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 mListener.displayProgress(false);
-            }
-
-            @Override
-            public void noInternetConnection() {
-                mListener.displayProgress(false);
-                ApiClient.getInstance().showAlert(getActivity());
             }
         });
+//        Call<ResponseBody> call = client.editUserInfo()
+//        ApiClient.getInstance().editUserInfo(firstName, middleName, lastName, address, entrance, new ApiClient.ApiCallback<BaseResponse>() {
+//            @Override
+//            public void response(BaseResponse response) {
+//                mListener.displayProgress(false);
+//                Log.d(TAG, "response() called with: " + "response = [" + response + "]");
+//                if (response.isOK()) {
+//                    getActivity().finish();
+//                } else {
+//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void error() {
+//                Log.d(TAG, "error: ");
+//                mListener.displayProgress(false);
+//            }
+//
+//            @Override
+//            public void noInternetConnection() {
+//                mListener.displayProgress(false);
+//                ApiClient.getInstance().showAlert(getActivity());
+//            }
+//        });
     }
 }

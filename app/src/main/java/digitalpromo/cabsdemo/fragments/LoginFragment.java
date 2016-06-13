@@ -17,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.google.android.gms.common.api.Api;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -256,6 +257,9 @@ public class LoginFragment extends BasePagerFragment implements View.OnClickList
                 if(response.isSuccessful()) {
                     SharedPreferencesManager.getInstance().saveUserLogin(login);
                     SharedPreferencesManager.getInstance().saveUserPassword(password);
+                    SharedPreferencesManager.getInstance().saveUserAddress(response.body().getRouteAddress(),
+                            response.body().getHouseNumber(), String.valueOf(response.body().getPorch()),
+                            String.valueOf(response.body().getApartment()));
                     openMainActivity(true);
                 } else {
                     Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
@@ -265,6 +269,7 @@ public class LoginFragment extends BasePagerFragment implements View.OnClickList
             @Override
             public void onFailure(Call<AuthorizationResponse> call, Throwable t) {
                 mListener.displayProgress(false);
+                ApiClient.getInstance().showAlert(getActivity());
             }
         });
 //        ApiClient.getInstance().authorization(login, password, new ApiClient.ApiCallback<BaseResponse>() {

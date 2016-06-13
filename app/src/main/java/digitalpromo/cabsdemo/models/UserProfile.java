@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import digitalpromo.cabsdemo.api.old_api.GetUserProfileResponse;
-
 /**
  * User's profile
  */
@@ -25,23 +23,38 @@ public class UserProfile {
     @SerializedName("user_middle_name")
     private String middleName;
 
-
+    @SerializedName("user_last_name")
     private String lastName;
 
-    /**
-     * User's phone
-     */
+    @SerializedName("user_phone")
     private String phone;
 
-    /**
-     * User's address
-     */
-    private String address;
+    @SerializedName("user_balance")
+    private Integer userBalance;
 
-    /**
-     * User's entrance
-     */
-    private String entrance;
+    @SerializedName("route_address_from")
+    private String userAddressFrom;
+
+    @SerializedName("route_address_number_from")
+    private String routeAddressNumberFrom;
+
+    @SerializedName("route_address_entrance_from")
+    private Integer routeAddressEntranceFrom;
+
+    @SerializedName("route_address_apartment_from")
+    private Integer routeAddressApartmentFrom;
+
+    @SerializedName("orders_count")
+    private Integer ordersCount;
+
+    @SerializedName("discount")
+    private Discount discount;
+
+    @SerializedName("payment_type")
+    private Integer paymentType;
+
+    @SerializedName("client_bonuses")
+    private Double clientBonuses;
 
     /**
      * Interface for data changing notifications
@@ -64,12 +77,20 @@ public class UserProfile {
      */
     public static void initInstance(UserProfile userProfile) {
         ourInstance = new UserProfile(
+                userProfile.getUserLogin(),
                 userProfile.getFirstName(),
                 userProfile.getMiddleName(),
                 userProfile.getLastName(),
                 userProfile.getPhone(),
-                userProfile.getAddress(),
-                userProfile.getEntrance()
+                userProfile.getUserBalance(),
+                userProfile.getUserAddressFrom(),
+                userProfile.getRouteAddressNumberFrom(),
+                userProfile.getRouteAddressEntranceFrom(),
+                userProfile.getRouteAddressApartmentFrom(),
+                userProfile.getOrdersCount(),
+                userProfile.getDiscount(),
+                userProfile.getPaymentType(),
+                userProfile.getClientBonuses()
         );
     }
 
@@ -77,13 +98,21 @@ public class UserProfile {
      * Update profile data
      * @param userProfile profile info holder
      */
-    public void updateData(GetUserProfileResponse userProfile) {
-        firstName = userProfile.getFirstName();
-        middleName = userProfile.getMiddleName();
-        lastName = userProfile.getLastName();
-        phone = userProfile.getPhone();
-        address = userProfile.getAddress();
-        entrance = userProfile.getEntrance();
+    public void updateData(UserProfile userProfile) {
+        this.userLogin = userProfile.getUserLogin();
+        this.firstName = userProfile.getFirstName();
+        this.middleName = userProfile.getMiddleName();
+        this.lastName = userProfile.getLastName();
+        this.phone = userProfile.getPhone();
+        this.userBalance = userProfile.getUserBalance();
+        this.userAddressFrom = userProfile.getUserAddressFrom();
+        this.routeAddressNumberFrom = userProfile.getRouteAddressNumberFrom();
+        this.routeAddressEntranceFrom = userProfile.getRouteAddressEntranceFrom();
+        this.routeAddressApartmentFrom = userProfile.getRouteAddressApartmentFrom();
+        this.ordersCount = userProfile.getOrdersCount();
+        this.discount = userProfile.getDiscount();
+        this.paymentType = userProfile.getPaymentType();
+        this.clientBonuses = userProfile.getClientBonuses();
 
         for (DataChanged subscriber : subscribers) {
             subscriber.onDataChanged();
@@ -96,16 +125,25 @@ public class UserProfile {
      * @param middleName user's middle name
      * @param lastName user's last name
      * @param phone user's phone
-     * @param address user's address
-     * @param entrance user's entrance
      */
-    public UserProfile(String firstName, String middleName, String lastName, String phone, String address, String entrance) {
+    public UserProfile(String userLogin, String firstName, String middleName, String lastName, String phone,
+                       Integer userBalance, String userAddressFrom, String routeAddressNumberFrom,
+                       Integer routeAddressEntranceFrom, Integer routeAddressApartmentFrom, Integer ordersCount,
+                       Discount discount, Integer paymentType, Double clientBonuses) {
+        this.userLogin = userLogin;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.phone = phone;
-        this.address = address;
-        this.entrance = entrance;
+        this.userBalance = userBalance;
+        this.userAddressFrom = userAddressFrom;
+        this.routeAddressNumberFrom = routeAddressNumberFrom;
+        this.routeAddressEntranceFrom = routeAddressEntranceFrom;
+        this.routeAddressApartmentFrom = routeAddressApartmentFrom;
+        this.ordersCount = ordersCount;
+        this.discount = discount;
+        this.paymentType = paymentType;
+        this.clientBonuses = clientBonuses;
     }
 
     /**
@@ -125,20 +163,8 @@ public class UserProfile {
         subscribers.remove(subscribers.indexOf(subscriber));
     }
 
-    public String getName() {
-        return lastName + " " + firstName + " " + middleName;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getEntrance() {
-        return entrance;
+    public String getUserLogin() {
+        return userLogin;
     }
 
     public String getFirstName() {
@@ -151,5 +177,57 @@ public class UserProfile {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public Integer getUserBalance() {
+        return userBalance;
+    }
+
+    public String getUserAddressFrom() {
+        return userAddressFrom;
+    }
+
+    public String getRouteAddressNumberFrom() {
+        return routeAddressNumberFrom;
+    }
+
+    public Integer getRouteAddressEntranceFrom() {
+        return routeAddressEntranceFrom;
+    }
+
+    public Integer getRouteAddressApartmentFrom() {
+        return routeAddressApartmentFrom;
+    }
+
+    public Integer getOrdersCount() {
+        return ordersCount;
+    }
+
+    public Integer getPaymentType() {
+        return paymentType;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public Double getClientBonuses() {
+        return clientBonuses;
+    }
+
+    public String getName() {
+        return this.firstName + " " + this.middleName + " " + this.lastName;
+    }
+
+    public String getFullAddress() {
+        if(this.userAddressFrom == null && this.routeAddressNumberFrom == null
+                && this.routeAddressEntranceFrom == null && this.routeAddressApartmentFrom == null)
+            return "";
+
+        else return this.userAddressFrom + " " + this.routeAddressNumberFrom + " " + this.routeAddressEntranceFrom + " " + this.routeAddressApartmentFrom;
     }
 }

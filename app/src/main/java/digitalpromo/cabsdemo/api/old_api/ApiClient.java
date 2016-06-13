@@ -127,7 +127,7 @@ public class ApiClient {
 //     * @param latLng coordinates of way point
 //     * @param callback callback for ui updates
 //     */
-//    public void getAddress(LatLng latLng, final ApiCallback<GeoCodingResponse> callback) {
+//    public void getFullAddress(LatLng latLng, final ApiCallback<GeoCodingResponse> callback) {
 //        AjaxCallback<GeoCodingResponse> cb = new AjaxCallback<GeoCodingResponse>() {
 //            @Override
 //            public void callback(String url, GeoCodingResponse response, AjaxStatus status) {

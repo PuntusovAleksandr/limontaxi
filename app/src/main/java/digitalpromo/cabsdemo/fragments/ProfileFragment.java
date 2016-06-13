@@ -160,8 +160,7 @@ public class ProfileFragment extends BaseFragment implements UserProfile.DataCha
         items.add(new ProfileItem(ProfileItem.Titles.LOGIN, profile.getPhone()));
         items.add(new ProfileItem(ProfileItem.Titles.NAME, profile.getName()));
         items.add(new ProfileItem(ProfileItem.Titles.PHONE, profile.getPhone()));
-        items.add(new ProfileItem(ProfileItem.Titles.ADDRESS, profile.getAddress()));
-        items.add(new ProfileItem(ProfileItem.Titles.ENTRANCE, profile.getEntrance()));
+        items.add(new ProfileItem(ProfileItem.Titles.ADDRESS, profile.getFullAddress()));
 
         mAdapter.updateData(items);
     }

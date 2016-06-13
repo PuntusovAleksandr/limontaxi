@@ -345,12 +345,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-//        ApiClient.getInstance().getAddress(latLng, new ApiClient.ApiCallback<GeoCodingResponse>() {
+//        ApiClient.getInstance().getFullAddress(latLng, new ApiClient.ApiCallback<GeoCodingResponse>() {
 //            @Override
 //            public void response(GeoCodingResponse response) {
 //                showProgress(false);
 //                if (response.isOK()) {
-//                    setAddress(response.getAddress());
+//                    setAddress(response.getFullAddress());
 //                }
 //            }
 //

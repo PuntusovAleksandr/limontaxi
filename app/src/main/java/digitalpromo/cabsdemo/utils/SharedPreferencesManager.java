@@ -18,6 +18,13 @@ public class SharedPreferencesManager {
 
     private static final String KEY_USER_LOGIN = PKG_KEY_PREFIX + ".user_login";
     private static final String KEY_USER_PASSWORD = PKG_KEY_PREFIX + ".user_password";
+    private static final String KEY_USER_FIRST_NAME = PKG_KEY_PREFIX + ".user_first_name";
+    private static final String KEY_USER_MIDDLE_NAME = PKG_KEY_PREFIX + ".user_middle_name";
+    private static final String KEY_USER_LAST_NAME = PKG_KEY_PREFIX + ".user_last_name";
+    private static final String KEY_USER_ADDRESS = PKG_KEY_PREFIX + ".user_address";
+    private static final String KEY_USER_ADDRESS_NUMBER = PKG_KEY_PREFIX + ".user_address_number";
+    private static final String KEY_USER_ADDRESS_ENTRANCE = PKG_KEY_PREFIX + ".user_address_entrance";
+    private static final String KEY_USER_ADDRESS_APARTMENT = PKG_KEY_PREFIX + ".user_address_apartment";
     private static final String KEY_AUTO_LOGIN = PKG_KEY_PREFIX + ".auto_login";
     private static final String KEY_IS_USER_LOGGED_IN = PKG_KEY_PREFIX + ".is_user_logged_in";
 
@@ -113,5 +120,35 @@ public class SharedPreferencesManager {
      */
     public boolean isUserLoggedIn() {
         return sPref.getBoolean(KEY_IS_USER_LOGGED_IN, false);
+    }
+
+    public void saveUserAddress(String routeAddressFrom, String routeAddressNumberFrom, String routeAddressEntranceFrom, String routeAddressApartmentFrom) {
+        editor.putString(KEY_USER_ADDRESS, routeAddressFrom).commit();
+        editor.putString(KEY_USER_ADDRESS_NUMBER, routeAddressNumberFrom).commit();
+        editor.putString(KEY_USER_ADDRESS_ENTRANCE, routeAddressEntranceFrom).commit();
+        editor.putString(KEY_USER_ADDRESS_APARTMENT, routeAddressApartmentFrom).commit();
+    }
+
+    public String[] loadUserAddress() {
+        String[] address = new String[4];
+        address[0] = sPref.getString(KEY_USER_ADDRESS, null);
+        address[1] = sPref.getString(KEY_USER_ADDRESS_NUMBER, null);
+        address[2] = sPref.getString(KEY_USER_ADDRESS_ENTRANCE, null);
+        address[3] = sPref.getString(KEY_USER_ADDRESS_APARTMENT, null);
+        return address;
+    }
+
+    public void saveUserName(String firstName, String middleName, String lastName) {
+        editor.putString(KEY_USER_FIRST_NAME, firstName).commit();
+        editor.putString(KEY_USER_MIDDLE_NAME, middleName).commit();
+        editor.putString(KEY_USER_LAST_NAME, lastName).commit();
+    }
+
+    public String[] loadUserName() {
+        String[] name = new String[3];
+        name[0] = sPref.getString(KEY_USER_FIRST_NAME, null);
+        name[1] = sPref.getString(KEY_USER_MIDDLE_NAME, null);
+        name[2] = sPref.getString(KEY_USER_LAST_NAME, null);
+        return name;
     }
 }

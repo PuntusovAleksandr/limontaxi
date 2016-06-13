@@ -6,7 +6,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,16 @@ import com.androidquery.AQuery;
 
 import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
+import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
+import digitalpromo.cabsdemo.api.new_api.EditUserInfoRequest;
+import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.api.old_api.ApiClient;
-import digitalpromo.cabsdemo.api.old_api.BaseResponse;
 import digitalpromo.cabsdemo.models.UserProfile;
+import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,7 +72,7 @@ public class UpdateAddressFragment extends BaseFragment implements View.OnClickL
         aq.id(R.id.et_address_from).getEditText().addTextChangedListener(mTextWatcher);
         aq.id(R.id.et_address_number_from).getEditText().addTextChangedListener(mTextWatcher);
 
-        String address = UserProfile.getInstance().getAddress();
+        String address = UserProfile.getInstance().getFullAddress();
 
         String[] parts = address.split(", ");
 
@@ -74,8 +80,6 @@ public class UpdateAddressFragment extends BaseFragment implements View.OnClickL
             aq.id(R.id.et_address_from).text(parts[0]);
             aq.id(R.id.et_address_number_from).text(parts[1]);
         }
-
-        aq.id(R.id.et_address_entrance_from).text(UserProfile.getInstance().getEntrance());
     }
 
     @Override
@@ -135,15 +139,10 @@ public class UpdateAddressFragment extends BaseFragment implements View.OnClickL
         String street = aq.id(R.id.et_address_from).getEditable().toString();
         String house = aq.id(R.id.et_address_number_from).getEditable().toString();
         String entrance = aq.id(R.id.et_address_entrance_from).getEditable().toString();
+        String apartment = aq.id(R.id.et_address_apartment_from).getEditable().toString();
 
         if (!isFieldsEmpty(street, house)) {
-            editUserInfo(
-                    UserProfile.getInstance().getFirstName(),
-                    UserProfile.getInstance().getMiddleName(),
-                    UserProfile.getInstance().getLastName(),
-                    makeFullAddress(street, house),
-                    entrance
-            );
+            editUserInfo(street, house, entrance, apartment);
         }
     }
 
@@ -157,32 +156,55 @@ public class UpdateAddressFragment extends BaseFragment implements View.OnClickL
         return street + ", " + house;
     }
 
-    private void editUserInfo(String firstName, String middleName, String lastName, String address, String entrance) {
+    private void editUserInfo(final String addressFrom, final String addressNumberFrom, final String addressEntranceFrom, final String addressApartmentFrom) {
         mListener.displayProgress(true);
-        ApiClient.getInstance().editUserInfo(firstName, middleName, lastName, address, entrance, new ApiClient.ApiCallback<BaseResponse>() {
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
+        Call<ResponseBody> call = client.editUserInfo(new EditUserInfoRequest(SharedPreferencesManager.getInstance().loadUserName()[0],
+                SharedPreferencesManager.getInstance().loadUserName()[1], SharedPreferencesManager.getInstance().loadUserName()[2],
+                addressFrom, addressNumberFrom, addressEntranceFrom, addressApartmentFrom));
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void response(BaseResponse response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 mListener.displayProgress(false);
-                Log.d(TAG, "response() called with: " + "response = [" + response + "]");
-                if (response.isOK()) {
+                if(response.isSuccessful()) {
+                    SharedPreferencesManager.getInstance().saveUserAddress(addressFrom, addressNumberFrom, addressEntranceFrom, addressApartmentFrom);
                     getActivity().finish();
                 } else {
-                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void error() {
-                Log.d(TAG, "error: ");
-                mListener.displayProgress(false);
-            }
-
-            @Override
-            public void noInternetConnection() {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 mListener.displayProgress(false);
                 ApiClient.getInstance().showAlert(getActivity());
             }
         });
+
+//        ApiClient.getInstance().editUserInfo(firstName, middleName, lastName, address, entrance, new ApiClient.ApiCallback<BaseResponse>() {
+//            @Override
+//            public void response(BaseResponse response) {
+//                mListener.displayProgress(false);
+//                Log.d(TAG, "response() called with: " + "response = [" + response + "]");
+//                if (response.isOK()) {
+//                    getActivity().finish();
+//                } else {
+//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void error() {
+//                Log.d(TAG, "error: ");
+//                mListener.displayProgress(false);
+//            }
+//
+//            @Override
+//            public void noInternetConnection() {
+//                mListener.displayProgress(false);
+//                ApiClient.getInstance().showAlert(getActivity());
+//            }
+//        });
     }
 
     /**

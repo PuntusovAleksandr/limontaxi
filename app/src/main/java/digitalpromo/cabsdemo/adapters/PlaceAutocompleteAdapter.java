@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ import digitalpromo.cabsdemo.R;
 import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
 import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.api.old_api.ApiClient;
+import digitalpromo.cabsdemo.models.House;
 import digitalpromo.cabsdemo.models.RouteItem;
 import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
 import okhttp3.ResponseBody;
@@ -119,6 +121,15 @@ public class PlaceAutocompleteAdapter
                 if (constraint != null) {
                     // Query the autocomplete API for the (constraint) search string.
                     mResultList = getAutocomplete(constraint.toString());
+                    if(mResultList.size() == 1) {
+                        RouteItem singleStreetRouteItem = mResultList.get(0);
+                        ArrayList<RouteItem> items = new ArrayList<>();
+                        for(House house : singleStreetRouteItem.getHouses()) {
+                            items.add(new RouteItem(singleStreetRouteItem.getAddress() + ", " + house.getHouse(), new LatLng(house.getLat(), house.getLng())));
+                        }
+//                        mResultList.clear();
+                        mResultList = items;
+                    }
                     if (mResultList != null) {
                         // The API successfully returned result
                         results.count = mResultList.size();
@@ -151,15 +162,15 @@ public class PlaceAutocompleteAdapter
         };
     }
 
-    private ArrayList<RouteItem> items;
-
     private ArrayList<RouteItem> getAutocomplete(String string) {
 //        ArrayList<RouteItem> results = ApiClient.getInstance().getAutocomplete(city, string);
 
         ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
         try {
-            Response<ArrayList<RouteItem>> results = client.getAutocompleteRequest(string).execute();
-            return results.body();
+//            Response<ArrayList<RouteItem>> results = client.getAutocompleteRequest(string).execute();
+//            return client.getAutocompleteRequest(string, "houses").execute().body().getAutocomplete();
+            ArrayList<RouteItem> items = client.getAutocompleteRequest(string).execute().body().getAutocomplete();
+            return items;
         } catch (IOException e) {
             e.printStackTrace();
         }

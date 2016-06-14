@@ -417,6 +417,7 @@ public class OrderFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        Order.getInstance().setCityId(1);
     }
 
     @Override

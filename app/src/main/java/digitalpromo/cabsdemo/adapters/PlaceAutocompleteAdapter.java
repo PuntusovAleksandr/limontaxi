@@ -17,6 +17,7 @@
 package digitalpromo.cabsdemo.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -27,11 +28,19 @@ import android.widget.TextView;
 import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.Places;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import digitalpromo.cabsdemo.R;
+import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
+import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.api.old_api.ApiClient;
 import digitalpromo.cabsdemo.models.RouteItem;
+import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Adapter that handles Autocomplete requests from the Places Geo Data API.
@@ -142,13 +151,25 @@ public class PlaceAutocompleteAdapter
         };
     }
 
-    private ArrayList<RouteItem> getAutocomplete(String string) {
-        ArrayList<RouteItem> results = ApiClient.getInstance().getAutocomplete(city, string);
+    private ArrayList<RouteItem> items;
 
-        if (results == null) {
-            callback.noInternet();
+    private ArrayList<RouteItem> getAutocomplete(String string) {
+//        ArrayList<RouteItem> results = ApiClient.getInstance().getAutocomplete(city, string);
+
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
+        try {
+            Response<ArrayList<RouteItem>> results = client.getAutocompleteRequest(string).execute();
+            return results.body();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        return results;
+//        if (results == null) {
+//            callback.noInternet();
+//        }
+//
+//        return results;
+
+        return null;
     }
 }

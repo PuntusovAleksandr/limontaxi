@@ -235,7 +235,7 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             final RouteItem item = mAdapter.getItem(position);
-            address = item.getAddressLine();
+            address = item.getAddress() == null ? item.getStreet() : item.getAddress();
             latLng = item.getLatLng();
             Log.i(TAG, "Autocomplete item selected: " + address);
 

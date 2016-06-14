@@ -43,11 +43,11 @@ public class RouteItem {
 //    }
 
     public RouteItem() {
-        this.address = "";
+        this.street = "";
         this.latLng = new LatLng(0, 0);
     }
 
-//    public String getAddressLine() {
+//    public String getAddress() {
 //        if (address != null && !address.isEmpty()) {
 //            return address;
 //        } else {
@@ -55,8 +55,8 @@ public class RouteItem {
 //        }
 //    }
 
-    public String getAddressLine() {
-        return street;
+    public String getAddress() {
+        return address;
     }
 
     public RouteItem(String address, LatLng latLng) {
@@ -65,7 +65,7 @@ public class RouteItem {
         setLatLng(latLng);
     }
 
-//    public String getAddress() {
+//    public String getStreet() {
 //        if (address != null && !address.isEmpty()) {
 //            return address;
 //        } else {
@@ -73,7 +73,7 @@ public class RouteItem {
 //        }
 //    }
 
-    public String getAddress() {
+    public String getStreet() {
         return street;
     }
 
@@ -90,16 +90,20 @@ public class RouteItem {
 //        }
 //    }
 
+//    public void setAddress(String address) {
+//        this.street = address;
+//
+//        String[] parts = address.split(", ");
+//
+//        if (parts.length > 1) {
+//            street = parts[0];
+//        } else if (parts.length > 0) {
+//            street = parts[0];
+//        }
+//    }
+
     public void setAddress(String address) {
         this.address = address;
-
-        String[] parts = address.split(", ");
-
-        if (parts.length > 1) {
-            street = parts[0];
-        } else if (parts.length > 0) {
-            street = parts[0];
-        }
     }
 
     public LatLng getLatLng() {

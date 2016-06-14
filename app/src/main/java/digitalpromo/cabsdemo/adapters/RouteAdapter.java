@@ -45,7 +45,7 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.tvTitle.setText((position < 1) ? R.string.ead_title_start_address : R.string.ead_title_end_address);
-        holder.tvAddress.setText(route.get(position).getAddressLine());
+        holder.tvAddress.setText(route.get(position).getAddress());
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

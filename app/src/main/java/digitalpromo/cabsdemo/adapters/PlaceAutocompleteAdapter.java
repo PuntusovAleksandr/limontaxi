@@ -17,7 +17,6 @@
 package digitalpromo.cabsdemo.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -35,14 +34,9 @@ import java.util.ArrayList;
 import digitalpromo.cabsdemo.R;
 import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
 import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
-import digitalpromo.cabsdemo.api.old_api.ApiClient;
 import digitalpromo.cabsdemo.models.House;
 import digitalpromo.cabsdemo.models.RouteItem;
 import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Adapter that handles Autocomplete requests from the Places Geo Data API.
@@ -104,7 +98,12 @@ public class PlaceAutocompleteAdapter
         RouteItem item = getItem(position);
 
         TextView textView1 = (TextView) row.findViewById(R.id.tv_address);
-        textView1.setText(item.getAddressLine());
+//        textView1.setText(item.getAddress());
+        if(item.getHouses() != null) {
+            textView1.setText(item.getStreet());
+        } else {
+            textView1.setText(item.getAddress());
+        }
         return row;
     }
 
@@ -125,9 +124,8 @@ public class PlaceAutocompleteAdapter
                         RouteItem singleStreetRouteItem = mResultList.get(0);
                         ArrayList<RouteItem> items = new ArrayList<>();
                         for(House house : singleStreetRouteItem.getHouses()) {
-                            items.add(new RouteItem(singleStreetRouteItem.getAddress() + ", " + house.getHouse(), new LatLng(house.getLat(), house.getLng())));
+                            items.add(new RouteItem(singleStreetRouteItem.getStreet() + ", " + house.getHouse(), new LatLng(house.getLat(), house.getLng())));
                         }
-//                        mResultList.clear();
                         mResultList = items;
                     }
                     if (mResultList != null) {
@@ -154,7 +152,7 @@ public class PlaceAutocompleteAdapter
                 // Override this method to display a readable result in the AutocompleteTextView
                 // when clicked.
                 if (resultValue instanceof RouteItem) {
-                    return ((RouteItem) resultValue).getAddress();
+                    return ((RouteItem) resultValue).getStreet();
                 } else {
                     return super.convertResultToString(resultValue);
                 }

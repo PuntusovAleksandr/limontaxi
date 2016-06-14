@@ -52,7 +52,7 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
             order.resetOrder();
             ArrayList<RouteItem> route = item.getRoute();
             for (RouteItem routeItem : route) {
-                routeItem.setAddress(routeItem.getAddress());
+                routeItem.setAddress(routeItem.getStreet());
                 routeItem.setLatLng(routeItem.getLatLng());
             }
             order.setRoute(route);

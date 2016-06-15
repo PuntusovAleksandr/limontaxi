@@ -20,4 +20,24 @@ public class GetOrderCostResponse {
 
     @SerializedName("can_pay_bonuses")
     private Boolean canPayBonuses;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public Double getOrderCost() {
+        return orderCost;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public Boolean getDiscountTrip() {
+        return discountTrip;
+    }
+
+    public Boolean getCanPayBonuses() {
+        return canPayBonuses;
+    }
 }

@@ -40,21 +40,27 @@
         />
 
     <android.support.v7.widget.AppCompatCheckBox
-        android:id="@+id/cb_meet_with_table"
-        android:text="@string/pa_meet_with_table"
+        android:id="@+id/route_undefined"
+        android:text="@string/in_city"
+        style="@style/AppTheme.CheckButton"
+        />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/cb_terminal"
+        android:text="@string/pa_terminal"
+        style="@style/AppTheme.CheckButton"
+        />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/cb_receipt"
+        android:text="@string/pa_receipt"
         style="@style/AppTheme.CheckButton"
         />
 
     <!--<android.support.v7.widget.AppCompatCheckBox-->
-        <!--android:id="@+id/cb_terminal"-->
-        <!--android:text="@string/pa_terminal"-->
-        <!--style="@style/AppTheme.CheckButton"-->
-        <!--/>-->
-
-    <!--<android.support.v7.widget.AppCompatCheckBox-->
-        <!--android:id="@+id/cb_receipt"-->
-        <!--android:text="@string/pa_receipt"-->
-        <!--style="@style/AppTheme.CheckButton"-->
-        <!--/>-->
+    <!--android:id="@+id/cb_meet_with_table"-->
+    <!--android:text="@string/pa_meet_with_table"-->
+    <!--style="@style/AppTheme.CheckButton"-->
+    <!--/>-->
 
 </LinearLayout>

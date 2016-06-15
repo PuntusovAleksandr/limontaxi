@@ -27,11 +27,11 @@
             style="@style/AppTheme.RadioButton"
             />
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/rb_truck"
-            android:text="@string/pa_truck"
-            style="@style/AppTheme.RadioButton"
-            />
+        <!--<android.support.v7.widget.AppCompatRadioButton-->
+            <!--android:id="@+id/rb_truck"-->
+            <!--android:text="@string/pa_truck"-->
+            <!--style="@style/AppTheme.RadioButton"-->
+            <!--/>-->
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/rb_wagon"
@@ -45,11 +45,11 @@
             style="@style/AppTheme.RadioButton"
             />
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/rb_business"
-            android:text="@string/pa_business"
-            style="@style/AppTheme.RadioButton"
-            />
+        <!--<android.support.v7.widget.AppCompatRadioButton-->
+            <!--android:id="@+id/rb_business"-->
+            <!--android:text="@string/pa_business"-->
+            <!--style="@style/AppTheme.RadioButton"-->
+            <!--/>-->
     </RadioGroup>
 
 </LinearLayout>

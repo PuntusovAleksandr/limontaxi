@@ -114,7 +114,7 @@ public class PreferencesActivity extends AppCompatActivity implements DialogButt
         initDateAndTimeFields();
 
 
-//        aq.id(R.id.ib_edit_add_cost).clicked(this);
+        aq.id(R.id.ib_edit_add_cost).clicked(this);
         aq.id(R.id.ib_edit_date).clicked(this);
         aq.id(R.id.ib_edit_time).clicked(this);
         aq.id(R.id.ib_edit_comment).clicked(this);
@@ -127,7 +127,10 @@ public class PreferencesActivity extends AppCompatActivity implements DialogButt
         aq.id(R.id.cb_animal).getCheckBox().setOnCheckedChangeListener(this);
         aq.id(R.id.cb_conditioner).getCheckBox().setOnCheckedChangeListener(this);
         aq.id(R.id.cb_courier_delivery).getCheckBox().setOnCheckedChangeListener(this);
-        aq.id(R.id.cb_meet_with_table).getCheckBox().setOnCheckedChangeListener(this);
+        aq.id(R.id.route_undefined).getCheckBox().setOnCheckedChangeListener(this);
+        aq.id(R.id.cb_terminal).getCheckBox().setOnCheckedChangeListener(this);
+        aq.id(R.id.cb_receipt).getCheckBox().setOnCheckedChangeListener(this);
+//        aq.id(R.id.cb_meet_with_table).getCheckBox().setOnCheckedChangeListener(this);
     }
 
     private void initComment() {
@@ -168,7 +171,10 @@ public class PreferencesActivity extends AppCompatActivity implements DialogButt
         aq.id(R.id.cb_animal).getCheckBox().setChecked(order.isAnimals());
         aq.id(R.id.cb_conditioner).getCheckBox().setChecked(order.isConditioner());
         aq.id(R.id.cb_courier_delivery).getCheckBox().setChecked(order.isDelivery());
-        aq.id(R.id.cb_meet_with_table).getCheckBox().setChecked(order.isMeetWithTable());
+        aq.id(R.id.route_undefined).getCheckBox().setChecked(order.isRouteUndefined());
+        aq.id(R.id.cb_terminal).getCheckBox().setChecked(order.isTerminalPay());
+        aq.id(R.id.cb_receipt).getCheckBox().setChecked(order.isReceiptNeed());
+//        aq.id(R.id.cb_meet_with_table).getCheckBox().setChecked(order.isMeetWithTable());
     }
 
     /**
@@ -182,18 +188,18 @@ public class PreferencesActivity extends AppCompatActivity implements DialogButt
             case Order.RATE_PREMIUM:
                 ((RadioButton) aq.id(R.id.rb_premium).getView()).setChecked(true);
                 break;
-            case Order.RATE_TRUCK:
-                ((RadioButton) aq.id(R.id.rb_truck).getView()).setChecked(true);
-                break;
+//            case Order.RATE_TRUCK:
+//                ((RadioButton) aq.id(R.id.rb_truck).getView()).setChecked(true);
+//                break;
             case Order.RATE_WAGON:
                 ((RadioButton) aq.id(R.id.rb_wagon).getView()).setChecked(true);
                 break;
             case Order.RATE_MINIBUS:
                 ((RadioButton) aq.id(R.id.rb_minibus).getView()).setChecked(true);
                 break;
-            case Order.RATE_BUSINESS:
-                ((RadioButton) aq.id(R.id.rb_business).getView()).setChecked(true);
-                break;
+//            case Order.RATE_BUSINESS:
+//                ((RadioButton) aq.id(R.id.rb_business).getView()).setChecked(true);
+//                break;
         }
     }
 
@@ -319,18 +325,18 @@ public class PreferencesActivity extends AppCompatActivity implements DialogButt
             case R.id.rb_premium:
                 order.setRate(Order.RATE_PREMIUM);
                 break;
-            case R.id.rb_truck:
-                order.setRate(Order.RATE_TRUCK);
-                break;
             case R.id.rb_wagon:
                 order.setRate(Order.RATE_WAGON);
                 break;
             case R.id.rb_minibus:
                 order.setRate(Order.RATE_MINIBUS);
                 break;
-            case R.id.rb_business:
-                order.setRate(Order.RATE_BUSINESS);
-                break;
+//            case R.id.rb_truck:
+//                order.setRate(Order.RATE_TRUCK);
+//                break;
+//            case R.id.rb_business:
+//                order.setRate(Order.RATE_BUSINESS);
+//                break;
         }
     }
 
@@ -352,9 +358,18 @@ public class PreferencesActivity extends AppCompatActivity implements DialogButt
             case R.id.cb_courier_delivery:
                 order.setDelivery(isChecked);
                 break;
-            case R.id.cb_meet_with_table:
-                order.setMeetWithTable(isChecked);
+            case R.id.route_undefined:
+                order.setRouteUndefined(isChecked);
                 break;
+            case R.id.cb_terminal:
+                order.setTerminalPay(isChecked);
+                break;
+            case R.id.cb_receipt:
+                order.setReceiptNeed(isChecked);
+                break;
+//            case R.id.cb_meet_with_table:
+//                order.setMeetWithTable(isChecked);
+//                break;
         }
     }
 }

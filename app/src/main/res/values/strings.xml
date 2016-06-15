@@ -191,4 +191,5 @@
     <string name="ad_title_no_active_connection">Предупреждение</string>
     <string name="ad_message_no_active_connection">Отсутствует интернет соединение. Перейти к настройкам?</string>
     <string name="ad_pos_btn_settings">settings</string>
+    <string name="in_city">По городу</string>
 </resources>

@@ -17,28 +17,23 @@ public class Order {
     }
 
     public static final int RATE_BASE = 1;
-
     public static final int RATE_PREMIUM = 2;
-
     public static final int RATE_TRUCK = 3;
-
     public static final int RATE_WAGON = 4;
-
     public static final int RATE_MINIBUS = 5;
-
     public static final int RATE_BUSINESS = 6;
 
     private boolean conditioner;
-
     private boolean animals;
-
     private boolean delivery;
-
     private boolean baggage;
-
     private boolean meetWithTable;
-
     private boolean emptyTrunk;
+    private boolean routeUndefined;
+    private boolean terminalPay;
+    private boolean preOrder;
+    private boolean receiptNeed;
+
 
     private int rate;
 
@@ -49,8 +44,6 @@ public class Order {
     private long addCost;
 
     private String comment;
-
-    private boolean preOrder;
 
     private String orderDate;
 
@@ -70,6 +63,30 @@ public class Order {
         route = new ArrayList<>();
         cityId = null;
         cost = null;
+    }
+
+    public boolean isReceiptNeed() {
+        return receiptNeed;
+    }
+
+    public void setReceiptNeed(boolean receiptNeed) {
+        this.receiptNeed = receiptNeed;
+    }
+
+    public boolean isTerminalPay() {
+        return terminalPay;
+    }
+
+    public void setTerminalPay(boolean terminalPay) {
+        this.terminalPay = terminalPay;
+    }
+
+    public boolean isRouteUndefined() {
+        return routeUndefined;
+    }
+
+    public void setRouteUndefined(boolean routeUndefined) {
+        this.routeUndefined = routeUndefined;
     }
 
     public Integer getCityId() {

@@ -46,11 +46,11 @@ import digitalpromo.cabsdemo.adapters.OnDataChanged;
 import digitalpromo.cabsdemo.adapters.RouteAdapter;
 import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
 import digitalpromo.cabsdemo.api.new_api.GetOrderCostRequest;
+import digitalpromo.cabsdemo.api.new_api.GetOrderCostResponse;
 import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.api.old_api.ApiClient;
 import digitalpromo.cabsdemo.api.old_api.BaseResponse;
 import digitalpromo.cabsdemo.api.old_api.GetCitiesResponse;
-import digitalpromo.cabsdemo.api.old_api.GetOrderCostResponse;
 import digitalpromo.cabsdemo.dialogs.ChooseCityDialog;
 import digitalpromo.cabsdemo.dialogs.ChooseDialog;
 import digitalpromo.cabsdemo.dialogs.DialogButtonsListener;
@@ -559,9 +559,21 @@ public class OrderFragment
     private void getOrderCost() {
         mListener.displayProgress(true);
         ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
-//        Call<GetOrderCostResponse> call = client.getOrderCost(new GetOrderCostRequest())
+        Call<GetOrderCostResponse> call = client.getOrderCost(new GetOrderCostRequest(Order.getInstance()));
+        call.enqueue(new Callback<GetOrderCostResponse>() {
+            @Override
+            public void onResponse(Call<GetOrderCostResponse> call, Response<GetOrderCostResponse> response) {
+                mListener.displayProgress(false);
+                if(response.isSuccessful()) {
+                    Order.getInstance().setCost(response.body().getOrderCost());
+                }
+            }
 
-        Toast.makeText(getActivity(), String.valueOf(mAdapter.getItemCount()), Toast.LENGTH_LONG).show();
+            @Override
+            public void onFailure(Call<GetOrderCostResponse> call, Throwable t) {
+                mListener.displayProgress(false);
+            }
+        });
 
 //        ApiClient.getInstance().getOrderCost(new ApiClient.ApiCallback<GetOrderCostResponse>() {
 //            @Override

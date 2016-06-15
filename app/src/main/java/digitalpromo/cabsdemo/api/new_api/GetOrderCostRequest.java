@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+import digitalpromo.cabsdemo.models.Order;
 import digitalpromo.cabsdemo.models.RouteItem;
 
 /**
@@ -55,32 +56,28 @@ public class GetOrderCostRequest {
     @SerializedName("receipt")
     private Boolean receipt;
 
-    public GetOrderCostRequest(String userFullName, String phone, Boolean reservation, String requiredTime,
-                               String comment, Boolean minibus, Boolean wagon, Boolean premium,
-                               Boolean baggage, Boolean animal, Boolean conditioner, Boolean courier,
-                               Boolean routeUndefined, Boolean terminal, Boolean receipt, ArrayList<RouteItem> route, Integer addCost) {
-        this.userFullName = userFullName;
-        this.phone = phone;
-        this.reservation = reservation;
-        this.requiredTime = requiredTime;
-        this.comment = comment;
-        this.minibus = minibus;
-        this.wagon = wagon;
-        this.premium = premium;
-        this.baggage = baggage;
-        this.animal = animal;
-        this.conditioner = conditioner;
-        this.courier = courier;
-        this.routeUndefined = routeUndefined;
-        this.terminal = terminal;
-        this.receipt = receipt;
-        this.route = route;
-        this.addCost = addCost;
-    }
-
     @SerializedName("route")
     private ArrayList<RouteItem> route;
 
     @SerializedName("add_cost")
-    private Integer addCost;
+    private long addCost;
+
+    public GetOrderCostRequest(Order order) {
+        this.phone = order.getPhone();
+        this.reservation = order.isPreOrder();
+        this.requiredTime = order.getPreOrderTime();
+        this.comment = order.getComment();
+        this.minibus = order.getRate() == 5;
+        this.wagon = order.getRate() == 4;
+        this.premium = order.getRate() == 2;
+        this.baggage = order.isBaggage();
+        this.animal = order.isAnimals();
+        this.conditioner = order.isConditioner();
+        this.courier = order.isDelivery();
+        this.routeUndefined = order.isRouteUndefined();
+        this.terminal = order.isTerminalPay();
+        this.receipt = order.isReceiptNeed();
+        this.route = order.getRoute();
+        this.addCost = order.getAddCost();
+    }
 }

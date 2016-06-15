@@ -566,6 +566,7 @@ public class OrderFragment
                 mListener.displayProgress(false);
                 if(response.isSuccessful()) {
                     Order.getInstance().setCost(response.body().getOrderCost());
+                    setOrderCost(String.valueOf(response.body().getOrderCost() + " " + response.body().getCurrency()));
                 }
             }
 

@@ -28,7 +28,7 @@ public class RouteItem {
     private double lng;
 
     /**
-     * Street
+     * Street and adress for single item
      */
     @SerializedName("name")
     private String street;
@@ -71,6 +71,7 @@ public class RouteItem {
         setLatLng(latLng);
         this.lat = latLng.latitude;
         this.lng = latLng.longitude;
+        this.street = address;
     }
 
 //    public String getStreet() {

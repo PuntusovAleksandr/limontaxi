@@ -39,4 +39,7 @@ public interface ApiTaxiClient {
 
     @GET("geodata/streets/search")
     Call<GetAutoCompleteResponse> getAutocompleteRequest(@Query("q") String search);
+
+    @GET("geodata/search")
+    Call<GetAddressResponse> getAddress(@Query("lat") String lat, @Query("lng") String lng, @Query("r") String radius);
 }

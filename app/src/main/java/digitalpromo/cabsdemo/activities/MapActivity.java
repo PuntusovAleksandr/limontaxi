@@ -25,9 +25,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import digitalpromo.cabsdemo.R;
-import digitalpromo.cabsdemo.api.old_api.ApiClient;
-import digitalpromo.cabsdemo.api.old_api.GetAddressResponse;
+import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
+import digitalpromo.cabsdemo.api.new_api.GetAddressResponse;
+import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.api.old_api.MyGoogleApiClient;
+import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMapClickListener, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     public static final String TAG = MapActivity.class.getSimpleName();
@@ -324,33 +329,26 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         showProgress(true);
         final Activity activity = this;
 
-        ApiClient.getInstance().getAddress(latLng, new ApiClient.ApiCallback<GetAddressResponse>() {
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
+        Call<GetAddressResponse> call = client.getAddress(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude), "0");
+        call.enqueue(new Callback<GetAddressResponse>() {
             @Override
-            public void response(GetAddressResponse response) {
-                showProgress(false);
-                if (response.isOK()) {
-                    setAddress(response.getAddress());
-                }
+            public void onResponse(Call<GetAddressResponse> call, Response<GetAddressResponse> response) {
+
             }
 
             @Override
-            public void error() {
-                showProgress(false);
-            }
+            public void onFailure(Call<GetAddressResponse> call, Throwable t) {
 
-            @Override
-            public void noInternetConnection() {
-                showProgress(false);
-                ApiClient.getInstance().showAlert(activity);
             }
         });
 
-//        ApiClient.getInstance().getFullAddress(latLng, new ApiClient.ApiCallback<GeoCodingResponse>() {
+//        ApiClient.getInstance().getAddress(latLng, new ApiClient.ApiCallback<GetAddressResponse>() {
 //            @Override
-//            public void response(GeoCodingResponse response) {
+//            public void response(GetAddressResponse response) {
 //                showProgress(false);
 //                if (response.isOK()) {
-//                    setAddress(response.getFullAddress());
+//                    setAddress(response.getAddress());
 //                }
 //            }
 //

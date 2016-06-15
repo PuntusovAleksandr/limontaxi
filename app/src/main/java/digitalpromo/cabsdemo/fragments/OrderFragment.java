@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -36,12 +37,15 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+
 import digitalpromo.cabsdemo.R;
 import digitalpromo.cabsdemo.activities.MapActivity;
 import digitalpromo.cabsdemo.activities.PreferencesActivity;
 import digitalpromo.cabsdemo.adapters.OnDataChanged;
 import digitalpromo.cabsdemo.adapters.RouteAdapter;
 import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
+import digitalpromo.cabsdemo.api.new_api.GetOrderCostRequest;
 import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.api.old_api.ApiClient;
 import digitalpromo.cabsdemo.api.old_api.BaseResponse;
@@ -554,27 +558,32 @@ public class OrderFragment
 
     private void getOrderCost() {
         mListener.displayProgress(true);
-        ApiClient.getInstance().getOrderCost(new ApiClient.ApiCallback<GetOrderCostResponse>() {
-            @Override
-            public void response(GetOrderCostResponse response) {
-                mListener.displayProgress(false);
-                if (response.isOK()) {
-                    Order.getInstance().setCost(Double.parseDouble(response.getCost()));
-                    setOrderCost(response.getCost());
-                }
-            }
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
+//        Call<GetOrderCostResponse> call = client.getOrderCost(new GetOrderCostRequest())
 
-            @Override
-            public void error() {
-                mListener.displayProgress(false);
-            }
+        Toast.makeText(getActivity(), String.valueOf(mAdapter.getItemCount()), Toast.LENGTH_LONG).show();
 
-            @Override
-            public void noInternetConnection() {
-                mListener.displayProgress(false);
-                ApiClient.getInstance().showAlert(getActivity());
-            }
-        });
+//        ApiClient.getInstance().getOrderCost(new ApiClient.ApiCallback<GetOrderCostResponse>() {
+//            @Override
+//            public void response(GetOrderCostResponse response) {
+//                mListener.displayProgress(false);
+//                if (response.isOK()) {
+//                    Order.getInstance().setCost(Double.parseDouble(response.getCost()));
+//                    setOrderCost(response.getCost());
+//                }
+//            }
+//
+//            @Override
+//            public void error() {
+//                mListener.displayProgress(false);
+//            }
+//
+//            @Override
+//            public void noInternetConnection() {
+//                mListener.displayProgress(false);
+//                ApiClient.getInstance().showAlert(getActivity());
+//            }
+//        });
     }
 
     /**

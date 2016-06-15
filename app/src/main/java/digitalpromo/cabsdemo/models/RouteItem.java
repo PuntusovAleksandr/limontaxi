@@ -21,6 +21,12 @@ public class RouteItem {
      */
     private transient LatLng latLng;
 
+    @SerializedName("lat")
+    private double lat;
+
+    @SerializedName("lng")
+    private double lng;
+
     /**
      * Street
      */
@@ -63,6 +69,8 @@ public class RouteItem {
         this();
         setAddress(address);
         setLatLng(latLng);
+        this.lat = latLng.latitude;
+        this.lng = latLng.longitude;
     }
 
 //    public String getStreet() {

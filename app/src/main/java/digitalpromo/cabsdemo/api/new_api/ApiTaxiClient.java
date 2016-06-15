@@ -42,4 +42,7 @@ public interface ApiTaxiClient {
 
     @GET("geodata/search")
     Call<GetAddressResponse> getAddress(@Query("lat") String lat, @Query("lng") String lng, @Query("r") String radius);
+
+    @POST("weborders/cost")
+    Call<GetOrderCostResponse> getOrderCost(@Body GetOrderCostRequest request);
 }

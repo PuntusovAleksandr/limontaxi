@@ -48,4 +48,7 @@ public interface ApiTaxiClient {
 
     @POST("weborders")
     Call<MakeOrderResponse> makeOrder(@Body MakeOrderRequest request);
+
+    @GET("clients/ordershistory")
+    Call<GetOrderHistoryResponse> getOrdersHistory();
 }

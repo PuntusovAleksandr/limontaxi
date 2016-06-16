@@ -24,6 +24,9 @@ import java.util.Calendar;
 import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
 import digitalpromo.cabsdemo.adapters.HistoryAdapter;
+import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
+import digitalpromo.cabsdemo.api.new_api.GetOrderHistoryResponse;
+import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.api.old_api.ApiClient;
 import digitalpromo.cabsdemo.api.old_api.GetOrdersHistoryResponse;
 import digitalpromo.cabsdemo.events.MessageEvent;
@@ -31,6 +34,10 @@ import digitalpromo.cabsdemo.models.HistoryItem;
 import digitalpromo.cabsdemo.models.Order;
 import digitalpromo.cabsdemo.models.RouteItem;
 import digitalpromo.cabsdemo.utils.FormatUtils;
+import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -97,7 +104,8 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        getHistoryForToday();
+//        getHistoryForToday();
+        getOrdersHistoryForAllDates();
     }
 
     @Override
@@ -177,8 +185,8 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         String date = FormatUtils.getDateString(year, monthOfYear, dayOfMonth);
         Log.d(TAG, "onDateSet: date - " + date);
-        getOrdersHistory(date);
-
+//        getOrdersHistory(date);
+        getOrdersHistoryForAllDates();
     }
 
 
@@ -214,5 +222,25 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
         Calendar c = Calendar.getInstance();
         String date = FormatUtils.getDateString(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
         getOrdersHistory(date);
+    }
+
+    private void getOrdersHistoryForAllDates() {
+        mListener.displayProgress(true);
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
+        Call<GetOrderHistoryResponse> call = client.getOrdersHistory();
+        call.enqueue(new Callback<GetOrderHistoryResponse>() {
+            @Override
+            public void onResponse(Call<GetOrderHistoryResponse> call, Response<GetOrderHistoryResponse> response) {
+                mListener.displayProgress(false);
+                if(response.isSuccessful()) {
+                    GetOrderHistoryResponse response1 = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetOrderHistoryResponse> call, Throwable t) {
+                mListener.displayProgress(false);
+            }
+        });
     }
  }

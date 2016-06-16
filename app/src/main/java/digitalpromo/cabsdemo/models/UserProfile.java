@@ -230,4 +230,8 @@ public class UserProfile {
 
         else return this.userAddressFrom + " " + this.routeAddressNumberFrom + " " + this.routeAddressEntranceFrom + " " + this.routeAddressApartmentFrom;
     }
+
+    public String getFullName() {
+        return getFirstName() + " " + getMiddleName() + " " + getLastName();
+    }
 }

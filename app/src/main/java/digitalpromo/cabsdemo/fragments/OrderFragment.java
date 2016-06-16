@@ -31,6 +31,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Api;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.greenrobot.eventbus.EventBus;
@@ -47,6 +48,8 @@ import digitalpromo.cabsdemo.adapters.RouteAdapter;
 import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
 import digitalpromo.cabsdemo.api.new_api.GetOrderCostRequest;
 import digitalpromo.cabsdemo.api.new_api.GetOrderCostResponse;
+import digitalpromo.cabsdemo.api.new_api.MakeOrderRequest;
+import digitalpromo.cabsdemo.api.new_api.MakeOrderResponse;
 import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.api.old_api.ApiClient;
 import digitalpromo.cabsdemo.api.old_api.BaseResponse;
@@ -60,6 +63,7 @@ import digitalpromo.cabsdemo.events.MessageEvent;
 import digitalpromo.cabsdemo.helper.ItemTouchHelperCallback;
 import digitalpromo.cabsdemo.models.Order;
 import digitalpromo.cabsdemo.models.RouteItem;
+import digitalpromo.cabsdemo.models.UserProfile;
 import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -639,39 +643,69 @@ public class OrderFragment
 
     private void makeOrder() {
         mListener.displayProgress(true);
-        ApiClient.getInstance().makeOrder(new ApiClient.ApiCallback<BaseResponse>() {
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
+        Call<MakeOrderResponse> call = client.makeOrder(new MakeOrderRequest(Order.getInstance(), UserProfile.getInstance().getFullName()));
+        call.enqueue(new Callback<MakeOrderResponse>() {
             @Override
-            public void response(BaseResponse response) {
+            public void onResponse(Call<MakeOrderResponse> call, Response<MakeOrderResponse> response) {
                 mListener.displayProgress(false);
-                if (response.isOK()) {
+                if(response.isSuccessful()) {
                     NotificationCompat.Builder builder =
                             new NotificationCompat.Builder(getContext())
-                                    .setSmallIcon(R.drawable.ic_notification)
-                                    .setContentTitle("Заказ успешно отправлен.")
-                                    .setContentText("Ожидайте уведомления или звонка от диспетчера.")
-                                    .setDefaults(Notification.DEFAULT_SOUND);
+                            .setSmallIcon(R.drawable.ic_notification)
+                            .setContentTitle("Заказ успешно отправлен")
+                            .setContentText("Ожидайте уведомления или звонка от диспетчера")
+                            .setDefaults(Notification.DEFAULT_SOUND);
 
-                    NotificationManager notificationManagerCompat =
+                    NotificationManager notificationManager =
                             (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManagerCompat.notify(1, builder.build());
-
+                    notificationManager.notify(1, builder.build());
                     Order.getInstance().resetOrder();
-
                     setAdapter();
+                } else {
                 }
             }
 
             @Override
-            public void error() {
-                mListener.displayProgress(false);
-            }
-
-            @Override
-            public void noInternetConnection() {
+            public void onFailure(Call<MakeOrderResponse> call, Throwable t) {
                 mListener.displayProgress(false);
                 ApiClient.getInstance().showAlert(getActivity());
             }
         });
+
+//        ApiClient.getInstance().makeOrder(new ApiClient.ApiCallback<BaseResponse>() {
+//            @Override
+//            public void response(BaseResponse response) {
+//                mListener.displayProgress(false);
+//                if (response.isOK()) {
+//                    NotificationCompat.Builder builder =
+//                            new NotificationCompat.Builder(getContext())
+//                                    .setSmallIcon(R.drawable.ic_notification)
+//                                    .setContentTitle("Заказ успешно отправлен.")
+//                                    .setContentText("Ожидайте уведомления или звонка от диспетчера.")
+//                                    .setDefaults(Notification.DEFAULT_SOUND);
+//
+//                    NotificationManager notificationManagerCompat =
+//                            (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+//                    notificationManagerCompat.notify(1, builder.build());
+//
+//                    Order.getInstance().resetOrder();
+//
+//                    setAdapter();
+//                }
+//            }
+//
+//            @Override
+//            public void error() {
+//                mListener.displayProgress(false);
+//            }
+//
+//            @Override
+//            public void noInternetConnection() {
+//                mListener.displayProgress(false);
+//                ApiClient.getInstance().showAlert(getActivity());
+//            }
+//        });
     }
 
 

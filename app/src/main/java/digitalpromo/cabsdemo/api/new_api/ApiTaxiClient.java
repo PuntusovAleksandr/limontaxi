@@ -45,4 +45,7 @@ public interface ApiTaxiClient {
 
     @POST("weborders/cost")
     Call<GetOrderCostResponse> getOrderCost(@Body GetOrderCostRequest request);
+
+    @POST("weborders")
+    Call<MakeOrderResponse> makeOrder(@Body MakeOrderRequest request);
 }

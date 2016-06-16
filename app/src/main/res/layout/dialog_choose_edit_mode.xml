@@ -17,11 +17,11 @@
         style="@style/AppTheme.RadioButton"
         />
 
-    <android.support.v7.widget.AppCompatRadioButton
-        android:id="@+id/rb_city"
-        android:text="@string/cemd_mode_city"
-        style="@style/AppTheme.RadioButton"
-        />
+    <!--<android.support.v7.widget.AppCompatRadioButton-->
+        <!--android:id="@+id/rb_city"-->
+        <!--android:text="@string/cemd_mode_city"-->
+        <!--style="@style/AppTheme.RadioButton"-->
+        <!--/>-->
 
     <android.support.v7.widget.AppCompatRadioButton
         android:id="@+id/rb_phone"

@@ -80,7 +80,7 @@ public class ChooseDialog extends DialogFragment {
 
         switch (mode) {
             case TYPE_EDIT_WAY_POINT_MODE:
-                view.findViewById(R.id.rb_city).setVisibility(View.GONE);
+//                view.findViewById(R.id.rb_city).setVisibility(View.GONE);
                 view.findViewById(R.id.rb_phone).setVisibility(View.GONE);
                 break;
             case TYPE_EDIT_INFO_MODE:
@@ -119,10 +119,10 @@ public class ChooseDialog extends DialogFragment {
                         data.putInt(EXTRA_POSITION, position);
                         mListener.onChoose(dialog, data);
                         break;
-                    case R.id.rb_city:
-                        data.putInt(EXTRA_ACTION, ACTION_CITY);
-                        mListener.onChoose(dialog, data);
-                        break;
+//                    case R.id.rb_city:
+//                        data.putInt(EXTRA_ACTION, ACTION_CITY);
+//                        mListener.onChoose(dialog, data);
+//                        break;
                     case R.id.rb_phone:
                         data.putInt(EXTRA_ACTION, ACTION_PHONE);
                         mListener.onChoose(dialog, data);

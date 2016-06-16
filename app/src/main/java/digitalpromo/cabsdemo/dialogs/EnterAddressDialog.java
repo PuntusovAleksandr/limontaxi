@@ -24,6 +24,7 @@ import digitalpromo.cabsdemo.api.old_api.ApiClient;
 import digitalpromo.cabsdemo.api.old_api.GeoCodingResponse;
 import digitalpromo.cabsdemo.models.Order;
 import digitalpromo.cabsdemo.models.RouteItem;
+import digitalpromo.cabsdemo.views.DelayAutoCompleteTextView;
 
 public class EnterAddressDialog extends DialogFragment implements PlaceAutocompleteAdapter.NetworkError {
     public static final String TAG = EnterAddressDialog.class.getSimpleName();
@@ -53,7 +54,7 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
         }
     };
 
-    private AutoCompleteTextView mAutoCompleteTextView;
+    private DelayAutoCompleteTextView mAutoCompleteTextView;
     private PlaceAutocompleteAdapter mAdapter;
     private TextInputLayout tilAddress;
 
@@ -179,7 +180,7 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
 
         tilAddress = (TextInputLayout) view.findViewById(R.id.til_address);
 
-        mAutoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.actv_address);
+        mAutoCompleteTextView = (DelayAutoCompleteTextView) view.findViewById(R.id.actv_address);
         mAutoCompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
         mAutoCompleteTextView.addTextChangedListener(mTextWatcher);
 

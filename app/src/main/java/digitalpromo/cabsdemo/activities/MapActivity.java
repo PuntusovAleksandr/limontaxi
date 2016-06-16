@@ -330,7 +330,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         final Activity activity = this;
 
         ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
-        Call<GetAddressResponse> call = client.getAddress(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude), "0");
+        Call<GetAddressResponse> call = client.getAddress(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude), "10");
         call.enqueue(new Callback<GetAddressResponse>() {
             @Override
             public void onResponse(Call<GetAddressResponse> call, Response<GetAddressResponse> response) {

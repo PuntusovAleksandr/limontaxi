@@ -119,7 +119,7 @@ public class MakeOrderRequest extends BaseRequest {
         orderTime = order.getPreOrderTime();
         route = order.getRoute();
         encodedRoute = order.getEncodedRoute();
-        cityId = order.getCityId();
+//        cityId = order.getCityId();
     }
 
     @Override

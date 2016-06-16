@@ -54,7 +54,7 @@ public class PlaceAutocompleteAdapter
      */
     private ArrayList<RouteItem> mResultList;
 
-    private int city;
+//    private int city;
 
     public interface NetworkError {
         void noInternet();
@@ -62,9 +62,9 @@ public class PlaceAutocompleteAdapter
 
     private NetworkError callback;
 
-    public PlaceAutocompleteAdapter(Context context, int city) {
+    public PlaceAutocompleteAdapter(Context context/*, int city*/) {
         super(context, R.layout.autocomplete_item, R.id.tv_address);
-        this.city = city;
+//        this.city = city;
     }
 
     public void setNetworkErrorListener(NetworkError callback) {
@@ -120,14 +120,6 @@ public class PlaceAutocompleteAdapter
                 if (constraint != null) {
                     // Query the autocomplete API for the (constraint) search string.
                     mResultList = getAutocomplete(constraint.toString());
-                    if(mResultList.size() == 1) {
-                        RouteItem singleStreetRouteItem = mResultList.get(0);
-                        ArrayList<RouteItem> items = new ArrayList<>();
-                        for(House house : singleStreetRouteItem.getHouses()) {
-                            items.add(new RouteItem(singleStreetRouteItem.getStreet() + ", " + house.getHouse(), new LatLng(house.getLat(), house.getLng())));
-                        }
-                        mResultList = items;
-                    }
                     if (mResultList != null) {
                         // The API successfully returned result
                         results.count = mResultList.size();
@@ -139,6 +131,15 @@ public class PlaceAutocompleteAdapter
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 if (results != null && results.count > 0) {
+
+                    if(mResultList.size() == 1) {
+                        RouteItem singleStreetRouteItem = mResultList.get(0);
+                        ArrayList<RouteItem> items = new ArrayList<>();
+                        for(House house : singleStreetRouteItem.getHouses()) {
+                            items.add(new RouteItem(singleStreetRouteItem.getStreet() + ", " + house.getHouse(), new LatLng(house.getLat(), house.getLng())));
+                        }
+                        mResultList = items;
+                    }
                     // The API returned at least one result, update the data.
                     notifyDataSetChanged();
                 } else {

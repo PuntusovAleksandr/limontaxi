@@ -55,13 +55,13 @@ public class Order {
 
     private String encodedRoute;
 
-    private Integer cityId;
+//    private Integer cityId;
 
     private Order() {
         rate = RATE_BASE;
         comment = "";
         route = new ArrayList<>();
-        cityId = null;
+//        cityId = null;
         cost = null;
     }
 
@@ -89,13 +89,13 @@ public class Order {
         this.routeUndefined = routeUndefined;
     }
 
-    public Integer getCityId() {
-        return cityId;
-    }
+//    public Integer getCityId() {
+//        return cityId;
+//    }
 
-    public void setCityId(Integer cityId) {
-        this.cityId = cityId;
-    }
+//    public void setCityId(Integer cityId) {
+//        this.cityId = cityId;
+//    }
 
     public boolean isEmptyTrunk() {
         return emptyTrunk;

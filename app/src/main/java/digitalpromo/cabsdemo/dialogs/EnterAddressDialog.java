@@ -183,7 +183,7 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
         mAutoCompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
         mAutoCompleteTextView.addTextChangedListener(mTextWatcher);
 
-        mAdapter = new PlaceAutocompleteAdapter(getActivity(), Order.getInstance().getCityId());
+        mAdapter = new PlaceAutocompleteAdapter(getActivity()/*, Order.getInstance().getCityId()*/);
         mAdapter.setNetworkErrorListener(this);
         mAutoCompleteTextView.setAdapter(mAdapter);
 

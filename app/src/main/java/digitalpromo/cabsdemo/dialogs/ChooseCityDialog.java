@@ -103,7 +103,7 @@ public class ChooseCityDialog extends DialogFragment {
                 for (City city : cities) {
                     if (city.getId() == checkedId) {
                         Log.d(TAG, "onCheckedChanged: city " + city.toString());
-                        Order.getInstance().setCityId(checkedId);
+//                        Order.getInstance().setCityId(checkedId);
                         Bundle data = new Bundle();
                         data.putString(ARGS_CITY, city.getName());
                         mListener.OnDialogPositiveClick(dialog, data);

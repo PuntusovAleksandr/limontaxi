@@ -149,6 +149,7 @@ public class OrderFragment
         Toolbar bottomToolbar = (Toolbar) v.findViewById(R.id.bottom_toolbar);
 
         tvCity = (TextView) bottomToolbar.findViewById(R.id.tv_city);
+        tvCity.setText("Киев");
         tvUserPhone = (TextView) bottomToolbar.findViewById(R.id.tv_phone);
         tvOrderCost = (TextView) bottomToolbar.findViewById(R.id.tv_cost);
 
@@ -169,9 +170,11 @@ public class OrderFragment
                             dialog = EnterDataDialog.newInstance(EnterDataDialog.TYPE_NOTIFY_PHONE);
                             dialog.setTargetFragment(getTarget(), 0);
                             dialog.show(getFragmentManager(), EnterDataDialog.TAG);
-                        } else if (!isCityChosen()) {
-                            getCities();
-                        } else if (Order.getInstance().getRoute().isEmpty()) {
+                        }
+//                        else if (!isCityChosen()) {
+//                            getCities();
+//                        }
+                        else if (Order.getInstance().getRoute().isEmpty()) {
                             setTutorial();
                         } else {
                             makeOrder();
@@ -363,9 +366,9 @@ public class OrderFragment
 
                     @Override
                     public void onShowcaseDismissed(MaterialShowcaseView materialShowcaseView) {
-                        if (!isCityChosen()) {
-                            getCities();
-                        }
+//                        if (!isCityChosen()) {
+//                            getCities();
+//                        }
                     }
                 })
                 .show();
@@ -407,6 +410,8 @@ public class OrderFragment
             setTutorial();
         }
 
+        mListener.displayProgress(false);
+
         EventBus.getDefault().register(this);
     }
 
@@ -428,7 +433,7 @@ public class OrderFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        Order.getInstance().setCityId(1);
+//        Order.getInstance().setCityId(1);
     }
 
     @Override
@@ -515,11 +520,11 @@ public class OrderFragment
                 setUserPhone(phone);
             }
         } else {
-            String city = data.getString(ChooseCityDialog.ARGS_CITY, "");
+//            String city = data.getString(ChooseCityDialog.ARGS_CITY, "");
 
-            if (!city.isEmpty()) {
-                setCity(city);
-            } else {
+//            if (!city.isEmpty()) {
+//                setCity(city);
+//            } else {
                 int index = data.getInt(EnterAddressDialog.ARGS_INDEX, -1);
 
                 String address = data.getString(EnterAddressDialog.ARGS_ADDRESS);
@@ -532,7 +537,7 @@ public class OrderFragment
                 } else {
                     mAdapter.updateItem(item, index);
                 }
-            }
+//            }
         }
         dialog.cancel();
     }
@@ -603,35 +608,34 @@ public class OrderFragment
      * Check whether city was chosen or not.
      * @return true if it was and false - otherwise
      */
-    private boolean isCityChosen() {
-        return Order.getInstance().getCityId() != null;
+//    private boolean isCityChosen() {
+//        return Order.getInstance().getCityId() != null;
+//    }
 
-    }
-
-    private void getCities() {
-        ApiClient.getInstance().getCities(new ApiClient.ApiCallback<GetCitiesResponse>() {
-            @Override
-            public void response(GetCitiesResponse response) {
-                if (response.isOK()) {
-                    ChooseCityDialog fragment = ChooseCityDialog.newInstance(response.getCities());
-                    fragment.setTargetFragment(getTarget(), 0);
-                    fragment.show(getFragmentManager(), ChooseCityDialog.TAG);
-                } else {
-
-                }
-            }
-
-            @Override
-            public void error() {
-
-            }
-
-            @Override
-            public void noInternetConnection() {
-                ApiClient.getInstance().showAlert(getActivity());
-            }
-        });
-    }
+//    private void getCities() {
+//        ApiClient.getInstance().getCities(new ApiClient.ApiCallback<GetCitiesResponse>() {
+//            @Override
+//            public void response(GetCitiesResponse response) {
+//                if (response.isOK()) {
+//                    ChooseCityDialog fragment = ChooseCityDialog.newInstance(response.getCities());
+//                    fragment.setTargetFragment(getTarget(), 0);
+//                    fragment.show(getFragmentManager(), ChooseCityDialog.TAG);
+//                } else {
+//
+//                }
+//            }
+//
+//            @Override
+//            public void error() {
+//
+//            }
+//
+//            @Override
+//            public void noInternetConnection() {
+//                ApiClient.getInstance().showAlert(getActivity());
+//            }
+//        });
+//    }
 
     private void makeOrder() {
         mListener.displayProgress(true);
@@ -698,7 +702,7 @@ public class OrderFragment
      * @param index - need for edit mode, can be null for add mode
      */
     private void openEnterAddressDialog(@Nullable Integer index) {
-        if (isCityChosen()) {
+//        if (isCityChosen()) {
             if (index != null) {
                 EnterAddressDialog dialog = EnterAddressDialog.newInstanceEdit(index);
                 dialog.setCancelable(true);
@@ -713,9 +717,9 @@ public class OrderFragment
                 dialog.setTargetFragment(getTarget(), 1);
                 dialog.show(getFragmentManager(), EnterAddressDialog.TAG);
             }
-        } else {
-            getCities();
-        }
+//        } else {
+//            getCities();
+//        }
     }
 
     /**
@@ -723,18 +727,18 @@ public class OrderFragment
      * @param index - need for edit mode, can be null for add mode
      */
     private void openMap(@Nullable Integer index) {
-        if (isCityChosen()) {
+//        if (isCityChosen()) {
             Intent intent = new Intent(getActivity(), MapActivity.class);
             intent.putExtra(MapActivity.EXTRA_INDEX, index);
             startActivityForResult(intent, MapActivity.REQUEST_ADDRESS);
-        } else {
-            getCities();
-        }
+//        } else {
+//            getCities();
+//        }
     }
 
-    private void setCity(String city) {
-        tvCity.setText(city);
-    }
+//    private void setCity(String city) {
+//        tvCity.setText(city);
+//    }
 
     private void setUserPhone(String phone) {
         Order.getInstance().setPhone(phone);
@@ -761,9 +765,9 @@ public class OrderFragment
             case ChooseDialog.ACTION_MAP:
                 openMap(position);
                 break;
-            case ChooseDialog.ACTION_CITY:
-                getCities();
-                break;
+//            case ChooseDialog.ACTION_CITY:
+//                getCities();
+//                break;
             case ChooseDialog.ACTION_PHONE:
                 EnterDataDialog dialog = EnterDataDialog.newInstance(EnterDataDialog.TYPE_NOTIFY_PHONE);
                 dialog.setTargetFragment(getTarget(), 0);

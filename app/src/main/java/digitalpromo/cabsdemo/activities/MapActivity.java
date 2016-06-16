@@ -24,11 +24,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import digitalpromo.cabsdemo.R;
 import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
 import digitalpromo.cabsdemo.api.new_api.GetAddressResponse;
 import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.api.old_api.MyGoogleApiClient;
+import digitalpromo.cabsdemo.models.RouteItem;
 import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -327,19 +330,28 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void getAddress(LatLng latLng) {
         showProgress(true);
-        final Activity activity = this;
+//        final Activity activity = this;
 
         ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
-        Call<GetAddressResponse> call = client.getAddress(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude), "10");
+        Call<GetAddressResponse> call = client.getAddress(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude));
         call.enqueue(new Callback<GetAddressResponse>() {
             @Override
             public void onResponse(Call<GetAddressResponse> call, Response<GetAddressResponse> response) {
+                showProgress(false);
+                if(response.isSuccessful()) {
+                    ArrayList<RouteItem> items = response.body().getAddress();
+                    if(items != null && items.size() > 0) {
+                        String address = items.get(0).getAddress();
+                        setAddress(address);
+                    }
+                } else {
 
+                }
             }
 
             @Override
             public void onFailure(Call<GetAddressResponse> call, Throwable t) {
-
+                showProgress(false);
             }
         });
 

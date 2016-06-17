@@ -21,7 +21,9 @@ public class App extends MultiDexApplication implements Application.ActivityLife
         MultiDex.install(this);
     }
 
+    /*context*/
     private static Context context;
+
 
     @Override
     public void onCreate() {

@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -21,14 +20,11 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
 import digitalpromo.cabsdemo.adapters.HistoryAdapter;
 import digitalpromo.cabsdemo.api.new_api.ApiTaxiClient;
 import digitalpromo.cabsdemo.api.new_api.GetOrderHistoryResponse;
 import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
-import digitalpromo.cabsdemo.api.old_api.ApiClient;
-import digitalpromo.cabsdemo.api.old_api.GetOrdersHistoryResponse;
 import digitalpromo.cabsdemo.events.MessageEvent;
 import digitalpromo.cabsdemo.models.HistoryItem;
 import digitalpromo.cabsdemo.models.Order;
@@ -104,8 +100,7 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-//        getHistoryForToday();
-        getOrdersHistoryForAllDates();
+        getHistoryForToday();
     }
 
     @Override
@@ -185,55 +180,20 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         String date = FormatUtils.getDateString(year, monthOfYear, dayOfMonth);
         Log.d(TAG, "onDateSet: date - " + date);
-//        getOrdersHistory(date);
-        getOrdersHistoryForAllDates();
+        getOrdersHistory(date);
     }
 
 
     private void getOrdersHistory(String date) {
         mListener.displayProgress(true);
-        ApiClient.getInstance().getOrdersHistory(date, new ApiClient.ApiCallback<GetOrdersHistoryResponse>() {
-            @Override
-            public void response(GetOrdersHistoryResponse response) {
-                mListener.displayProgress(false);
-                if (response.isOK()) {
-                    // specify an adapter (see also next example)
-                    RecyclerView.Adapter mAdapter = new HistoryAdapter(response.getHistory(), onItemClickListener);
-                    mRecyclerView.setAdapter(mAdapter);
-                } else {
-                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void error() {
-                mListener.displayProgress(false);
-            }
-
-            @Override
-            public void noInternetConnection() {
-                mListener.displayProgress(false);
-                ApiClient.getInstance().showAlert(getActivity());
-            }
-        });
-    }
-
-    private void getHistoryForToday() {
-        Calendar c = Calendar.getInstance();
-        String date = FormatUtils.getDateString(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-        getOrdersHistory(date);
-    }
-
-    private void getOrdersHistoryForAllDates() {
-        mListener.displayProgress(true);
         ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
-        Call<GetOrderHistoryResponse> call = client.getOrdersHistory();
+        Call<GetOrderHistoryResponse> call = client.getOrdersHistory("2016.06.16", "2016.06.17");
         call.enqueue(new Callback<GetOrderHistoryResponse>() {
             @Override
             public void onResponse(Call<GetOrderHistoryResponse> call, Response<GetOrderHistoryResponse> response) {
                 mListener.displayProgress(false);
                 if(response.isSuccessful()) {
-                    GetOrderHistoryResponse response1 = response.body();
+
                 }
             }
 
@@ -242,5 +202,35 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
                 mListener.displayProgress(false);
             }
         });
+//        ApiClient.getInstance().getOrdersHistory(date, new ApiClient.ApiCallback<GetOrdersHistoryResponse>() {
+//            @Override
+//            public void response(GetOrdersHistoryResponse response) {
+//                mListener.displayProgress(false);
+//                if (response.isOK()) {
+//                    // specify an adapter (see also next example)
+//                    RecyclerView.Adapter mAdapter = new HistoryAdapter(response.getHistory(), onItemClickListener);
+//                    mRecyclerView.setAdapter(mAdapter);
+//                } else {
+//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void error() {
+//                mListener.displayProgress(false);
+//            }
+//
+//            @Override
+//            public void noInternetConnection() {
+//                mListener.displayProgress(false);
+//                ApiClient.getInstance().showAlert(getActivity());
+//            }
+//        });
+    }
+
+    private void getHistoryForToday() {
+        Calendar c = Calendar.getInstance();
+        String date = FormatUtils.getDateString(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+        getOrdersHistory(date);
     }
  }

@@ -11,7 +11,7 @@ import digitalpromo.cabsdemo.App;
  * Hold methods to convert screen dimensions values
  */
 public class FormatUtils {
-    private static final SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat date = new SimpleDateFormat("yyyy:MM:dd");
     private static final SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
 
     /**

@@ -27,13 +27,12 @@ public class Order {
     private boolean animals;
     private boolean delivery;
     private boolean baggage;
-    private boolean meetWithTable;
+//    private boolean meetWithTable;
     private boolean emptyTrunk;
     private boolean routeUndefined;
     private boolean terminalPay;
     private boolean preOrder;
     private boolean receiptNeed;
-
 
     private int rate;
 
@@ -141,13 +140,13 @@ public class Order {
         this.baggage = baggage;
     }
 
-    public boolean isMeetWithTable() {
-        return meetWithTable;
-    }
+//    public boolean isMeetWithTable() {
+//        return meetWithTable;
+//    }
 
-    public void setMeetWithTable(boolean meetWithTable) {
-        this.meetWithTable = meetWithTable;
-    }
+//    public void setMeetWithTable(boolean meetWithTable) {
+//        this.meetWithTable = meetWithTable;
+//    }
 
     public int getRate() {
         return rate;
@@ -260,12 +259,16 @@ public class Order {
         animals = false;
         delivery = false;
         baggage = false;
-        meetWithTable = false;
+//        meetWithTable = false;
+        emptyTrunk = false;
+        routeUndefined = false;
+        terminalPay = false;
+        preOrder = false;
+        receiptNeed = false;
         distance = 0;
         cost = null;
         addCost = 0;
         comment = "";
-        preOrder = false;
         orderDate = null;
         orderTime = null;
         encodedRoute = null;

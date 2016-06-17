@@ -69,7 +69,7 @@ public class GetOrderCostRequest extends BaseRequest {
         animals = order.isAnimals();
         delivery = order.isDelivery();
         baggage = order.isBaggage();
-        meetWithTable = order.isMeetWithTable();
+//        meetWithTable = order.isMeetWithTable();
         emptyTrunk = order.isEmptyTrunk();
         rate = order.getRate();
         route = order.getRoute();

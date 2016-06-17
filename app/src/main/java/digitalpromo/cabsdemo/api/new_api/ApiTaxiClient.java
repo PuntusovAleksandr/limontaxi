@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -49,8 +50,8 @@ public interface ApiTaxiClient {
     @POST("weborders")
     Call<MakeOrderResponse> makeOrder(@Body MakeOrderRequest request);
 
-    @GET("clients/ordershistory")
-    Call<GetOrderHistoryResponse> getOrdersHistory();
+    @GET("clients/ordersreport")
+    Call<GetOrderHistoryResponse> getOrdersHistory(@Query("dateFrom") String dateFrom, @Query("dateTo") String dateTo);
 
     @POST("account/restore/sendConfirmCode")
     Call<ResponseBody> getConfirmCodeForPasswordRecovery(@Body SendConfirmCodeForRestorePasswordRequest request);

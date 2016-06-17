@@ -109,7 +109,7 @@ public class MakeOrderRequest extends BaseRequest {
         animals = order.isAnimals();
         delivery = order.isDelivery();
         baggage = order.isBaggage();
-        meetWithTable = order.isMeetWithTable();
+//        meetWithTable = order.isMeetWithTable();
         emptyTrunk = order.isEmptyTrunk();
         rate = order.getRate();
         phone = order.getPhone();

@@ -9,8 +9,8 @@
     >
 
     <include
-        android:id="@+id/code_confirm"
-        layout="@layout/item_code_confirm"/>
+        android:id="@+id/phone_to_code_confirm"
+        layout="@layout/item_phone_to_code_confirm"/>
 
     <LinearLayout
         android:id="@+id/ll_reg_info_container"

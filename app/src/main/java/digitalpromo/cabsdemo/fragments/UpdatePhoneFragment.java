@@ -6,14 +6,12 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
-import com.google.android.gms.common.api.Api;
 
 import digitalpromo.cabsdemo.App;
 import digitalpromo.cabsdemo.R;
@@ -22,7 +20,6 @@ import digitalpromo.cabsdemo.api.new_api.ChangePhoneRequest;
 import digitalpromo.cabsdemo.api.new_api.GetConfirmCodeForChangePhoneRequest;
 import digitalpromo.cabsdemo.api.new_api.ServiceGenerator;
 import digitalpromo.cabsdemo.api.old_api.ApiClient;
-import digitalpromo.cabsdemo.api.old_api.BaseResponse;
 import digitalpromo.cabsdemo.utils.PhoneUtils;
 import digitalpromo.cabsdemo.utils.SharedPreferencesManager;
 import okhttp3.ResponseBody;
@@ -84,7 +81,7 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
     @Override
     protected void initViews() {
         aq.id(R.id.get_code).visible();
-        aq.id(R.id.code_confirm).gone();
+        aq.id(R.id.phone_to_code_confirm).gone();
 
 //        aq.id(R.id.et_phone).getEditText().addTextChangedListener(mTextWatcher);
 //        aq.id(R.id.et_code).getEditText().addTextChangedListener(mTextWatcher);
@@ -99,7 +96,7 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
             super.onBackPressed();
         } else {
             aq.id(R.id.get_code).visible();
-            aq.id(R.id.code_confirm).gone();
+            aq.id(R.id.phone_to_code_confirm).gone();
         }
     }
 
@@ -241,7 +238,7 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
                 mListener.displayProgress(false);
                 if(response.isSuccessful()) {
                     aq.id(R.id.get_code).gone();
-                    aq.id(R.id.code_confirm).visible();
+                    aq.id(R.id.phone_to_code_confirm).visible();
                 } else {
                     Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
                 }

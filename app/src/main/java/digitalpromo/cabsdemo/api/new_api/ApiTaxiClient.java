@@ -51,4 +51,10 @@ public interface ApiTaxiClient {
 
     @GET("clients/ordershistory")
     Call<GetOrderHistoryResponse> getOrdersHistory();
+
+    @POST("account/restore/sendConfirmCode")
+    Call<ResponseBody> getConfirmCodeForPasswordRecovery(@Body SendConfirmCodeForRestorePasswordRequest request);
+
+    @POST("account/restore")
+    Call<ResponseBody> restorePassword(@Body RestorePasswordRequest request);
 }

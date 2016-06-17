@@ -157,7 +157,7 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
                     getConfirmCode(phone_confirm);
                     aq.id(R.id.et_phone).getEditText().setText(phone_confirm);
                     aq.id(R.id.ll_reg_info_container).visible();
-                    aq.id(R.id.code_confirm).gone();
+                    aq.id(R.id.phone_to_code_confirm).gone();
                 }
 
 //                String code = aq.id(R.id.et_code).getEditable().toString();
@@ -176,7 +176,7 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
      */
     protected void initViews() {
         aq.id(R.id.ll_reg_info_container).gone();
-        aq.id(R.id.code_confirm).visible();
+        aq.id(R.id.phone_to_code_confirm).visible();
 
         aq.id(R.id.et_name).getEditText().addTextChangedListener(mTextWatcher);
         aq.id(R.id.et_phone).getEditText().addTextChangedListener(mTextWatcher);

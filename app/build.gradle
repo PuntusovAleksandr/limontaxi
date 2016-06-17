@@ -34,7 +34,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
     defaultConfig {
-        applicationId "digitalpromo.cabsdemo"
+        applicationId 'taxi.lemon'
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1

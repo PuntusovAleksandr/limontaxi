@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">CabsDemo</string>
+    <string name="app_name">Taxi Lemon</string>
     <string name="content_logo">Logo</string>
     <string name="content_icon">Icon</string>
 
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+    <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
         AIzaSyCYtxuZCdviIJIDI7rck5HJNNO7m-jf1Yg
     </string>
     <string name="geocoding_key" templateMergeStrategy="preserve" translatable="false">
@@ -11,6 +11,16 @@
     </string>
     <string name="directions_key" templateMergeStrategy="preserve" translatable="false">
          AIzaSyBLc1dYq4JgFOMzQ6gLDtFUlYBkcQmIx1g
+    </string>-->
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+         AIzaSyBOXETKKhcN9v6tecLVbq2HHsgjdCNKUQQ
+    </string>
+    <string name="geocoding_key" templateMergeStrategy="preserve" translatable="false">
+         AIzaSyAsbAuUcDD_kRPFcJzXeIaU9qwsxg3gJFg
+    </string>
+    <string name="directions_key" templateMergeStrategy="preserve" translatable="false">
+         AIzaSyAi7QM0UglZdIeZHnzBoTGnTOr3MGSevvI
     </string>
 
     <string name="gps_network_not_enabled">Не удалось определить местоположение</string>

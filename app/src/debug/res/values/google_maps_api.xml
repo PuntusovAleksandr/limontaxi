@@ -2,7 +2,10 @@
     <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
         AIzaSyCYtxuZCdviIJIDI7rck5HJNNO7m-jf1Yg
     </string>-->
+    <!--<string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">-->
+         <!--AIzaSyBBJkkugz9-f7J1JZkLonEVLwFxB7LPwXM-->
+    <!--</string>-->
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
-         AIzaSyBBJkkugz9-f7J1JZkLonEVLwFxB7LPwXM
+         AIzaSyBOXETKKhcN9v6tecLVbq2HHsgjdCNKUQQ
     </string>
 </resources>

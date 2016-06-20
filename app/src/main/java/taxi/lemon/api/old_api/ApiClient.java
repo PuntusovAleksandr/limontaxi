@@ -332,31 +332,6 @@ public class ApiClient {
     }
 
     /**
-     * Request to get user's profile
-     * @param callback callback for ui updates
-     */
-    public void getUserProfile(final  ApiCallback<GetUserProfileResponse> callback) {
-        AjaxCallback<GetUserProfileResponse> cb = new AjaxCallback<GetUserProfileResponse>() {
-            @Override
-            public void callback(String url, GetUserProfileResponse response, AjaxStatus status) {
-                if (status.getCode() == HttpsURLConnection.HTTP_OK && response != null) {
-                    callback.response(response);
-                } else {
-                    Log.d(TAG, "callback: error - " + status.getError());
-                    if (!hasActiveInternetConnection()) {
-                        callback.noInternetConnection();
-                    } else {
-                        callback.error();
-                    }
-                }
-            }
-        };
-
-        GetUserProfileRequest request = new GetUserProfileRequest();
-        doRequest(request, GetUserProfileResponse.class, cb, true);
-    }
-
-    /**
      * Request to edit user profile
      * @param firstName user's first name
      * @param middleName user's middle name

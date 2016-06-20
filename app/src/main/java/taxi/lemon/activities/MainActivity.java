@@ -376,39 +376,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 displayProgress(false);
             }
         });
-//        ApiClient.getInstance().getUserProfile(new ApiClient.ApiCallback<GetUserProfileResponse>() {
-//            @Override
-//            public void response(GetUserProfileResponse response) {
-//                displayProgress(false);
-//
-//                if (response.isOK()) {
-//                    Log.d(TAG, "response: success");
-//
-//                    if (UserProfile.getInstance() == null) {
-//                        UserProfile.initInstance(response);
-//                    } else {
-//                        UserProfile.getInstance().updateData(response);
-//                    }
-//
-//                    setUserName(UserProfile.getInstance().getName().trim());
-//                    Order.getInstance().setPhone(UserProfile.getInstance().getPhone());
-//                    EventBus.getDefault().post(new MessageEvent(MessageEvent.EVENT_SET_USER_PHONE));
-//                } else {
-//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void error() {
-//                Log.d(TAG, "error: ");
-//                displayProgress(false);
-//            }
-//
-//            @Override
-//            public void noInternetConnection() {
-//                displayProgress(false);
-//            }
-//        });
     }
 
     private void callToDispatcher() {

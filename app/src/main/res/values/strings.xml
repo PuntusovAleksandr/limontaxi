@@ -63,6 +63,7 @@
     <string name="rf_hint_code">Код из СМС</string>
     <string name="rf_btn_register">Зарегистрироваться</string>
     <string name="rf_btn_confirm">Подтвердить</string>
+    <string name="rf_send_confirm_code">Отправить код подтверждения</string>
     <!--RestorePasswordFragment-->
     <string name="rpf_title_restore_password">Восстановление пароля</string>
     <string name="rpf_hint_phone">Номер телефона</string>
@@ -103,6 +104,7 @@
     <string name="item_logout">Выйти</string>
     <string name="item_profile">Профиль</string>
     <string name="guest">Гость</string>
+    <string name="call_to_dispatcher">Позвонить в диспетчерскую</string>
     <!--ProfileFragment-->
     <string name="pf_title_profile">Профиль</string>
     <string name="pf_login">Логин:</string>
@@ -202,4 +204,5 @@
     <string name="ad_message_no_active_connection">Отсутствует интернет соединение. Перейти к настройкам?</string>
     <string name="ad_pos_btn_settings">settings</string>
     <string name="in_city">По городу</string>
+    <string name="dispatcher_number">380632375858</string>
 </resources>

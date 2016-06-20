@@ -152,6 +152,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             setContainerPadding(true);
             ft.replace(R.id.content_container, new ProfileFragment()).commit();
 //            showNotifyPhoneItem(false);
+        } else if(id == R.id.nav_call_dispatcher) {
+            callToDispatcher();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -407,5 +409,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //                displayProgress(false);
 //            }
 //        });
+    }
+
+    private void callToDispatcher() {
+        Uri dispatcherNumber = Uri.parse("tel:" + getResources().getString(R.string.dispatcher_number));
+        Intent i = new Intent(Intent.ACTION_DIAL, dispatcherNumber);
+        startActivity(i);
     }
 }

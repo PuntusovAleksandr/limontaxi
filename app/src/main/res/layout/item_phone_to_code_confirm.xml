@@ -11,7 +11,7 @@
         >
         <EditText
             android:id="@+id/et_phone_for_code"
-            android:hint="@string/rf_hint_code"
+            android:hint="@string/rf_hint_phone"
             android:inputType="phone"
             style="@style/AppTheme.EditText"
             android:drawableStart="@drawable/ic_phone"
@@ -22,7 +22,7 @@
     <Button
         android:id="@+id/btn_confirm"
         style="@style/AppTheme.Button"
-        android:text="@string/rf_btn_confirm"
+        android:text="@string/rf_send_confirm_code"
         android:layout_gravity="center_horizontal"
         />
 

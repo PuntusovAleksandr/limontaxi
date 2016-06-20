@@ -32,6 +32,10 @@
             android:icon="@drawable/ic_comment"
             android:title="@string/item_comment"
             />
+        <item android:id="@+id/nav_call_dispatcher"
+            android:icon="@drawable/ic_call_to_dispatcher"
+            android:title="@string/call_to_dispatcher"
+            />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_logout"

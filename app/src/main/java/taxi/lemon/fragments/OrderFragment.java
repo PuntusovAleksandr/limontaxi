@@ -642,40 +642,6 @@ public class OrderFragment
                 ApiClient.getInstance().showAlert(getActivity());
             }
         });
-
-//        ApiClient.getInstance().makeOrder(new ApiClient.ApiCallback<BaseResponse>() {
-//            @Override
-//            public void response(BaseResponse response) {
-//                mListener.displayProgress(false);
-//                if (response.isOK()) {
-//                    NotificationCompat.Builder builder =
-//                            new NotificationCompat.Builder(getContext())
-//                                    .setSmallIcon(R.drawable.ic_notification)
-//                                    .setContentTitle("Заказ успешно отправлен.")
-//                                    .setContentText("Ожидайте уведомления или звонка от диспетчера.")
-//                                    .setDefaults(Notification.DEFAULT_SOUND);
-//
-//                    NotificationManager notificationManagerCompat =
-//                            (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-//                    notificationManagerCompat.notify(1, builder.build());
-//
-//                    Order.getInstance().resetOrder();
-//
-//                    setAdapter();
-//                }
-//            }
-//
-//            @Override
-//            public void error() {
-//                mListener.displayProgress(false);
-//            }
-//
-//            @Override
-//            public void noInternetConnection() {
-//                mListener.displayProgress(false);
-//                ApiClient.getInstance().showAlert(getActivity());
-//            }
-//        });
     }
 
 

@@ -388,33 +388,6 @@ public class ApiClient {
     }
 
     /**
-     * Request to make the order
-     * @param callback callback for ui updates
-     */
-    public void makeOrder(final ApiCallback<BaseResponse> callback) {
-        AjaxCallback<BaseResponse> cb = new AjaxCallback<BaseResponse>() {
-            @Override
-            public void callback(String url, BaseResponse response, AjaxStatus status) {
-                if (status.getCode() == HttpsURLConnection.HTTP_OK && response != null) {
-                    callback.response(response);
-                } else {
-                    Log.d(TAG, "callback: code - " + status.getCode());
-                    Log.d(TAG, "callback: error - " + status.getError());
-                    if (!hasActiveInternetConnection()) {
-                        callback.noInternetConnection();
-                    } else {
-                        callback.error();
-                    }
-                }
-            }
-        };
-
-        MakeOrderRequest request = new MakeOrderRequest();
-        Log.d(TAG, "makeOrder: \n" + request.toString());
-        doRequest(request, BaseResponse.class, cb, false);
-    }
-
-    /**
      * Request to get user's orders history
      * @param date date of required history
      * @param callback callback for ui updates

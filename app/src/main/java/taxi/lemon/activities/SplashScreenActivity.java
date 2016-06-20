@@ -12,7 +12,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     /**
      * Delay for displaying splash screen
      */
-    public static final int DELAY = 3 * 1000;
+    public static final int DELAY = 30 * 1000;
 
     /**
      * Step for countdown timer

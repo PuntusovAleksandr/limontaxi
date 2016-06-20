@@ -388,31 +388,6 @@ public class ApiClient {
     }
 
     /**
-     * Request to get order cost
-     * @param callback callback for ui updates
-     */
-    public void getOrderCost(final ApiCallback<GetOrderCostResponse> callback) {
-        AjaxCallback<GetOrderCostResponse> cb = new AjaxCallback<GetOrderCostResponse>() {
-            @Override
-            public void callback(String url, GetOrderCostResponse response, AjaxStatus status) {
-                if (status.getCode() == HttpsURLConnection.HTTP_OK && response != null) {
-                    callback.response(response);
-                } else {
-                    Log.d(TAG, "callback: error - " + status.getError());
-                    if (!hasActiveInternetConnection()) {
-                        callback.noInternetConnection();
-                    } else {
-                        callback.error();
-                    }
-                }
-            }
-        };
-
-        GetOrderCostRequest request = new GetOrderCostRequest();
-        doRequest(request, GetOrderCostResponse.class, cb, false);
-    }
-
-    /**
      * Request to make the order
      * @param callback callback for ui updates
      */

@@ -576,28 +576,6 @@ public class OrderFragment
                 mListener.displayProgress(false);
             }
         });
-
-//        ApiClient.getInstance().getOrderCost(new ApiClient.ApiCallback<GetOrderCostResponse>() {
-//            @Override
-//            public void response(GetOrderCostResponse response) {
-//                mListener.displayProgress(false);
-//                if (response.isOK()) {
-//                    Order.getInstance().setCost(Double.parseDouble(response.getCost()));
-//                    setOrderCost(response.getCost());
-//                }
-//            }
-//
-//            @Override
-//            public void error() {
-//                mListener.displayProgress(false);
-//            }
-//
-//            @Override
-//            public void noInternetConnection() {
-//                mListener.displayProgress(false);
-//                ApiClient.getInstance().showAlert(getActivity());
-//            }
-//        });
     }
 
     /**

@@ -187,15 +187,15 @@ public class PreferencesActivity extends AppCompatActivity implements DialogButt
             case Order.RATE_PREMIUM:
                 ((RadioButton) aq.id(R.id.rb_premium).getView()).setChecked(true);
                 break;
-//            case Order.RATE_TRUCK:
-//                ((RadioButton) aq.id(R.id.rb_truck).getView()).setChecked(true);
-//                break;
             case Order.RATE_WAGON:
                 ((RadioButton) aq.id(R.id.rb_wagon).getView()).setChecked(true);
                 break;
             case Order.RATE_MINIBUS:
                 ((RadioButton) aq.id(R.id.rb_minibus).getView()).setChecked(true);
                 break;
+//            case Order.RATE_TRUCK:
+//                ((RadioButton) aq.id(R.id.rb_truck).getView()).setChecked(true);
+//                break;
 //            case Order.RATE_BUSINESS:
 //                ((RadioButton) aq.id(R.id.rb_business).getView()).setChecked(true);
 //                break;

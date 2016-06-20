@@ -211,33 +211,6 @@ public class RestorePasswordActivity extends AppCompatActivity implements View.O
                 ApiClient.getInstance().showAlert(activity);
             }
         });
-
-//        ApiClient.getInstance().getPasswordRecoveryConfirmationCode(phone, new ApiClient.ApiCallback<BaseResponse>() {
-//            @Override
-//            public void response(BaseResponse response) {
-//                aq.id(R.id.pb_progress).gone();
-//                if (response.isOK()) {
-//                    Log.d(TAG, "response: success");
-//
-//                    aq.id(R.id.ll_code_confirm).gone();
-//                    aq.id(R.id.ll_new_password).visible();
-//                } else {
-//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void error() {
-//                Log.d(TAG, "error: ");
-//                aq.id(R.id.pb_progress).gone();
-//            }
-//
-//            @Override
-//            public void noInternetConnection() {
-//                aq.id(R.id.pb_progress).gone();
-//                ApiClient.getInstance().showAlert(activity);
-//            }
-//        });
     }
 
     private void restorePassword(String phone, String confirmCode, final String password) {
@@ -263,30 +236,5 @@ public class RestorePasswordActivity extends AppCompatActivity implements View.O
                 ApiClient.getInstance().showAlert(activity);
             }
         });
-//        ApiClient.getInstance().recoverPassword(code, newPassword, new ApiClient.ApiCallback<BaseResponse>() {
-//            @Override
-//            public void response(BaseResponse response) {
-//                aq.id(R.id.pb_progress).gone();
-//                if (response.isOK()) {
-//                    Log.d(TAG, "response: success");
-//                    SharedPreferencesManager.getInstance().saveUserPassword(newPassword);
-//                    finish();
-//                } else {
-//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void error() {
-//                aq.id(R.id.pb_progress).gone();
-//                Log.d(TAG, "error: ");
-//            }
-//
-//            @Override
-//            public void noInternetConnection() {
-//                aq.id(R.id.pb_progress).gone();
-//                ApiClient.getInstance().showAlert(activity);
-//            }
-//        });
     }
 }

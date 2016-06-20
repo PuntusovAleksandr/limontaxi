@@ -415,59 +415,6 @@ public class ApiClient {
     }
 
     /**
-     * Request to get confirmation code for password recovery
-     * @param userPhone user's phone
-     * @param callback callback for ui updates
-     */
-    public void getPasswordRecoveryConfirmationCode(String userPhone, final ApiCallback<BaseResponse> callback) {
-        AjaxCallback<BaseResponse> cb = new AjaxCallback<BaseResponse>() {
-            @Override
-            public void callback(String url, BaseResponse response, AjaxStatus status) {
-                if (status.getCode() == HttpsURLConnection.HTTP_OK && response != null) {
-                    callback.response(response);
-                } else {
-                    Log.d(TAG, "callback: error - " + status.getError());
-                    if (!hasActiveInternetConnection()) {
-                        callback.noInternetConnection();
-                    } else {
-                        callback.error();
-                    }
-                }
-            }
-        };
-
-        RecoverPasswordRequest request = new RecoverPasswordRequest(userPhone);
-        doRequest(request, BaseResponse.class, cb, false);
-    }
-
-    /**
-     * Request to recover user's password
-     * @param code confirmation code
-     * @param newPassword new user's password
-     * @param callback callback for ui updates
-     */
-    public void recoverPassword(Integer code, String newPassword, final ApiCallback<BaseResponse> callback) {
-        AjaxCallback<BaseResponse> cb = new AjaxCallback<BaseResponse>() {
-            @Override
-            public void callback(String url, BaseResponse response, AjaxStatus status) {
-                if (status.getCode() == HttpsURLConnection.HTTP_OK && response != null) {
-                    callback.response(response);
-                } else {
-                    Log.d(TAG, "callback: error - " + status.getError());
-                    if (!hasActiveInternetConnection()) {
-                        callback.noInternetConnection();
-                    } else {
-                        callback.error();
-                    }
-                }
-            }
-        };
-
-        ConfirmPasswordRecoveryRequest request = new ConfirmPasswordRecoveryRequest(code, SHA512(newPassword));
-        doRequest(request, BaseResponse.class, cb, false);
-    }
-
-    /**
      * Request to get order cost
      * @param callback callback for ui updates
      */

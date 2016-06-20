@@ -243,36 +243,6 @@ public class ApiClient {
     }
 
     /**
-     * Request to edit user profile
-     * @param firstName user's first name
-     * @param middleName user's middle name
-     * @param lastName user's last name
-     * @param address user's address
-     * @param entrance entrance
-     * @param callback callback for ui updates
-     */
-    public void editUserInfo(String firstName, String middleName, String lastName, String address, String entrance, final  ApiCallback<BaseResponse> callback) {
-        AjaxCallback<BaseResponse> cb = new AjaxCallback<BaseResponse>() {
-            @Override
-            public void callback(String url, BaseResponse response, AjaxStatus status) {
-                if (status.getCode() == HttpsURLConnection.HTTP_OK && response != null) {
-                    callback.response(response);
-                } else {
-                    Log.d(TAG, "callback: error - " + status.getError());
-                    if (!hasActiveInternetConnection()) {
-                        callback.noInternetConnection();
-                    } else {
-                        callback.error();
-                    }
-                }
-            }
-        };
-
-        EditUserInfoRequest request = new EditUserInfoRequest(firstName, middleName, lastName, address, entrance);
-        doRequest(request, BaseResponse.class, cb, true);
-    }
-
-    /**
      * Request to change user's password
      * @param oldPassword old user's password
      * @param newPassword new user's password

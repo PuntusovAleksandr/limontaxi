@@ -269,30 +269,6 @@ public class LoginFragment extends BasePagerFragment implements View.OnClickList
                 ApiClient.getInstance().showAlert(getActivity());
             }
         });
-//        ApiClient.getInstance().authorization(login, password, new ApiClient.ApiCallback<BaseResponse>() {
-//            @Override
-//            public void response(BaseResponse response) {
-//                mListener.displayProgress(false);
-//                if (response.isOK()) {
-//                    SharedPreferencesManager.getInstance().saveUserLogin(login);
-//                    SharedPreferencesManager.getInstance().saveUserPassword(password);
-//                    openMainActivity(true);
-//                } else {
-//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void error() {
-//                mListener.displayProgress(false);
-//            }
-//
-//            @Override
-//            public void noInternetConnection() {
-//                mListener.displayProgress(false);
-//                ApiClient.getInstance().showAlert(getActivity());
-//            }
-//        });
     }
 
 }

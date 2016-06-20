@@ -305,33 +305,6 @@ public class ApiClient {
     }
 
     /**
-     * Request to user authorization
-     * @param login user's login
-     * @param password user's password
-     * @param callback callback for ui updates
-     */
-    public void authorization(String login, String password, final ApiCallback<BaseResponse> callback) {
-        AjaxCallback<BaseResponse> cb = new AjaxCallback<BaseResponse>() {
-            @Override
-            public void callback(String url, BaseResponse response, AjaxStatus status) {
-                if (status.getCode() == HttpsURLConnection.HTTP_OK && response != null) {
-                    callback.response(response);
-                } else {
-                    Log.d(TAG, "callback: error - " + status.getError());
-                    if (!hasActiveInternetConnection()) {
-                        callback.noInternetConnection();
-                    } else {
-                        callback.error();
-                    }
-                }
-            }
-        };
-
-        AuthorizationRequest request = new AuthorizationRequest(login, SHA512(password));
-        doRequest(request, BaseResponse.class, cb, false);
-    }
-
-    /**
      * Request to edit user profile
      * @param firstName user's first name
      * @param middleName user's middle name

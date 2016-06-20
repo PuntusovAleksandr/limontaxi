@@ -303,29 +303,5 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
                 mListener.displayProgress(false);
             }
         });
-//        ApiClient.getInstance().getConfirmationCode(GetConfirmationCodeRequest.REGISTRATION, phone, new ApiClient.ApiCallback<BaseResponse>() {
-//            @Override
-//            public void response(BaseResponse response) {
-//                mListener.displayProgress(false);
-//                if (response.isOK()) {
-//                    Log.d(TAG, "response: success");
-//                } else {
-//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void error() {
-//                mListener.displayProgress(false);
-//                Log.d(TAG, "error: ");
-//            }
-//
-//            @Override
-//            public void noInternetConnection() {
-//                mListener.displayProgress(false);
-//                ApiClient.getInstance().showAlert(getActivity());
-//            }
-//        });
     }
-
 }

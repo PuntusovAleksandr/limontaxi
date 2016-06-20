@@ -243,33 +243,6 @@ public class ApiClient {
     }
 
     /**
-     * Request to confirmation code check
-     * @param serviceName name of check confirmation code request
-     * @param phone phone for confirmation
-     * @param callback callback for ui updates
-     */
-    public void getConfirmationCode(@NonNull String serviceName, @NonNull String phone, final ApiCallback<BaseResponse> callback) {
-        AjaxCallback<BaseResponse> cb = new AjaxCallback<BaseResponse>() {
-            @Override
-            public void callback(String url, BaseResponse response, AjaxStatus status) {
-                if (status.getCode() == HttpsURLConnection.HTTP_OK && response != null) {
-                    callback.response(response);
-                } else {
-                    Log.d(TAG, "callback: error - " + status.getError());
-                    if (!hasActiveInternetConnection()) {
-                        callback.noInternetConnection();
-                    } else {
-                        callback.error();
-                    }
-                }
-            }
-        };
-
-        GetConfirmationCodeRequest request = new GetConfirmationCodeRequest(serviceName, phone);
-        doRequest(request, BaseResponse.class, cb, true);
-    }
-
-    /**
      * Request to edit user profile
      * @param firstName user's first name
      * @param middleName user's middle name

@@ -175,36 +175,6 @@ public class UpdatePasswordFragment extends BaseFragment implements View.OnClick
                 ApiClient.getInstance().showAlert(getActivity());
             }
         });
-//        ApiClient.getInstance().changePassword(oldPassword, newPassword, new ApiClient.ApiCallback<BaseResponse>() {
-//            @Override
-//            public void response(BaseResponse response) {
-//                mListener.displayProgress(false);
-//                if (response.isOK()) {
-//                    Log.d(TAG, "response: success");
-//                    SharedPreferencesManager.getInstance().saveUserPassword("");
-//                    SharedPreferencesManager.getInstance().saveAutoLoginFlag(false);
-//                    SharedPreferencesManager.getInstance().saveUserLoggedInFlag(false);
-//
-//                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-//                    intent.addFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    startActivity(intent);
-//                } else {
-//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void error() {
-//                mListener.displayProgress(false);
-//                Log.d(TAG, "error: ");
-//            }
-//
-//            @Override
-//            public void noInternetConnection() {
-//                mListener.displayProgress(false);
-//                ApiClient.getInstance().showAlert(getActivity());
-//            }
-//        });
     }
 
     /**

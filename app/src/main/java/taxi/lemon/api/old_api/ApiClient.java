@@ -243,59 +243,6 @@ public class ApiClient {
     }
 
     /**
-     * Request to change user's password
-     * @param oldPassword old user's password
-     * @param newPassword new user's password
-     * @param callback callback for ui updates
-     */
-    public void changePassword(@NonNull String oldPassword, @NonNull String newPassword, final ApiCallback<BaseResponse> callback) {
-        AjaxCallback<BaseResponse> cb = new AjaxCallback<BaseResponse>() {
-            @Override
-            public void callback(String url, BaseResponse response, AjaxStatus status) {
-                if (status.getCode() == HttpsURLConnection.HTTP_OK && response != null) {
-                    callback.response(response);
-                } else {
-                    Log.d(TAG, "callback: error - " + status.getError());
-                    if (!hasActiveInternetConnection()) {
-                        callback.noInternetConnection();
-                    } else {
-                        callback.error();
-                    }
-                }
-            }
-        };
-
-        ChangePasswordRequest request = new ChangePasswordRequest(SHA512(oldPassword), SHA512(newPassword));
-        doRequest(request, BaseResponse.class, cb, true);
-    }
-
-    /**
-     * Request to change user's phone
-     * @param newUserPhone new user's phone
-     * @param callback callback for ui updates
-     */
-    public void changePhone(String newUserPhone, final ApiCallback<BaseResponse> callback) {
-        AjaxCallback<BaseResponse> cb = new AjaxCallback<BaseResponse>() {
-            @Override
-            public void callback(String url, BaseResponse response, AjaxStatus status) {
-                if (status.getCode() == HttpsURLConnection.HTTP_OK && response != null) {
-                    callback.response(response);
-                } else {
-                    Log.d(TAG, "callback: error - " + status.getError());
-                    if (!hasActiveInternetConnection()) {
-                        callback.noInternetConnection();
-                    } else {
-                        callback.error();
-                    }
-                }
-            }
-        };
-
-        PhoneChangeRequest request = new PhoneChangeRequest(newUserPhone);
-        doRequest(request, BaseResponse.class, cb, true);
-    }
-
-    /**
      * Request to get user's orders history
      * @param date date of required history
      * @param callback callback for ui updates

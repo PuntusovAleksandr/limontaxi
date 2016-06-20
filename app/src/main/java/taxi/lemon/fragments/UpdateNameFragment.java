@@ -164,30 +164,5 @@ public class UpdateNameFragment extends BaseFragment implements View.OnClickList
                 mListener.displayProgress(false);
             }
         });
-//        Call<ResponseBody> call = client.editUserInfo()
-//        ApiClient.getInstance().editUserInfo(firstName, middleName, lastName, address, entrance, new ApiClient.ApiCallback<BaseResponse>() {
-//            @Override
-//            public void response(BaseResponse response) {
-//                mListener.displayProgress(false);
-//                Log.d(TAG, "response() called with: " + "response = [" + response + "]");
-//                if (response.isOK()) {
-//                    getActivity().finish();
-//                } else {
-//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void error() {
-//                Log.d(TAG, "error: ");
-//                mListener.displayProgress(false);
-//            }
-//
-//            @Override
-//            public void noInternetConnection() {
-//                mListener.displayProgress(false);
-//                ApiClient.getInstance().showAlert(getActivity());
-//            }
-//        });
     }
 }

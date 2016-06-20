@@ -201,31 +201,6 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
                 ApiClient.getInstance().showAlert(getActivity());
             }
         });
-//        ApiClient.getInstance().getConfirmationCode(GetConfirmationCodeRequest.PHONE_CHANGE, code, new ApiClient.ApiCallback<BaseResponse>() {
-//            @Override
-//            public void response(BaseResponse response) {
-//                mListener.displayProgress(false);
-//                if (response.isOK()) {
-//                    Log.d(TAG, "response: success");
-//                    SharedPreferencesManager.getInstance().saveUserLogin(newPhone);
-//                    getActivity().finish();
-//                } else {
-//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void error() {
-//                mListener.displayProgress(false);
-//                Log.d(TAG, "error: ");
-//            }
-//
-//            @Override
-//            public void noInternetConnection() {
-//                mListener.displayProgress(false);
-//                ApiClient.getInstance().showAlert(getActivity());
-//            }
-//        });
     }
 
     private void getConfirmCode() {
@@ -250,31 +225,6 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
                 ApiClient.getInstance().showAlert(getActivity());
             }
         });
-//        ApiClient.getInstance().changePhone(phone, new ApiClient.ApiCallback<BaseResponse>() {
-//            @Override
-//            public void response(BaseResponse response) {
-//                mListener.displayProgress(false);
-//                if (response.isOK()) {
-//                    Log.d(TAG, "response: success");
-//                    aq.id(R.id.get_code).gone();
-//                    aq.id(R.id.code_confirm).visible();
-//                } else {
-//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void error() {
-//                mListener.displayProgress(false);
-//                Log.d(TAG, "error: ");
-//            }
-//
-//            @Override
-//            public void noInternetConnection() {
-//                mListener.displayProgress(false);
-//                ApiClient.getInstance().showAlert(getActivity());
-//            }
-//        });
     }
 
     @Override

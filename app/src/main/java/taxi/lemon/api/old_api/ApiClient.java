@@ -571,32 +571,6 @@ public class ApiClient {
     }
 
     /**
-     * Request to get address from latitude and longitude
-     * @param latLng coordinates of the place
-     * @param callback callback for ui updates
-     */
-    public void getAddress(LatLng latLng, final ApiCallback<GetAddressResponse> callback) {
-        AjaxCallback<GetAddressResponse> cb = new AjaxCallback<GetAddressResponse>() {
-            @Override
-            public void callback(String url, GetAddressResponse response, AjaxStatus status) {
-                if (status.getCode() == HttpsURLConnection.HTTP_OK && response != null) {
-                    callback.response(response);
-                } else {
-                    Log.d(TAG, "callback: error - " + status.getError());
-                    if (!hasActiveInternetConnection()) {
-                        callback.noInternetConnection();
-                    } else {
-                        callback.error();
-                    }
-                }
-            }
-        };
-
-        GetAddressRequest request = new GetAddressRequest(latLng.latitude, latLng.longitude);
-        doRequest(request, GetAddressResponse.class, cb, false);
-    }
-
-    /**
      * Request to get autocomplete suggestions
      * @param city city where should do searching of suggestions
      * @param string string for which we need to get autocomplete

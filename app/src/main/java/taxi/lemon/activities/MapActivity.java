@@ -1,7 +1,9 @@
 package taxi.lemon.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -29,6 +33,7 @@ import taxi.lemon.R;
 import taxi.lemon.api.new_api.ApiTaxiClient;
 import taxi.lemon.api.new_api.GetAddressResponse;
 import taxi.lemon.api.new_api.ServiceGenerator;
+import taxi.lemon.api.old_api.ApiClient;
 import taxi.lemon.api.old_api.MyGoogleApiClient;
 import taxi.lemon.models.RouteItem;
 import taxi.lemon.utils.SharedPreferencesManager;
@@ -57,6 +62,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private MyGoogleApiClient myGoogleApiClient;
 
     private int index;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,18 +96,53 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 finish();
             }
         });
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client2.connect();
         myGoogleApiClient.connect();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Map Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://taxi.lemon.activities/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client2, viewAction);
     }
 
     @Override
     protected void onStop() {
         myGoogleApiClient.disconnect();
         super.onStop();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Map Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://taxi.lemon.activities/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client2, viewAction);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client2.disconnect();
     }
 
     /**
@@ -169,6 +214,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     /**
      * Remove old marker and set up a new one
+     *
      * @param latLng initial position for new marker
      */
     private void setMarker(LatLng latLng) {
@@ -284,6 +330,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     /**
      * Show or hide progress bar
+     *
      * @param show if true - show, else - hide
      */
     private void showProgress(boolean show) {
@@ -329,7 +376,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void getAddress(LatLng latLng) {
         showProgress(true);
-//        final Activity activity = this;
+        final Activity activity = this;
 
         ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
         Call<GetAddressResponse> call = client.getAddress(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude));
@@ -337,42 +384,22 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onResponse(Call<GetAddressResponse> call, Response<GetAddressResponse> response) {
                 showProgress(false);
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     ArrayList<RouteItem> items = response.body().getAddress();
-                    if(items != null && items.size() > 0) {
+                    if (items != null && items.size() > 0) {
                         String address = items.get(0).getAddress();
                         setAddress(address);
                     }
                 } else {
-
+                    // empty
                 }
             }
 
             @Override
             public void onFailure(Call<GetAddressResponse> call, Throwable t) {
                 showProgress(false);
+                ApiClient.getInstance().showAlert(activity);
             }
         });
-
-//        ApiClient.getInstance().getAddress(latLng, new ApiClient.ApiCallback<GetAddressResponse>() {
-//            @Override
-//            public void response(GetAddressResponse response) {
-//                showProgress(false);
-//                if (response.isOK()) {
-//                    setAddress(response.getAddress());
-//                }
-//            }
-//
-//            @Override
-//            public void error() {
-//                showProgress(false);
-//            }
-//
-//            @Override
-//            public void noInternetConnection() {
-//                showProgress(false);
-//                ApiClient.getInstance().showAlert(activity);
-//            }
-//        });
     }
 }

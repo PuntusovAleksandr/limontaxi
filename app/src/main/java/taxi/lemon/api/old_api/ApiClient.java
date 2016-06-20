@@ -243,41 +243,6 @@ public class ApiClient {
     }
 
     /**
-     * Request to user registration
-     * @param userName user's name
-     * @param userPhone user's phone
-     * @param userPassword password
-     * @param callback callback for ui updates
-     */
-    public void registerUser(@NonNull String userName, @NonNull final String userPhone, @NonNull final String userPassword,
-                             @NonNull final String userConfirmPassword, @NonNull final String confirmCode, final ApiCallback<BaseResponse> callback) {
-        AjaxCallback<BaseResponse> cb = new AjaxCallback<BaseResponse>() {
-            @Override
-            public void callback(String url, BaseResponse response, AjaxStatus status) {
-                if (status.getCode() == HttpsURLConnection.HTTP_OK && response != null) {
-                    if (response.isOK()) {
-                        SharedPreferencesManager manager = SharedPreferencesManager.getInstance();
-
-                        manager.saveUserLogin(userPhone);
-                        manager.saveUserPassword(userPassword);
-                    }
-                    callback.response(response);
-                } else {
-                    Log.d(TAG, "callback: error - " + status.getError());
-                    if (!hasActiveInternetConnection()) {
-                        callback.noInternetConnection();
-                    } else {
-                        callback.error();
-                    }
-                }
-            }
-        };
-
-        RegisterUserRequest request = new RegisterUserRequest(userName, userPhone, SHA512(userPassword), SHA512(userConfirmPassword), confirmCode);
-        doRequest(request, BaseResponse.class, cb, false);
-    }
-
-    /**
      * Request to confirmation code check
      * @param serviceName name of check confirmation code request
      * @param phone phone for confirmation

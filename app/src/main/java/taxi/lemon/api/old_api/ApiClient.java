@@ -294,44 +294,6 @@ public class ApiClient {
     }
 
     /**
-     * Request to get autocomplete suggestions
-     * @param city city where should do searching of suggestions
-     * @param string string for which we need to get autocomplete
-     * @return array with autocomplete suggestions or null in case of error
-     */
-    public ArrayList<RouteItem> getAutocomplete(int city, String string) {
-        AjaxCallback<GetAutocompleteResponse> cb = new AjaxCallback<>();
-
-        GetAutocompleteRequest request = new GetAutocompleteRequest(city, string);
-
-        Map<String, String> params = new HashMap<>();
-        String value = new Gson().toJson(request);
-        params.put("request", value);
-
-        String url = BASE_URL + request.getServiceName();
-        cb.url(url);
-        cb.type(GetAutocompleteResponse.class);
-        cb.params(params);
-
-        aq.transformer(new ApiResponseTransformer()).sync(cb);
-
-        Log.d(TAG, "getAutocomplete: status error - " + cb.getStatus().getError());
-        Log.d(TAG, "getAutocomplete: status msg - " + cb.getStatus().getMessage());
-        Log.d(TAG, "getAutocomplete: status code - " + cb.getStatus().getCode());
-
-        int statusCode = cb.getStatus().getCode();
-
-        if (statusCode != AjaxStatus.NETWORK_ERROR) {
-            GetAutocompleteResponse response = cb.getResult();
-            if (response != null && response.isOK()) {
-                return response.getAutocomplete();
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Get security header
      * @return security header
      */

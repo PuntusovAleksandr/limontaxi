@@ -5,7 +5,7 @@
         <!--<item name="colorPrimary">@color/colorPrimary</item>-->
         <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
         <!--<item name="colorAccent">@color/colorAccent</item>-->
-        <!--<item name="titleTextColor">@android:color/white</item>-->
+        <!--<item name="titleTextColor">@android:color/drawer_menu_item_unchecked</item>-->
     <!--</style>-->
 
     <!--<style name="AppTheme.Splash" parent="Theme.AppCompat.Light.NoActionBar">-->
@@ -16,7 +16,7 @@
     <!--</style>-->
 
     <!--<style name="AppTheme.Splash.TextStyle">-->
-        <!--<item name="android:textColor">@android:color/white</item>-->
+        <!--<item name="android:textColor">@android:color/drawer_menu_item_unchecked</item>-->
         <!--<item name="android:textSize">54sp</item>-->
         <!--<item name="android:textStyle">bold|italic</item>-->
         <!--<item name="android:gravity">center</item>-->

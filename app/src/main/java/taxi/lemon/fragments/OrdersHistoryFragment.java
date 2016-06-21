@@ -19,12 +19,10 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import taxi.lemon.R;
 import taxi.lemon.adapters.HistoryAdapter;
 import taxi.lemon.api.new_api.ApiTaxiClient;
-import taxi.lemon.api.new_api.GetOrdersHistoryResponse;
 import taxi.lemon.api.new_api.GetOrdersReportResponse;
 import taxi.lemon.api.new_api.ServiceGenerator;
 import taxi.lemon.events.MessageEvent;
@@ -102,13 +100,13 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        getReportForToday();
-//        getOrdersHistory();
+//        getReportForToday();
+        getOrdersHistory();
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.history_menu, menu);
+//        inflater.inflate(R.menu.history_menu, menu);
     }
 
     @Override
@@ -239,15 +237,18 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
 
     private void getOrdersHistory() {
         ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
-        Call<GetOrdersHistoryResponse> call = client.getOrdersHistory();
-        call.enqueue(new Callback<GetOrdersHistoryResponse>() {
+        Call<ArrayList<HistoryItem>> call = client.getOrdersHistory();
+        call.enqueue(new Callback<ArrayList<HistoryItem>>() {
             @Override
-            public void onResponse(Call<GetOrdersHistoryResponse> call, Response<GetOrdersHistoryResponse> response) {
-
+            public void onResponse(Call<ArrayList<HistoryItem>> call, Response<ArrayList<HistoryItem>> response) {
+                if(response.isSuccessful()) {
+                    RecyclerView.Adapter mAdapter = new HistoryAdapter(response.body(), onItemClickListener);
+                    mRecyclerView.setAdapter(mAdapter);
+                }
             }
 
             @Override
-            public void onFailure(Call<GetOrdersHistoryResponse> call, Throwable t) {
+            public void onFailure(Call<ArrayList<HistoryItem>> call, Throwable t) {
 
             }
         });

@@ -1,7 +1,9 @@
 package taxi.lemon.api.new_api;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import taxi.lemon.models.HistoryItem;
 import taxi.lemon.models.UserProfile;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -55,7 +57,7 @@ public interface ApiTaxiClient {
     Call<GetOrdersReportResponse> getOrdersReport(@Query("dateFrom") String dateFrom, @Query("dateTo") String dateTo);
 
     @GET("clients/ordershistory")
-    Call<GetOrdersHistoryResponse> getOrdersHistory();
+    Call<ArrayList<HistoryItem>> getOrdersHistory();
 
     @POST("account/restore/sendConfirmCode")
     Call<ResponseBody> getConfirmCodeForPasswordRecovery(@Body SendConfirmCodeForRestorePasswordRequest request);

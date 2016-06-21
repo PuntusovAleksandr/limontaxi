@@ -10,35 +10,96 @@ import java.util.ArrayList;
  * Hold order history item info
  */
 public class HistoryItem {
-    @SerializedName("status")
+
+    @SerializedName("dispatching_order_uid")
+    private String orderId;
+
+    @SerializedName("required_time")
+    private String requiredTime;
+
+    @SerializedName("order_cost")
+    private String orderCost;
+
+    @SerializedName("user_full_name")
+    private String userFullName;
+
+    @SerializedName("user_phone")
+    private String userPhone;
+
+    @SerializedName("route")
+    ArrayList<RouteItem> route;
+
+    @SerializedName("close_reason")
+    private int closeReason;
+
+    @SerializedName("execution_status")
     private String executionStatus;
 
-    private String cost;
+    public String getOrderId() {
+        return orderId;
+    }
 
-    private String date;
+    public String getDate() {
+        return requiredTime;
+    }
 
-    private ArrayList<RouteItem> route;
+    public String getCost() {
+        return orderCost;
+    }
 
-    public HistoryItem() {
+    public String getUserFullName() {
+        return userFullName;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public ArrayList<RouteItem> getRoute() {
+        return route;
+    }
+
+    public void setRoute(ArrayList<RouteItem> route) {
+        this.route = route;
+    }
+
+    public int getCloseReason() {
+        return closeReason;
     }
 
     public String getExecutionStatus() {
         return executionStatus;
     }
 
-    public void setExecutionStatus(String executionStatus) {
-        this.executionStatus = executionStatus;
-    }
-
-    public String getCost() {
-        return cost;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public ArrayList<RouteItem> getRoute() {
-        return route;
-    }
+    //    @SerializedName("status")
+//    private String executionStatus;
+//
+//    private String cost;
+//
+//    private String date;
+//
+//    private ArrayList<RouteItem> route;
+//
+//    public HistoryItem() {
+//    }
+//
+//    public String getExecutionStatus() {
+//        return executionStatus;
+//    }
+//
+//    public void setExecutionStatus(String executionStatus) {
+//        this.executionStatus = executionStatus;
+//    }
+//
+//    public String getCost() {
+//        return cost;
+//    }
+//
+//    public String getDate() {
+//        return date;
+//    }
+//
+//    public ArrayList<RouteItem> getRoute() {
+//        return route;
+//    }
 }

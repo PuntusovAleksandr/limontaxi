@@ -19,11 +19,13 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import taxi.lemon.R;
 import taxi.lemon.adapters.HistoryAdapter;
 import taxi.lemon.api.new_api.ApiTaxiClient;
-import taxi.lemon.api.new_api.GetOrderHistoryResponse;
+import taxi.lemon.api.new_api.GetOrdersHistoryResponse;
+import taxi.lemon.api.new_api.GetOrdersReportResponse;
 import taxi.lemon.api.new_api.ServiceGenerator;
 import taxi.lemon.events.MessageEvent;
 import taxi.lemon.models.HistoryItem;
@@ -100,7 +102,8 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        getHistoryForToday();
+//        getReportForToday();
+        getOrdersHistory();
     }
 
     @Override
@@ -180,17 +183,17 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         String date = FormatUtils.getDateString(year, monthOfYear, dayOfMonth);
         Log.d(TAG, "onDateSet: date - " + date);
-        getOrdersHistory(date);
+        getOrdersReport(date);
     }
 
 
-    private void getOrdersHistory(String date) {
+    private void getOrdersReport(String date) {
         mListener.displayProgress(true);
         ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
-        Call<GetOrderHistoryResponse> call = client.getOrdersHistory("2016.06.16", "2016.06.17");
-        call.enqueue(new Callback<GetOrderHistoryResponse>() {
+        Call<GetOrdersReportResponse> call = client.getOrdersReport("2016.06.16", "2016.06.17");
+        call.enqueue(new Callback<GetOrdersReportResponse>() {
             @Override
-            public void onResponse(Call<GetOrderHistoryResponse> call, Response<GetOrderHistoryResponse> response) {
+            public void onResponse(Call<GetOrdersReportResponse> call, Response<GetOrdersReportResponse> response) {
                 mListener.displayProgress(false);
                 if(response.isSuccessful()) {
 
@@ -198,11 +201,11 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
             }
 
             @Override
-            public void onFailure(Call<GetOrderHistoryResponse> call, Throwable t) {
+            public void onFailure(Call<GetOrdersReportResponse> call, Throwable t) {
                 mListener.displayProgress(false);
             }
         });
-//        ApiClient.getInstance().getOrdersHistory(date, new ApiClient.ApiCallback<GetOrdersHistoryResponse>() {
+//        ApiClient.getInstance().getOrdersReport(date, new ApiClient.ApiCallback<GetOrdersHistoryResponse>() {
 //            @Override
 //            public void response(GetOrdersHistoryResponse response) {
 //                mListener.displayProgress(false);
@@ -228,9 +231,25 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
 //        });
     }
 
-    private void getHistoryForToday() {
+    private void getReportForToday() {
         Calendar c = Calendar.getInstance();
         String date = FormatUtils.getDateString(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-        getOrdersHistory(date);
+        getOrdersReport(date);
+    }
+
+    private void getOrdersHistory() {
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
+        Call<GetOrdersHistoryResponse> call = client.getOrdersHistory();
+        call.enqueue(new Callback<GetOrdersHistoryResponse>() {
+            @Override
+            public void onResponse(Call<GetOrdersHistoryResponse> call, Response<GetOrdersHistoryResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<GetOrdersHistoryResponse> call, Throwable t) {
+
+            }
+        });
     }
  }

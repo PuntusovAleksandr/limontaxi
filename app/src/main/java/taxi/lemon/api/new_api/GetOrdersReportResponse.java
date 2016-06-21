@@ -9,7 +9,7 @@ import taxi.lemon.models.RouteItem;
 /**
  * Created by Администратор on 16.06.2016.
  */
-public class GetOrderHistoryResponse {
+public class GetOrdersReportResponse {
     @SerializedName("dispatching_order_uid")
     private String orderId;
 

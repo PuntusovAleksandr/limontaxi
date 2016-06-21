@@ -1,5 +1,7 @@
 package taxi.lemon.api.new_api;
 
+import java.util.List;
+
 import taxi.lemon.models.UserProfile;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -50,7 +52,10 @@ public interface ApiTaxiClient {
     Call<MakeOrderResponse> makeOrder(@Body MakeOrderRequest request);
 
     @GET("clients/ordersreport")
-    Call<GetOrderHistoryResponse> getOrdersHistory(@Query("dateFrom") String dateFrom, @Query("dateTo") String dateTo);
+    Call<GetOrdersReportResponse> getOrdersReport(@Query("dateFrom") String dateFrom, @Query("dateTo") String dateTo);
+
+    @GET("clients/ordershistory")
+    Call<GetOrdersHistoryResponse> getOrdersHistory();
 
     @POST("account/restore/sendConfirmCode")
     Call<ResponseBody> getConfirmCodeForPasswordRecovery(@Body SendConfirmCodeForRestorePasswordRequest request);

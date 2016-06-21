@@ -633,6 +633,7 @@ public class OrderFragment
                     Order.getInstance().resetOrder();
                     setAdapter();
                 } else {
+
                 }
             }
 

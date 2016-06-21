@@ -22,6 +22,9 @@
     <string name="directions_key" templateMergeStrategy="preserve" translatable="false">
          AIzaSyAi7QM0UglZdIeZHnzBoTGnTOr3MGSevvI
     </string>
+    <string name="gcm_senderId">
+        1057740731258
+    </string>
 
     <string name="gps_network_not_enabled">Не удалось определить местоположение</string>
     <string name="failed_determine_address">Не удалось определить адресс</string>

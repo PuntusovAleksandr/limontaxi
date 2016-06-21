@@ -62,7 +62,10 @@ public class MakeOrderRequest {
     @SerializedName("add_cost")
     private long addCost;
 
-    public MakeOrderRequest(Order order, String userFullName) {
+    @SerializedName("app_registration_token")
+    private String appRegistrationToken;
+
+    public MakeOrderRequest(Order order, String userFullName, String appRegistrationToken) {
         this.userFullName = userFullName;
         this.phone = order.getPhone();
         this.reservation = order.isPreOrder();
@@ -79,6 +82,6 @@ public class MakeOrderRequest {
         this.terminal = order.isTerminalPay();
         this.receipt = order.isReceiptNeed();
         this.route = order.getRoute();
-        this.addCost = order.getAddCost();
+        this.appRegistrationToken = appRegistrationToken;
     }
 }

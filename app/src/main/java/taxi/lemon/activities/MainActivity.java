@@ -44,6 +44,7 @@ import taxi.lemon.fragments.OrdersHistoryFragment;
 import taxi.lemon.fragments.ProfileFragment;
 import taxi.lemon.models.Order;
 import taxi.lemon.models.UserProfile;
+import taxi.lemon.gcm.GetGcmTokenIntentService;
 import taxi.lemon.utils.SharedPreferencesManager;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -90,6 +91,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Order.initInstance();
 
         initViews();
+
+        startGetTokenService();
     }
 
     @Override
@@ -382,5 +385,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Uri dispatcherNumber = Uri.parse("tel:" + getResources().getString(R.string.dispatcher_number));
         Intent i = new Intent(Intent.ACTION_DIAL, dispatcherNumber);
         startActivity(i);
+    }
+
+    private void startGetTokenService() {
+        Intent i = new Intent(this, GetGcmTokenIntentService.class);
+        startService(i);
     }
 }

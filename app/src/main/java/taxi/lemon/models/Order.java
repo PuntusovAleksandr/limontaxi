@@ -35,24 +35,16 @@ public class Order {
     private boolean receiptNeed;
 
     private int rate;
-
     private long distance;
-
     private Double cost;
-
     private long addCost;
-
     private String comment;
-
     private String orderDate;
-
     private String orderTime;
-
     private ArrayList<RouteItem> route;
-
     private String phone;
-
     private String encodedRoute;
+    private String tokenForGcm;
 
 //    private Integer cityId;
 

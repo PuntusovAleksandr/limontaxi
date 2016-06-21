@@ -27,6 +27,7 @@ public class SharedPreferencesManager {
     private static final String KEY_USER_ADDRESS_APARTMENT = PKG_KEY_PREFIX + ".user_address_apartment";
     private static final String KEY_AUTO_LOGIN = PKG_KEY_PREFIX + ".auto_login";
     private static final String KEY_IS_USER_LOGGED_IN = PKG_KEY_PREFIX + ".is_user_logged_in";
+    private static final String KEY_GCM_TOKEN = PKG_KEY_PREFIX + ".gcm_token";
 
     public static final String DEF_AUTH_VALUE = "";
 
@@ -106,6 +107,10 @@ public class SharedPreferencesManager {
         return sPref.getBoolean(KEY_AUTO_LOGIN, false);
     }
 
+    public String loadAppToken() {
+        return sPref.getString(KEY_GCM_TOKEN, null);
+    }
+
     /**
      * Save user's logged in state
      * @param isUserLoggedIn true - user logged in, false - otherwise
@@ -150,5 +155,9 @@ public class SharedPreferencesManager {
         name[1] = sPref.getString(KEY_USER_MIDDLE_NAME, null);
         name[2] = sPref.getString(KEY_USER_LAST_NAME, null);
         return name;
+    }
+
+    public void saveGcmToken(String token) {
+        editor.putString(KEY_GCM_TOKEN, token).commit();
     }
 }

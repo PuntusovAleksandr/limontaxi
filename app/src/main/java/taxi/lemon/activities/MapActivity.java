@@ -107,7 +107,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
 //        client2.connect();
-//        myGoogleApiClient.connect();
+        myGoogleApiClient.connect();
 //        // ATTENTION: This was auto-generated to implement the App Indexing API.
 //        // See https://g.co/AppIndexing/AndroidStudio for more information.
 //        Action viewAction = Action.newAction(

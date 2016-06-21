@@ -61,4 +61,8 @@ public class FormatUtils {
         c.set(0, 0, 0, hour, minute, sec);
         return time.format(c.getTime());
     }
+
+    public static String convertStringForPreorder(String toConvert) {
+        return toConvert.replace(":", "-");
+    }
 }

@@ -102,8 +102,8 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-//        getReportForToday();
-        getOrdersHistory();
+        getReportForToday();
+//        getOrdersHistory();
     }
 
     @Override
@@ -190,7 +190,7 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
     private void getOrdersReport(String date) {
         mListener.displayProgress(true);
         ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
-        Call<GetOrdersReportResponse> call = client.getOrdersReport("2016.06.16", "2016.06.17");
+        Call<GetOrdersReportResponse> call = client.getOrdersReport("2016.06.16", "2016.06.21");
         call.enqueue(new Callback<GetOrdersReportResponse>() {
             @Override
             public void onResponse(Call<GetOrdersReportResponse> call, Response<GetOrdersReportResponse> response) {

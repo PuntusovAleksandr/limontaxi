@@ -2,6 +2,8 @@ package taxi.lemon.models;
 
 import java.util.ArrayList;
 
+import taxi.lemon.utils.FormatUtils;
+
 /**
  * Order holder
  */
@@ -230,7 +232,7 @@ public class Order {
 
     public String getPreOrderTime() {
         if (orderDate != null && orderTime != null) {
-            return getOrderDate() + " " + getOrderTime();
+            return FormatUtils.convertStringForPreorder(getOrderDate()) + " " + FormatUtils.convertStringForPreorder(getOrderTime());
         } else {
             return "";
         }

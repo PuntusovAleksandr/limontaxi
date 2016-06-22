@@ -232,7 +232,7 @@ public class Order {
 
     public String getPreOrderTime() {
         if (orderDate != null && orderTime != null) {
-            return FormatUtils.convertStringForPreorder(getOrderDate()) + " " + FormatUtils.convertStringForPreorder(getOrderTime());
+            return FormatUtils.convertStringForPreorder(getOrderDate()) + " " + getOrderTime();
         } else {
             return "";
         }

@@ -292,7 +292,7 @@ public class PreferencesActivity extends AppCompatActivity implements DialogButt
                 DateFormat.is24HourFormat(this));
 
         time.setAccentColor(getResources().getColor(R.color.colorAccent));
-        time.setMinTime(new Timepoint(hour, minute));
+//        time.setMinTime(new Timepoint(hour, minute));
 
         time.show(getFragmentManager(), "TimePickerDialog");
     }

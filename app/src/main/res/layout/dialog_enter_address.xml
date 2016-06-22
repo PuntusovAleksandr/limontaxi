@@ -22,9 +22,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:src="@drawable/powered_by_google_light"
             android:contentDescription="@string/pwb"
             />
+        <!--android:src="@drawable/powered_by_google_light"-->
     </android.support.design.widget.TextInputLayout>
 
     <!--<android.support.design.widget.TextInputLayout-->

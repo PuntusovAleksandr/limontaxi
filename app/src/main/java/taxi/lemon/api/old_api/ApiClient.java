@@ -243,31 +243,6 @@ public class ApiClient {
     }
 
     /**
-     * Request to get list of available cities
-     * @param callback callback for ui updates
-     */
-    public void getCities(final ApiCallback<GetCitiesResponse> callback) {
-        AjaxCallback<GetCitiesResponse> cb = new AjaxCallback<GetCitiesResponse>() {
-            @Override
-            public void callback(String url, GetCitiesResponse response, AjaxStatus status) {
-                if (status.getCode() == HttpsURLConnection.HTTP_OK && response != null) {
-                    callback.response(response);
-                } else {
-                    Log.d(TAG, "callback: error - " + status.getError());
-                    if (!hasActiveInternetConnection()) {
-                        callback.noInternetConnection();
-                    } else {
-                        callback.error();
-                    }
-                }
-            }
-        };
-
-        GetCitiesRequest request = new GetCitiesRequest();
-        doRequest(request, GetCitiesResponse.class, cb, false);
-    }
-
-    /**
      * Get security header
      * @return security header
      */

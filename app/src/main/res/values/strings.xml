@@ -208,4 +208,12 @@
     <string name="ad_pos_btn_settings">settings</string>
     <string name="in_city">По городу</string>
     <string name="dispatcher_number">380632375858</string>
+
+    <!--ChooseDispatcherPhoneDialog-->
+    <string name="choose_dispatcher_phone">Выберите номер</string>
+    <string-array name="dispatcher_phone_list">
+        <item>380632375858</item>
+        <item>380442375858</item>
+    </string-array>
+
 </resources>

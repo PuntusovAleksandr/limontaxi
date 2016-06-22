@@ -36,6 +36,7 @@ import taxi.lemon.App;
 import taxi.lemon.R;
 import taxi.lemon.api.new_api.ApiTaxiClient;
 import taxi.lemon.api.new_api.ServiceGenerator;
+import taxi.lemon.dialogs.ChooseDispatcherPhoneDialog;
 import taxi.lemon.events.MessageEvent;
 import taxi.lemon.fragments.FragmentsInteractionListener;
 import taxi.lemon.fragments.MyLocationFragment;
@@ -156,7 +157,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             ft.replace(R.id.content_container, new ProfileFragment()).commit();
 //            showNotifyPhoneItem(false);
         } else if(id == R.id.nav_call_dispatcher) {
-            callToDispatcher();
+            ChooseDispatcherPhoneDialog.newInstance().show(getFragmentManager(), null);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -379,12 +380,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 displayProgress(false);
             }
         });
-    }
-
-    private void callToDispatcher() {
-        Uri dispatcherNumber = Uri.parse("tel:" + getResources().getString(R.string.dispatcher_number));
-        Intent i = new Intent(Intent.ACTION_DIAL, dispatcherNumber);
-        startActivity(i);
     }
 
     private void startGetTokenService() {

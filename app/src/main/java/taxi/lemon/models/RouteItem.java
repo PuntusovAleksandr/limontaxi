@@ -33,6 +33,9 @@ public class RouteItem {
     @SerializedName("name")
     private String street;
 
+    @SerializedName("number")
+    private String number;
+
     /**
      * Houses
      */
@@ -141,5 +144,9 @@ public class RouteItem {
                 "address='" + address + '\'' +
                 ", latLng=" + latLng +
                 '}';
+    }
+
+    public String getNumber() {
+        return number;
     }
 }

@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -20,11 +21,13 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import taxi.lemon.App;
 import taxi.lemon.R;
 import taxi.lemon.adapters.HistoryAdapter;
 import taxi.lemon.api.new_api.ApiTaxiClient;
 import taxi.lemon.api.new_api.GetOrdersReportResponse;
 import taxi.lemon.api.new_api.ServiceGenerator;
+import taxi.lemon.api.old_api.ApiClient;
 import taxi.lemon.events.MessageEvent;
 import taxi.lemon.models.HistoryItem;
 import taxi.lemon.models.Order;
@@ -55,7 +58,7 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
             order.resetOrder();
             ArrayList<RouteItem> route = item.getRoute();
             for (RouteItem routeItem : route) {
-                routeItem.setAddress(routeItem.getStreet());
+                routeItem.setAddress(routeItem.getStreet() + " " + routeItem.getNumber());
                 routeItem.setLatLng(routeItem.getLatLng());
             }
             order.setRoute(route);
@@ -244,12 +247,14 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
                 if(response.isSuccessful()) {
                     RecyclerView.Adapter mAdapter = new HistoryAdapter(response.body(), onItemClickListener);
                     mRecyclerView.setAdapter(mAdapter);
+                } else {
+                    Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ArrayList<HistoryItem>> call, Throwable t) {
-
+                ApiClient.getInstance().showAlert(getActivity());
             }
         });
     }

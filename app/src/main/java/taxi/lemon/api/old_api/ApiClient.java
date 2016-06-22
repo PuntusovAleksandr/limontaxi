@@ -243,32 +243,6 @@ public class ApiClient {
     }
 
     /**
-     * Request to get user's orders history
-     * @param date date of required history
-     * @param callback callback for ui updates
-     */
-    public void getOrdersHistory(String date, final ApiCallback<GetOrdersHistoryResponse> callback) {
-        AjaxCallback<GetOrdersHistoryResponse> cb = new AjaxCallback<GetOrdersHistoryResponse>() {
-            @Override
-            public void callback(String url, GetOrdersHistoryResponse response, AjaxStatus status) {
-                if (status.getCode() == HttpsURLConnection.HTTP_OK && response != null) {
-                    callback.response(response);
-                } else {
-                    Log.d(TAG, "callback: error - " + status.getError());
-                    if (!hasActiveInternetConnection()) {
-                        callback.noInternetConnection();
-                    } else {
-                        callback.error();
-                    }
-                }
-            }
-        };
-
-        GetOrdersHistoryRequest request = new GetOrdersHistoryRequest(date);
-        doRequest(request, GetOrdersHistoryResponse.class, cb, true);
-    }
-
-    /**
      * Request to get list of available cities
      * @param callback callback for ui updates
      */

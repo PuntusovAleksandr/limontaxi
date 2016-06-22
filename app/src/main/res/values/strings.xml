@@ -174,7 +174,7 @@
     <string name="pa_add_cost_undefined">0 д.е.</string>
     <string name="pa_comment_init_content">Информация которая может помочь водителю.</string>
     <string name="pa_terminal">Терминал</string>
-    <string name="pa_receipt">Требовнаие чека за поездку</string>
+    <string name="pa_receipt">Требование чека за поездку</string>
     <string name="pa_meet_with_table">Встреча с табличкой</string>
     <string name="pa_btn_save">Сохранить</string>
     <!--EnterDataDialog-->

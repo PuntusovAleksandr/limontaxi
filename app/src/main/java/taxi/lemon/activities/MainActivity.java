@@ -279,10 +279,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         InputStream inputStream = null;
         OutputStream outputStream = null;
 
-        File imageToShare = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/demo.png");
+        File imageToShare = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/logo.png");
 
         try {
-            inputStream = assetManager.open("demo.png");
+            inputStream = assetManager.open("logo.png");
 
             outputStream = new FileOutputStream(imageToShare);
 
@@ -311,8 +311,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     Uri theUri = Uri.fromFile(imageToShare);
                     Intent sendIntent = new Intent(Intent.ACTION_SEND);
                     sendIntent.setType("image/*");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, getResources().getText(R.string.shared_text));
                     sendIntent.putExtra(Intent.EXTRA_STREAM, theUri);
-                    sendIntent.putExtra(android.content.Intent.EXTRA_TEXT, getResources().getText(R.string.shared_text));
                     startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.share_via)));
 
                 } catch (IOException e) {

@@ -29,7 +29,7 @@
     <string name="gps_network_not_enabled">Не удалось определить местоположение</string>
     <string name="failed_determine_address">Не удалось определить адресс</string>
     <string name="open_location_settings">Настройки</string>
-    <string name="shared_text">"A new CabsDemo app available at http://digitalpromo.com.ua/"</string>
+    <string name="shared_text">+38(063) 237-58-58 и +38(044) 237-58-58</string>
     <string name="share_via">Поделиться через…</string>
     <string name="btn_ok">Ок</string>
     <string name="btn_cancel">Отмена</string>

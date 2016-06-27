@@ -614,7 +614,7 @@ public class OrderFragment
     private void makeOrder() {
         mListener.displayProgress(true);
         ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
-        Call<MakeOrderResponse> call = client.makeOrder(new MakeOrderRequest(Order.getInstance(), UserProfile.getInstance().getFullName(), SharedPreferencesManager.getInstance().loadAppToken()));
+        Call<MakeOrderResponse> call = client.makeOrder(new MakeOrderRequest(Order.getInstance(), UserProfile.getInstance().getFullName(), SharedPreferencesManager.getInstance().loadGcmToken()));
         call.enqueue(new Callback<MakeOrderResponse>() {
             @Override
             public void onResponse(Call<MakeOrderResponse> call, Response<MakeOrderResponse> response) {

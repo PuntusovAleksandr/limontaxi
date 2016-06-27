@@ -107,10 +107,6 @@ public class SharedPreferencesManager {
         return sPref.getBoolean(KEY_AUTO_LOGIN, false);
     }
 
-    public String loadAppToken() {
-        return sPref.getString(KEY_GCM_TOKEN, null);
-    }
-
     /**
      * Save user's logged in state
      * @param isUserLoggedIn true - user logged in, false - otherwise
@@ -159,5 +155,9 @@ public class SharedPreferencesManager {
 
     public void saveGcmToken(String token) {
         editor.putString(KEY_GCM_TOKEN, token).commit();
+    }
+
+    public String loadGcmToken() {
+        return sPref.getString(KEY_GCM_TOKEN, null);
     }
 }

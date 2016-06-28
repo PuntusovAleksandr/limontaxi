@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
@@ -41,6 +42,8 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
     private FragmentsInteractionListener mListener;
 
     private TextInputLayout tilNewPhone, tilCode;
+
+    private LinearLayout llCodeLayout;
 
     private String newPhone;
 
@@ -81,7 +84,7 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
     @Override
     protected void initViews() {
         aq.id(R.id.get_code).visible();
-        aq.id(R.id.phone_to_code_confirm).gone();
+        aq.id(R.id.code_layout).gone();
 
 //        aq.id(R.id.et_phone).getEditText().addTextChangedListener(mTextWatcher);
 //        aq.id(R.id.et_code).getEditText().addTextChangedListener(mTextWatcher);
@@ -213,7 +216,7 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
                 mListener.displayProgress(false);
                 if(response.isSuccessful()) {
                     aq.id(R.id.get_code).gone();
-                    aq.id(R.id.phone_to_code_confirm).visible();
+                    aq.id(R.id.code_layout).visible();
                 } else {
                     Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
                 }

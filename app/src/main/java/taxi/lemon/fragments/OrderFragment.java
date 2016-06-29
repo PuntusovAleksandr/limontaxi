@@ -619,22 +619,22 @@ public class OrderFragment
             @Override
             public void onResponse(Call<MakeOrderResponse> call, Response<MakeOrderResponse> response) {
                 mListener.displayProgress(false);
-                if(response.isSuccessful()) {
-                    NotificationCompat.Builder builder =
-                            new NotificationCompat.Builder(getContext())
-                            .setSmallIcon(R.drawable.ic_notification)
-                            .setContentTitle("Заказ успешно отправлен")
-                            .setContentText("Ожидайте уведомления или звонка от диспетчера")
-                            .setDefaults(Notification.DEFAULT_SOUND);
-
-                    NotificationManager notificationManager =
-                            (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager.notify(1, builder.build());
-                    Order.getInstance().resetOrder();
-                    setAdapter();
-                } else {
-
-                }
+//                if(response.isSuccessful()) {
+//                    NotificationCompat.Builder builder =
+//                            new NotificationCompat.Builder(getContext())
+//                            .setSmallIcon(R.drawable.ic_notification)
+//                            .setContentTitle("Заказ успешно отправлен")
+//                            .setContentText("Ожидайте уведомления или звонка от диспетчера")
+//                            .setDefaults(Notification.DEFAULT_SOUND);
+//
+//                    NotificationManager notificationManager =
+//                            (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+//                    notificationManager.notify(1, builder.build());
+//                    Order.getInstance().resetOrder();
+//                    setAdapter();
+//                } else {
+//
+//                }
             }
 
             @Override

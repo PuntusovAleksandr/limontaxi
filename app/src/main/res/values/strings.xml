@@ -216,4 +216,8 @@
         <item>380442375858</item>
     </string-array>
 
+    <!--PUSH service-->
+    <string name="search_car">Поиск машины</string>
+    <string name="refuse_order">Заказ отменен</string>
+
 </resources>

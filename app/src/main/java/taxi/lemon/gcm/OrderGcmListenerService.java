@@ -17,9 +17,26 @@ import taxi.lemon.R;
 import taxi.lemon.activities.MainActivity;
 
 public class OrderGcmListenerService extends GcmListenerService {
+    private static final String CLOSE_REASON_SEARCH_SEARCH_FIND_CHANGE = "-1";
+    private static final String CLOSE_REASON_PASSENGER_REFUSES = "1";
+    private static final String CLOSE_REASON_DRIVER_REFUSES = "2";
+    private static final String CLOSE_REASON_DISPATCHER_REFUSES = "3";
+    private static final String CLOSE_REASON_NO_CAR = "4";
     @Override
     public void onMessageReceived(String s, Bundle bundle) {
-        String message = bundle.getString("message");
+        String close_reason = bundle.getString("close_reason");
+        String order_car_info = bundle.getString("order_car_info");
+        String message = null;
+
+        if(close_reason.equals(CLOSE_REASON_SEARCH_SEARCH_FIND_CHANGE)) {
+            if(order_car_info == null) {
+                message = getResources().getString(R.string.search_car);
+            } else {
+                message = order_car_info;
+            }
+        } else {
+            message = getResources().getString(R.string.refuse_order);
+        }
 
         sendNotification(message);
     }
@@ -33,7 +50,7 @@ public class OrderGcmListenerService extends GcmListenerService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle("GCM Message")
+                .setContentTitle("Order info")
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

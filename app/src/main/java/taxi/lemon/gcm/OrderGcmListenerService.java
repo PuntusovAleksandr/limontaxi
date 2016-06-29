@@ -19,7 +19,7 @@ import taxi.lemon.activities.MainActivity;
 public class OrderGcmListenerService extends GcmListenerService {
     @Override
     public void onMessageReceived(String s, Bundle bundle) {
-        String message = String.valueOf(bundle);
+        String message = bundle.getString("message");
 
         sendNotification(message);
     }

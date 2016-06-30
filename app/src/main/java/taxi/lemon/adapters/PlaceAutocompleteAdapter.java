@@ -31,8 +31,11 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import retrofit2.Call;
 import taxi.lemon.R;
 import taxi.lemon.api.new_api.ApiTaxiClient;
+import taxi.lemon.api.new_api.AuthorizationRequest;
+import taxi.lemon.api.new_api.AuthorizationResponse;
 import taxi.lemon.api.new_api.ServiceGenerator;
 import taxi.lemon.models.House;
 import taxi.lemon.models.RouteItem;

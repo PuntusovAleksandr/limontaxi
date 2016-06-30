@@ -43,6 +43,9 @@ import retrofit2.Response;
  */
 public class LoginFragment extends BasePagerFragment implements View.OnClickListener {
     public static final String TAG = LoginFragment.class.getSimpleName();
+    // this fields, because server api don't allow make request getAddress and egtAutocomplete for unregister user
+    public static final String UNREGISTER_USER_PHONE = "380672685892";
+    public static final String UNREGISTER_USER_PASSWORD = "newpass";
 
     private AQuery aq;
 
@@ -84,6 +87,11 @@ public class LoginFragment extends BasePagerFragment implements View.OnClickList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        if(SharedPreferencesManager.getInstance().loadUserLogin().equals(UNREGISTER_USER_PHONE)) {
+            SharedPreferencesManager.getInstance().saveUserLogin("");
+            SharedPreferencesManager.getInstance().saveUserPassword("");
+        }
     }
 
     @Override
@@ -111,6 +119,10 @@ public class LoginFragment extends BasePagerFragment implements View.OnClickList
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.skip:
+                if(SharedPreferencesManager.getInstance().loadUserLogin().isEmpty() && SharedPreferencesManager.getInstance().loadUserPassword().isEmpty()) {
+                    SharedPreferencesManager.getInstance().saveUserLogin("380672685892");
+                    SharedPreferencesManager.getInstance().saveUserPassword("newpass");
+                }
                 openMainActivity(false);
                 break;
         }

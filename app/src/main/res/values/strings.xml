@@ -78,7 +78,7 @@
     <string name="ohf_pick_date">Выбор даты</string>
     <string name="ohf_make_order">Заказать</string>
     <!--OrderFragment-->
-    <string name="of_title_order_fragment">Заказ</string>
+    <string name="of_title_order_fragment">Сделать заказ</string>
     <string name="fab_label_choose_on_map">Выбрать на карте</string>
     <string name="fab_label_type_address">Ввести адрес</string>
     <string name="of_btn_delete">Удалить</string>

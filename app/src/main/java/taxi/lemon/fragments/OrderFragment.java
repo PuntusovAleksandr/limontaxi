@@ -83,7 +83,7 @@ public class OrderFragment
     private TextView tvCity;
     private TextView tvUserPhone;
 
-    private boolean isMenuOpen;
+//    private boolean isMenuOpen;
 
     private RecyclerView mRecyclerView;
 
@@ -97,16 +97,19 @@ public class OrderFragment
 
         if (v == null) return;
 
-        isMenuOpen = false;
+//        isMenuOpen = false;
+//
+//        final FloatingActionButton fabMenu = (FloatingActionButton) v.findViewById(R.id.fab_menu);
+//        fabMenu.setOnClickListener(this);
+//
+//        v.findViewById(R.id.fab_open_map).setOnClickListener(this);
+//        v.findViewById(R.id.fab_type_address).setOnClickListener(this);
 
-        final FloatingActionButton fabMenu = (FloatingActionButton) v.findViewById(R.id.fab_menu);
-        fabMenu.setOnClickListener(this);
+        v.findViewById(R.id.b_from_map).setOnClickListener(this);
+        v.findViewById(R.id.b_from_input).setOnClickListener(this);
 
-        v.findViewById(R.id.fab_open_map).setOnClickListener(this);
-        v.findViewById(R.id.fab_type_address).setOnClickListener(this);
-
-        ((FloatingActionButton) v.findViewById(R.id.fab_type_address)).hide();
-        ((FloatingActionButton) v.findViewById(R.id.fab_open_map)).hide();
+//        ((FloatingActionButton) v.findViewById(R.id.fab_type_address)).hide();
+//        ((FloatingActionButton) v.findViewById(R.id.fab_open_map)).hide();
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.rv_route_list);
 
@@ -114,33 +117,33 @@ public class OrderFragment
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                logger("onScrollStateChanged: state - " + newState);
-                switch (newState) {
-                    case RecyclerView.SCROLL_STATE_DRAGGING:
-                        if (fabMenu.isShown()) {
-                            if (isMenuOpen) {
-                                animateFabMenuAppearance();
-                            }
-                            fabMenu.hide();
-                        }
-                        break;
-                    default:
-                        if (!isLastItemDisplaying(recyclerView) && !fabMenu.isShown()) {
-                            fabMenu.show();
-                        }
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
+//        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                logger("onScrollStateChanged: state - " + newState);
+//                switch (newState) {
+//                    case RecyclerView.SCROLL_STATE_DRAGGING:
+//                        if (fabMenu.isShown()) {
+//                            if (isMenuOpen) {
+//                                animateFabMenuAppearance();
+//                            }
+//                            fabMenu.hide();
+//                        }
+//                        break;
+//                    default:
+//                        if (!isLastItemDisplaying(recyclerView) && !fabMenu.isShown()) {
+//                            fabMenu.show();
+//                        }
+//                }
+//            }
+//
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//            }
+//        });
 
         Toolbar bottomToolbar = (Toolbar) v.findViewById(R.id.bottom_toolbar);
 
@@ -155,9 +158,12 @@ public class OrderFragment
                 DialogFragment dialog;
                 switch (item.getItemId()) {
                     case R.id.item_edit_info:
-                        dialog = ChooseDialog.newInstanceEditInfo();
-                        dialog.setTargetFragment(getTarget(), 0);
-                        dialog.show(getFragmentManager(), ChooseDialog.TAG);
+                        EnterDataDialog dialog1 = EnterDataDialog.newInstance(EnterDataDialog.TYPE_NOTIFY_PHONE);
+                        dialog1.setTargetFragment(getTarget(), 0);
+                        dialog1.show(getFragmentManager(), EnterDataDialog.TAG);
+//                        dialog = ChooseDialog.newInstanceEditInfo();
+//                        dialog.setTargetFragment(getTarget(), 0);
+//                        dialog.show(getFragmentManager(), ChooseDialog.TAG);
                         break;
                     case R.id.item_make_order:
                         String phone = Order.getInstance().getPhone();
@@ -170,9 +176,10 @@ public class OrderFragment
 //                        else if (!isCityChosen()) {
 //                            getCities();
 //                        }
-                        else if (Order.getInstance().getRoute().isEmpty()) {
-                            setTutorial();
-                        } else {
+//                        else if (Order.getInstance().getRoute().isEmpty()) {
+//                            setTutorial();
+//                        }
+                        else {
                             makeOrder();
                         }
                         break;
@@ -297,79 +304,79 @@ public class OrderFragment
     /**
      * Animate fab's appearance
      */
-    private void animateFabMenuAppearance() {
-        View view = getView();
-
-        if (view == null) return;
-
-        FloatingActionButton menu = (FloatingActionButton) view.findViewById(R.id.fab_menu);
-        FloatingActionButton openMap = (FloatingActionButton) view.findViewById(R.id.fab_open_map);
-        FloatingActionButton typeAddress = (FloatingActionButton) view.findViewById(R.id.fab_type_address);
-
-        if (isMenuOpen) {
-            logger("close menu");
-            ViewCompat.animate(menu)
-                    .rotation(0)
-                    .withLayer()
-                    .setDuration(300)
-                    .setInterpolator(new OvershootInterpolator())
-                    .start();
-            typeAddress.hide();
-            openMap.hide();
-            openMap.setClickable(false);
-            typeAddress.setClickable(false);
-            isMenuOpen = false;
-        } else {
-            logger("open menu");
-            ViewCompat.animate(menu)
-                    .rotation(45)
-                    .withLayer()
-                    .setDuration(300)
-                    .setInterpolator(new OvershootInterpolator())
-                    .start();
-            openMap.show();
-            typeAddress.show();
-            openMap.setClickable(true);
-            typeAddress.setClickable(true);
-            isMenuOpen = true;
-        }
-
-    }
+//    private void animateFabMenuAppearance() {
+//        View view = getView();
+//
+//        if (view == null) return;
+//
+//        FloatingActionButton menu = (FloatingActionButton) view.findViewById(R.id.fab_menu);
+//        FloatingActionButton openMap = (FloatingActionButton) view.findViewById(R.id.fab_open_map);
+//        FloatingActionButton typeAddress = (FloatingActionButton) view.findViewById(R.id.fab_type_address);
+//
+//        if (isMenuOpen) {
+//            logger("close menu");
+//            ViewCompat.animate(menu)
+//                    .rotation(0)
+//                    .withLayer()
+//                    .setDuration(300)
+//                    .setInterpolator(new OvershootInterpolator())
+//                    .start();
+//            typeAddress.hide();
+//            openMap.hide();
+//            openMap.setClickable(false);
+//            typeAddress.setClickable(false);
+//            isMenuOpen = false;
+//        } else {
+//            logger("open menu");
+//            ViewCompat.animate(menu)
+//                    .rotation(45)
+//                    .withLayer()
+//                    .setDuration(300)
+//                    .setInterpolator(new OvershootInterpolator())
+//                    .start();
+//            openMap.show();
+//            typeAddress.show();
+//            openMap.setClickable(true);
+//            typeAddress.setClickable(true);
+//            isMenuOpen = true;
+//        }
+//
+//    }
 
     /**
      * Set tutorial overlay
      */
-    private void setTutorial() {
-        View view = getView();
-
-        if (view == null) return;
-
-        MaterialShowcaseView.resetSingleUse(getActivity(), "Tutorial");
-
-        new MaterialShowcaseView.Builder(getActivity())
-                .setTarget(view.findViewById(R.id.fab_menu))
-                .setDismissText(R.string.btn_ok)
-                .setContentText(R.string.showcase_text)
-                .setDelay(200) // optional but starting animations immediately in onCreate can make them choppy
-                .singleUse("Tutorial") // provide a unique ID used to ensure it is only shown once
-                .setMaskColour(getResources().getColor(R.color.showcase))
-                .setDismissOnTouch(true)
-                .setListener(new IShowcaseListener() {
-                    @Override
-                    public void onShowcaseDisplayed(MaterialShowcaseView materialShowcaseView) {
-
-                    }
-
-                    @Override
-                    public void onShowcaseDismissed(MaterialShowcaseView materialShowcaseView) {
+//    private void setTutorial() {
+//        View view = getView();
+//
+//        if (view == null) return;
+//
+//        MaterialShowcaseView.resetSingleUse(getActivity(), "Tutorial");
+//
+//        new MaterialShowcaseView.Builder(getActivity())
+//                .setTarget(view.findViewById(R.id.fab_menu))
+//                .setDismissText(R.string.btn_ok)
+//                .setContentText(R.string.showcase_text)
+//                .setDelay(200) // optional but starting animations immediately in onCreate can make them choppy
+//                .singleUse("Tutorial") // provide a unique ID used to ensure it is only shown once
+//                .setMaskColour(getResources().getColor(R.color.showcase))
+//                .setDismissOnTouch(true)
+//                .setListener(new IShowcaseListener() {
+//                    @Override
+//                    public void onShowcaseDisplayed(MaterialShowcaseView materialShowcaseView) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onShowcaseDismissed(MaterialShowcaseView materialShowcaseView) {
 //                        if (!isCityChosen()) {
 //                            getCities();
 //                        }
-                    }
-                })
-                .show();
-
-    }
+//                    }
+//                })
+//                .show();
+//
+//    }
     @Override
     protected void doBack() {
 
@@ -402,9 +409,9 @@ public class OrderFragment
 
         dataChanged();
 
-        if (mAdapter != null && mAdapter.getItemCount() < 1) {
-            setTutorial();
-        }
+//        if (mAdapter != null && mAdapter.getItemCount() < 1) {
+//            setTutorial();
+//        }
 
         mListener.displayProgress(false);
 
@@ -489,17 +496,23 @@ public class OrderFragment
         if (view == null) return;
 
         switch (v.getId()) {
-            case R.id.fab_menu:
-                animateFabMenuAppearance();
+            case R.id.b_from_map:
+                openMap(null);
                 break;
-            case R.id.fab_type_address:
-                animateFabMenuAppearance();
+            case R.id.b_from_input:
                 openEnterAddressDialog(null);
                 break;
-            case R.id.fab_open_map:
-                openMap(null);
-                animateFabMenuAppearance();
-                break;
+//            case R.id.fab_menu:
+//                animateFabMenuAppearance();
+//                break;
+//            case R.id.fab_type_address:
+//                animateFabMenuAppearance();
+//                openEnterAddressDialog(null);
+//                break;
+//            case R.id.fab_open_map:
+//                openMap(null);
+//                animateFabMenuAppearance();
+//                break;
         }
 
     }
@@ -521,18 +534,18 @@ public class OrderFragment
 //            if (!city.isEmpty()) {
 //                setCity(city);
 //            } else {
-                int index = data.getInt(EnterAddressDialog.ARGS_INDEX, -1);
+            int index = data.getInt(EnterAddressDialog.ARGS_INDEX, -1);
 
-                String address = data.getString(EnterAddressDialog.ARGS_ADDRESS);
-                LatLng latLng = data.getParcelable(EnterAddressDialog.ARGS_LAT_LNG);
+            String address = data.getString(EnterAddressDialog.ARGS_ADDRESS);
+            LatLng latLng = data.getParcelable(EnterAddressDialog.ARGS_LAT_LNG);
 
-                RouteItem item = new RouteItem(address, latLng);
+            RouteItem item = new RouteItem(address, latLng);
 
-                if (index < 0) {
-                    mAdapter.addItem(item);
-                } else {
-                    mAdapter.updateItem(item, index);
-                }
+            if (index < 0) {
+                mAdapter.addItem(item);
+            } else {
+                mAdapter.updateItem(item, index);
+            }
 //            }
         }
         dialog.cancel();
@@ -674,20 +687,20 @@ public class OrderFragment
      */
     private void openEnterAddressDialog(@Nullable Integer index) {
 //        if (isCityChosen()) {
-            if (index != null) {
-                EnterAddressDialog dialog = EnterAddressDialog.newInstanceEdit(index);
-                dialog.setCancelable(true);
-                dialog.setTargetFragment(getTarget(), 1);
-                dialog.show(getFragmentManager(), EnterAddressDialog.TAG);
-            } else {
-                EnterAddressDialog dialog = EnterAddressDialog.newInstanceAdd(
-                        (mAdapter.getItemCount() > 0) ?
-                                R.string.ead_title_end_address : R.string.ead_title_start_address
-                );
-                dialog.setCancelable(false);
-                dialog.setTargetFragment(getTarget(), 1);
-                dialog.show(getFragmentManager(), EnterAddressDialog.TAG);
-            }
+        if (index != null) {
+            EnterAddressDialog dialog = EnterAddressDialog.newInstanceEdit(index);
+            dialog.setCancelable(true);
+            dialog.setTargetFragment(getTarget(), 1);
+            dialog.show(getFragmentManager(), EnterAddressDialog.TAG);
+        } else {
+            EnterAddressDialog dialog = EnterAddressDialog.newInstanceAdd(
+                    (mAdapter.getItemCount() > 0) ?
+                            R.string.ead_title_end_address : R.string.ead_title_start_address
+            );
+            dialog.setCancelable(false);
+            dialog.setTargetFragment(getTarget(), 1);
+            dialog.show(getFragmentManager(), EnterAddressDialog.TAG);
+        }
 //        } else {
 //            getCities();
 //        }
@@ -699,9 +712,9 @@ public class OrderFragment
      */
     private void openMap(@Nullable Integer index) {
 //        if (isCityChosen()) {
-            Intent intent = new Intent(getActivity(), MapActivity.class);
-            intent.putExtra(MapActivity.EXTRA_INDEX, index);
-            startActivityForResult(intent, MapActivity.REQUEST_ADDRESS);
+        Intent intent = new Intent(getActivity(), MapActivity.class);
+        intent.putExtra(MapActivity.EXTRA_INDEX, index);
+        startActivityForResult(intent, MapActivity.REQUEST_ADDRESS);
 //        } else {
 //            getCities();
 //        }

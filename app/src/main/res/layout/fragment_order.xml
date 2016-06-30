@@ -78,6 +78,8 @@
             android:layout_height="wrap_content"
             android:text="@string/of_from_map"
             android:textColor="@color/mdtp_white"
+            android:textAllCaps="true"
+            style="@style/AppTheme.Button"
             />
 
         <Button
@@ -86,7 +88,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/of_handle"
-            android:textColor="@color/mdtp_white"/>
+            android:textColor="@color/mdtp_white"
+            android:textAllCaps="true"
+            style="@style/AppTheme.Button" />
 
     </LinearLayout>
 

@@ -15,51 +15,78 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_toolbar"/>
 
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_fabs_container"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:gravity="center_horizontal|bottom"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_above="@+id/bottom_toolbar"-->
+        <!--android:layout_alignWithParentIfMissing="true"-->
+        <!--&gt;-->
+
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fab_open_map"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_map"-->
+            <!--android:layout_margin="@dimen/fab_mini_margin"-->
+            <!--app:fabSize="mini"-->
+            <!--app:elevation="6dp"-->
+            <!--app:borderWidth="0dp"-->
+            <!--/>-->
+
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fab_type_address"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_edit_white"-->
+            <!--android:layout_margin="@dimen/fab_mini_margin"-->
+            <!--app:fabSize="mini"-->
+            <!--app:elevation="6dp"-->
+            <!--app:borderWidth="0dp"/>-->
+
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fab_menu"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_add"-->
+            <!--android:layout_margin="@dimen/fab_margin"-->
+            <!--app:fabSize="normal"-->
+            <!--app:elevation="6dp"-->
+            <!--app:borderWidth="0dp"-->
+            <!--app:layout_behavior="digitalpromo.cabsdemo.utils.FloatingActionButtonBehavior"-->
+            <!--/>-->
+
+    <!--</LinearLayout>-->
+
     <LinearLayout
-        android:id="@+id/ll_fabs_container"
-        android:layout_width="wrap_content"
+        android:id="@+id/of_order_buttons_wrapper"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal|bottom"
-        android:layout_gravity="bottom|end"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_above="@+id/bottom_toolbar"
-        android:layout_alignWithParentIfMissing="true"
-        >
+        android:layout_above="@id/bottom_toolbar">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_open_map"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/b_from_map"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_map"
-            android:layout_margin="@dimen/fab_mini_margin"
-            app:fabSize="mini"
-            app:elevation="6dp"
-            app:borderWidth="0dp"
+            android:text="@string/of_from_map"
+            android:textColor="@color/mdtp_white"
             />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_type_address"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/b_from_input"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_edit_white"
-            android:layout_margin="@dimen/fab_mini_margin"
-            app:fabSize="mini"
-            app:elevation="6dp"
-            app:borderWidth="0dp"/>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_add"
-            android:layout_margin="@dimen/fab_margin"
-            app:fabSize="normal"
-            app:elevation="6dp"
-            app:borderWidth="0dp"
-            app:layout_behavior="digitalpromo.cabsdemo.utils.FloatingActionButtonBehavior"
-            />
+            android:text="@string/of_handle"
+            android:textColor="@color/mdtp_white"/>
 
     </LinearLayout>
 

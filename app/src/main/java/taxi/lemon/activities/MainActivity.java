@@ -314,8 +314,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     Uri theUri = Uri.fromFile(imageToShare);
                     Intent sendIntent = new Intent(Intent.ACTION_SEND);
                     sendIntent.setType("image/*");
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, getResources().getText(R.string.shared_text));
                     sendIntent.putExtra(Intent.EXTRA_STREAM, theUri);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, getResources().getText(R.string.shared_text));
                     startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.share_via)));
 
                 } catch (IOException e) {

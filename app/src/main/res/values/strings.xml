@@ -86,6 +86,8 @@
     <string name="of_preferences">Дополнительные параметры</string>
     <string name="of_call">Заказать</string>
     <string name="of_notify_phone">Телефон для обратной связи</string>
+    <string name="of_from_map">С карты</string>
+    <string name="of_handle">Вручную</string>
     <!--EnterCommentDialog-->
     <string name="ecd_title_comment">Комментарий</string>
     <string name="ecd_et_comment">Комментарий для водителя</string>

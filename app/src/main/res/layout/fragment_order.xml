@@ -115,6 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Город:"
+                android:textColor="@color/textColorPrimary"
                 />
 
             <TextView
@@ -124,6 +125,7 @@
                 android:layout_alignStart="@+id/tv_cost"
                 android:layout_alignLeft="@+id/tv_cost"
                 android:text="@string/pa_notify_phone_undefined"
+                android:textColor="@color/textColorPrimary"
                 />
 
             <TextView
@@ -132,6 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_title_phone"
                 android:text="Стоимость:"
+                android:textColor="@color/textColorPrimary"
                 />
 
             <TextView
@@ -144,6 +147,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:text="0"
+                android:textColor="@color/textColorPrimary"
                 />
 
             <TextView
@@ -152,6 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_title_city"
                 android:text="Телефон:"
+                android:textColor="@color/textColorPrimary"
                 />
 
             <TextView
@@ -162,6 +167,7 @@
                 android:layout_below="@+id/tv_city"
                 android:layout_alignStart="@+id/tv_cost"
                 android:layout_alignLeft="@+id/tv_cost"
+                android:textColor="@color/textColorPrimary"
                 />
 
         </RelativeLayout>

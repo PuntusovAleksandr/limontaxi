@@ -7,7 +7,7 @@ public class StraightGeoCodingRequest extends GeoCodingRequest {
 //    private static final String BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json?language=ru&address=%s&components=country:UA&%s";
 //    private static final String API_KEY = "key=" + App.getContext().getString(R.string.geocoding_key);
     private static final String PARAM_ADDRESS = "address=%s";
-    private static final String PARAM_COMPONENTS = "components=country:UA";
+    private static final String PARAM_COMPONENTS = "components=country:UA&postal_code=01001";
 
     /**
      * Coordinates of way point

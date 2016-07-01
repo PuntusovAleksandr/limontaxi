@@ -601,11 +601,11 @@ public class OrderFragment
             @Override
             public void response(final GeoCodingResponse response) {
                 if (response.isOK()) {
+                    LatLng la = response.getLatLng();
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             RouteItem item = new RouteItem(response.getAddress(), response.getLatLng());
-
                             if (index < 0) {
                                 mAdapter.addItem(item);
                             } else {

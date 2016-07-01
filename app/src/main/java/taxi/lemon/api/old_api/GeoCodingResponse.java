@@ -11,10 +11,15 @@ import java.util.List;
 public class GeoCodingResponse {
     private static final String STATUS_OK = "OK";
 
+    // пока так, криво но быстро
+    String cityToFind = "Київ";
+
     /**
      * List of results
      */
     private List<GeoCodingResult> results;
+
+    private GeoCodingResult rightCityResult;
 
     /**
      * Request status
@@ -22,15 +27,17 @@ public class GeoCodingResponse {
     private String status;
 
     public String getAddress() {
-        if (results != null && results.size() > 0 ) {
-            return results.get(0).getAddress();
+        findCity();
+        if (rightCityResult != null && results.size() > 0 ) {
+            return rightCityResult.getAddress();
         }
         return "";
     }
 
     public LatLng getLatLng() {
-        if (results != null && results.size() > 0) {
-            return results.get(0).getGeometry().getLocation().getLatLng();
+        findCity();
+        if (rightCityResult != null && results.size() > 0) {
+            return rightCityResult.getGeometry().getLocation().getLatLng();
         } else {
             return null;
         }
@@ -109,6 +116,14 @@ public class GeoCodingResponse {
 
             public String getShortName() {
                 return shortName;
+            }
+        }
+    }
+
+    private void findCity() {
+        for(GeoCodingResult result : results) {
+            if(result.address.contains(cityToFind)) {
+                rightCityResult = result;
             }
         }
     }

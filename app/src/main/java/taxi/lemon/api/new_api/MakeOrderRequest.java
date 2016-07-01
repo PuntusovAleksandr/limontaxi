@@ -65,6 +65,9 @@ public class MakeOrderRequest {
     @SerializedName("app_registration_token")
     private String appRegistrationToken;
 
+    @SerializedName("route_address_entrance _from")
+    private String entrance;
+
     public MakeOrderRequest(Order order, String userFullName, String appRegistrationToken) {
         this.userFullName = userFullName;
         this.phone = order.getPhone();
@@ -84,5 +87,6 @@ public class MakeOrderRequest {
         this.route = order.getRoute();
         this.appRegistrationToken = appRegistrationToken;
         this.addCost = order.getAddCost();
+        this.entrance = order.getRouteAddressEntranceFrom();
     }
 }

@@ -96,6 +96,7 @@ public class PreferencesActivity extends AppCompatActivity implements DialogButt
         initRateType();
         initAddParameters();
         initAddCost();
+        initEntrance();
         initComment();
 
         aq.id(R.id.cb_pre_order).getCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -118,6 +119,7 @@ public class PreferencesActivity extends AppCompatActivity implements DialogButt
         aq.id(R.id.ib_edit_time).clicked(this);
         aq.id(R.id.ib_edit_comment).clicked(this);
         aq.id(R.id.btn_save).clicked(this);
+        aq.id(R.id.ib_insert_entrance).clicked(this);
 
         ((RadioGroup) aq.id(R.id.rg_rate_types).getView()).setOnCheckedChangeListener(this);
 
@@ -159,6 +161,13 @@ public class PreferencesActivity extends AppCompatActivity implements DialogButt
      */
     private void initAddCost() {
         aq.id(R.id.tv_add_cost).text(String.valueOf(order.getAddCost()));
+    }
+
+
+    private void initEntrance() {
+        if(order.getRouteAddressEntranceFrom() != null) {
+            aq.id(R.id.tv_insert_entrance).text(String.valueOf(order.getRouteAddressEntranceFrom()));
+        }
     }
 
     /**
@@ -212,6 +221,13 @@ public class PreferencesActivity extends AppCompatActivity implements DialogButt
                     order.setAddCost(Integer.parseInt(addCost));
                 }
                 break;
+            case EnterDataDialog.TYPE_INSERT_ENTRANCE:
+                String entrance = data.getString(EnterDataDialog.ARGS_DATA);
+                if(entrance != null) {
+                    aq.id(R.id.tv_insert_entrance).text(entrance);
+                    order.setRouteAddressEntranceFrom(entrance);
+                }
+                break;
             default:
                 String comment = data.getString(EnterCommentDialog.ARGS_COMMENT, "");
                 if (comment.isEmpty()) {
@@ -250,6 +266,10 @@ public class PreferencesActivity extends AppCompatActivity implements DialogButt
             case R.id.btn_save:
                 Order.getInstance().updateInstance(order);
                 finish();
+                break;
+            case R.id.ib_insert_entrance:
+                EnterDataDialog.newInstance(EnterDataDialog.TYPE_INSERT_ENTRANCE)
+                        .show(getSupportFragmentManager(), EnterDataDialog.TAG);
                 break;
         }
     }

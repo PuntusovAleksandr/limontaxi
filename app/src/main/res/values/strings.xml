@@ -156,6 +156,7 @@
     <string name="pa_section_rate_type">Тип тарифа:</string>
     <string name="pa_section_extra">Дополнительно:</string>
     <string name="pa_section_add_cost">Доп. стоимость к заказу:</string>
+    <string name="pa_insert_entrance">Номер подъезда:</string>
     <string name="pa_notify_phone_undefined">Не указан</string>
     <string name="pa_pre_order">Предварительный заказ</string>
     <string name="pa_pay_by_bonuses">Оплата бонусами</string>
@@ -175,6 +176,7 @@
     <string name="pa_courier_delivery">Курьерская доставка</string>
     <string name="pa_route_undefined">По городу</string>
     <string name="pa_add_cost_undefined">0 д.е.</string>
+    <string name="pa_insert_entrance_tv"></string>
     <string name="pa_comment_init_content">Информация которая может помочь водителю.</string>
     <string name="pa_terminal">Терминал</string>
     <string name="pa_receipt">Требование чека за поездку</string>
@@ -183,7 +185,9 @@
     <!--EnterDataDialog-->
     <string name="edd_title_notify_phone">Телефон для обратной связи</string>
     <string name="edd_title_add_cost">Доп. стоимость к заказу</string>
+    <string name="edd_title_insert_entrance">Введите номер подъезда</string>
     <string name="edd_hint_phone">№ телефона</string>
+    <string name="edd_hint_entrance">№ подъезда</string>
     <string name="edd_hint_amount">Сумма</string>
     <!--MapActivity-->
     <string name="ma_title_pick_address">Выбор адреса</string>

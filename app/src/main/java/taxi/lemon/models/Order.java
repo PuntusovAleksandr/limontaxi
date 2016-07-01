@@ -47,6 +47,7 @@ public class Order {
     private String phone;
     private String encodedRoute;
     private String tokenForGcm;
+    private String routeAddressEntranceFrom;
 
 //    private Integer cityId;
 
@@ -246,6 +247,14 @@ public class Order {
         this.encodedRoute = encodedRoute;
     }
 
+    public String getRouteAddressEntranceFrom() {
+        return routeAddressEntranceFrom;
+    }
+
+    public void setRouteAddressEntranceFrom(String routeAddressEntranceFrom) {
+        this.routeAddressEntranceFrom = routeAddressEntranceFrom;
+    }
+
     public void resetOrder() {
         route = new ArrayList<>();
         rate = RATE_BASE;
@@ -266,5 +275,6 @@ public class Order {
         orderDate = null;
         orderTime = null;
         encodedRoute = null;
+        routeAddressEntranceFrom = null;
     }
 }

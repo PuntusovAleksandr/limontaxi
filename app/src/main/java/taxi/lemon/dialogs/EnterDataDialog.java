@@ -26,6 +26,7 @@ public class EnterDataDialog extends DialogFragment {
 
     public static final int TYPE_NOTIFY_PHONE = 0x1;
     public static final int TYPE_ADD_COST = 0x2;
+    public static final int TYPE_INSERT_ENTRANCE = 0x3;
 
     private DialogButtonsListener mListener;
 
@@ -115,6 +116,11 @@ public class EnterDataDialog extends DialogFragment {
             case TYPE_ADD_COST:
                 adb.setTitle(R.string.edd_title_add_cost);
                 tilData.setHint(getString(R.string.edd_hint_amount));
+                etData.setInputType(InputType.TYPE_CLASS_NUMBER);
+                break;
+            case TYPE_INSERT_ENTRANCE:
+                adb.setTitle(R.string.edd_title_insert_entrance);
+                tilData.setHint(getString(R.string.edd_hint_entrance));
                 etData.setInputType(InputType.TYPE_CLASS_NUMBER);
                 break;
         }

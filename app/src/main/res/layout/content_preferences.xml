@@ -51,8 +51,14 @@
             android:id="@+id/pre_order"
             layout="@layout/item_pre_order"/>
 
-        <!--<include-->
-            <!--layout="@layout/divider"/>-->
+        <include
+            layout="@layout/divider"/>
+
+        <include android:id="@+id/entrance"
+            layout="@layout/item_insert_entrance"/>
+
+        <include
+            layout="@layout/divider"/>
 
         <include
             layout="@layout/item_add_cost"/>

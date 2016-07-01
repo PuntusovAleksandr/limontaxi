@@ -133,6 +133,8 @@ public class OrderInfoActivity extends AppCompatActivity implements View.OnClick
                 if(response.isSuccessful()) {
                     Toast.makeText(thisActivity, getResources().getString(R.string.oia_order_cancel_success), Toast.LENGTH_SHORT).show();
                     finish();
+                } else {
+                    Toast.makeText(thisActivity, getResources().getString(R.string.oia_order_cancel_failed), Toast.LENGTH_SHORT).show();
                 }
             }
 

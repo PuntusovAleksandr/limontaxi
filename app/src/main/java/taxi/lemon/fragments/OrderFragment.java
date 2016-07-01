@@ -415,8 +415,6 @@ public class OrderFragment
 
         mListener.displayProgress(false);
 
-        Order order = Order.getInstance();
-
         EventBus.getDefault().register(this);
     }
 
@@ -630,7 +628,6 @@ public class OrderFragment
         mListener.displayProgress(true);
         ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
         String userFullName = UserProfile.getInstance() != null ? UserProfile.getInstance().getFullName() : "Unauthorized";
-        Order order = Order.getInstance();
         Call<MakeOrderResponse> call = client.makeOrder(new MakeOrderRequest(Order.getInstance(), userFullName, SharedPreferencesManager.getInstance().loadGcmToken()));
         call.enqueue(new Callback<MakeOrderResponse>() {
             @Override

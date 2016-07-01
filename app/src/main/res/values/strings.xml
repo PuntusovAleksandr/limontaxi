@@ -230,5 +230,7 @@
     <string name="oia_to">Куда</string>
     <string name="oia_order_info">Информация о заказе</string>
     <string name="oia_call_to_driver">Позвонить водителю</string>
+    <string name="oia_order_cancel_failed">Не удалось отменить заказ</string>
+    <string name="oia_order_cancel_success">Заказ отменен</string>
 
 </resources>

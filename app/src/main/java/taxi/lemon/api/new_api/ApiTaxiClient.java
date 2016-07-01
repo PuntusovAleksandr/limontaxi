@@ -3,6 +3,8 @@ package taxi.lemon.api.new_api;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.http.Field;
+import retrofit2.http.Path;
 import taxi.lemon.models.HistoryItem;
 import taxi.lemon.models.UserProfile;
 import okhttp3.ResponseBody;
@@ -65,6 +67,6 @@ public interface ApiTaxiClient {
     @POST("account/restore")
     Call<ResponseBody> restorePassword(@Body RestorePasswordRequest request);
 
-    @PUT("weborders/cancel")
-    Call<ResponseBody> cancelOrder(@Body CancelOrderRequest request);
+    @PUT("weborders/cancel/{uid}")
+    Call<ResponseBody> cancelOrder(@Path("uid") String uid);
 }

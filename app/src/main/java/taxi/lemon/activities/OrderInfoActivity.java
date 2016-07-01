@@ -1,5 +1,6 @@
 package taxi.lemon.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -9,11 +10,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import taxi.lemon.R;
+import taxi.lemon.api.new_api.ApiTaxiClient;
+import taxi.lemon.api.new_api.ServiceGenerator;
 import taxi.lemon.models.RouteItem;
+import taxi.lemon.utils.SharedPreferencesManager;
 
 public class OrderInfoActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = OrderInfoActivity.class.getName();
@@ -58,9 +67,12 @@ public class OrderInfoActivity extends AppCompatActivity implements View.OnClick
     }
 
     private String convert(String item) {
-        RouteItem itemFrom = new Gson().fromJson(item, RouteItem.class);
-        String number = itemFrom.getNumber() == null ? ", " : itemFrom.getNumber();
-        return itemFrom.getStreet() + " " + number;
+        if(item != null) {
+            RouteItem itemFrom = new Gson().fromJson(item, RouteItem.class);
+            String number = itemFrom.getNumber() == null ? ", " : itemFrom.getNumber();
+            return itemFrom.getStreet() + " " + number;
+        }
+        return null;
     }
 
     @Override
@@ -103,8 +115,7 @@ public class OrderInfoActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.b_cancel_order:
-                // make api call to cancel this order and finish activity
-                finish();
+                cancelOrder();
                 break;
             case R.id.b_call_to_driver:
                 callToDriver();
@@ -113,7 +124,23 @@ public class OrderInfoActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void cancelOrder() {
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
+        Call<ResponseBody> call = client.cancelOrder(orderId);
+        final Activity thisActivity = this;
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    Toast.makeText(thisActivity, getResources().getString(R.string.oia_order_cancel_success), Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(thisActivity, getResources().getString(R.string.oia_order_cancel_failed), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void callToDriver() {

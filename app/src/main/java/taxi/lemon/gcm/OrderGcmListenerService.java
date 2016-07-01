@@ -53,7 +53,7 @@ public class OrderGcmListenerService extends GcmListenerService {
         Intent intent = new Intent();
         if(reason.equals(CLOSE_REASON_SEARCH_SEARCH_FIND_CHANGE)) {
             intent.setClass(this, OrderInfoActivity.class);
-            intent.putExtra(OrderInfoActivity.EXTRA_ORDER_INFO, orderId);
+            intent.putExtra(OrderInfoActivity.EXTRA_ORDER_ID, orderId);
             intent.putExtra(OrderInfoActivity.EXTRA_ADDRESS_FROM, addressFrom);
             intent.putExtra(OrderInfoActivity.EXTRA_ADDRESS_TO, addressTo);
             intent.putExtra(OrderInfoActivity.EXTRA_ORDER_INFO, orderInfo);

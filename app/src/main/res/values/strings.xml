@@ -221,6 +221,14 @@
 
     <!--PUSH service-->
     <string name="search_car">Поиск машины</string>
+    <string name="find_car">Машина найдена</string>
     <string name="refuse_order">Заказ отменен</string>
+
+    <!--OrderInfoActivity-->
+    <string name="oia_cancel_order">Отменить заказ</string>
+    <string name="oia_from">Откуда</string>
+    <string name="oia_to">Куда</string>
+    <string name="oia_order_info">Информация о заказе</string>
+    <string name="oia_call_to_driver">Позвонить водителю</string>
 
 </resources>

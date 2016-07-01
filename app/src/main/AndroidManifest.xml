@@ -99,7 +99,12 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activities.OrderInfoActivity"></activity>
+        <activity android:name=".activities.OrderInfoActivity"
+            android:parentActivityName=".activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

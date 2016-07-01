@@ -16,6 +16,8 @@ import com.google.gson.Gson;
 
 import taxi.lemon.R;
 import taxi.lemon.activities.MainActivity;
+import taxi.lemon.activities.OrderInfoActivity;
+import taxi.lemon.models.Order;
 import taxi.lemon.models.RouteItem;
 
 public class OrderGcmListenerService extends GcmListenerService {
@@ -26,29 +28,39 @@ public class OrderGcmListenerService extends GcmListenerService {
     private static final String CLOSE_REASON_NO_CAR = "4";
     @Override
     public void onMessageReceived(String s, Bundle bundle) {
+        String orderId = bundle.getString("dispatching_order_uid");
         String from = bundle.getString("route_address_from");
         String to = bundle.getString("route_address_to");
-        RouteItem fromItem = new Gson().fromJson(from, RouteItem.class);
-        RouteItem toItem = new Gson().fromJson(to, RouteItem.class);
-        String close_reason = bundle.getString("close_reason");
-        String order_car_info = bundle.getString("order_car_info");
+        String closeReason = bundle.getString("close_reason");
+        String orderCarInfo = bundle.getString("order_car_info");
+        String driverPhone = bundle.getString("driver_phone");
         String message = null;
 
-        if(close_reason.equals(CLOSE_REASON_SEARCH_SEARCH_FIND_CHANGE)) {
-            if(order_car_info == null) {
+        if(closeReason.equals(CLOSE_REASON_SEARCH_SEARCH_FIND_CHANGE)) {
+            if(orderCarInfo == null) {
                 message = getResources().getString(R.string.search_car);
             } else {
-                message = order_car_info;
+                message = getResources().getString(R.string.find_car);
             }
         } else {
             message = getResources().getString(R.string.refuse_order);
         }
 
-        sendNotification(message);
+        sendNotification(message, orderId, from, to, orderCarInfo, driverPhone, closeReason);
     }
 
-    private void sendNotification(String message) {
-        Intent intent = new Intent(this, MainActivity.class);
+    private void sendNotification(String message, String orderId, String addressFrom, String addressTo, String orderInfo, String driverPhone, String reason) {
+        Intent intent = new Intent();
+        if(reason.equals(CLOSE_REASON_SEARCH_SEARCH_FIND_CHANGE)) {
+            intent.setClass(this, OrderInfoActivity.class);
+            intent.putExtra(OrderInfoActivity.EXTRA_ORDER_INFO, orderId);
+            intent.putExtra(OrderInfoActivity.EXTRA_ADDRESS_FROM, addressFrom);
+            intent.putExtra(OrderInfoActivity.EXTRA_ADDRESS_TO, addressTo);
+            intent.putExtra(OrderInfoActivity.EXTRA_ORDER_INFO, orderInfo);
+            intent.putExtra(OrderInfoActivity.EXTRA_DRIVER_PHONE, driverPhone);
+        } else {
+            intent.setClass(this, MainActivity.class);
+        }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);

@@ -7,11 +7,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <permission
         android:name="taxi.lemon.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="taxi.lemon.permission.C2D_MESSAGE" />
 
     <uses-feature
@@ -72,23 +73,24 @@
             android:name="io.fabric.ApiKey"
             android:value="bbf9a3c96b3028ff317ea62c9019d985557d32dd" />
 
-        <!--GCM section-->
+        <!-- GCM section -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="taxi.lemon" />
             </intent-filter>
         </receiver>
+
         <service
             android:name=".gcm.GetGcmTokenIntentService"
             android:exported="false" />
         <service
             android:name=".gcm.MyInstanceIDListenerService"
-            android:exported="false">
-        </service>
+            android:exported="false"></service>
         <service
             android:name=".gcm.OrderGcmListenerService"
             android:exported="false">
@@ -96,6 +98,8 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
+
+        <activity android:name=".activities.OrderInfoActivity"></activity>
     </application>
 
 </manifest>

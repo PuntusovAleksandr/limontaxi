@@ -10,25 +10,33 @@ import taxi.lemon.models.RouteItem;
  * Created by Администратор on 14.06.2016.
  */
 public class GetAutoCompleteResponse {
+
     @SerializedName("geo_streets")
-    private ArrayList<GeoStreet> geoStreets;
+    private GeoStreets geoStreets;
 
     @SerializedName("geo_objects")
-    private ArrayList<GeoObject> geoObjects;
-
-    private ArrayList<RouteItem> items = new ArrayList<>();
+    private GeoObjects geoObjects;
 
     public ArrayList<RouteItem> getAutocomplete() {
-        return null;
+        ArrayList<RouteItem> items = new ArrayList<>();
+        for(RouteItem item : geoObjects.objects) {
+            item.setObject(true);
+        }
+        for (RouteItem item : geoStreets.streets) {
+            item.setObject(false);
+        }
+        items.addAll(geoObjects.objects);
+        items.addAll(geoStreets.streets);
+        return items;
     }
 
-    protected class GeoStreet {
+    protected class GeoStreets {
         @SerializedName("geo_street")
-        protected ArrayList<RouteItem> autocomplete1;
+        ArrayList<RouteItem> streets;
     }
 
-    protected class GeoObject {
+    protected class GeoObjects {
         @SerializedName("geo_object")
-        protected ArrayList<RouteItem> autocomplete2;
+        ArrayList<RouteItem> objects;
     }
 }

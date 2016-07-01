@@ -11,6 +11,9 @@ import java.util.ArrayList;
  * Hold route item info
  */
 public class RouteItem {
+
+    private boolean isObject;
+
     /**
      * Address
      */
@@ -116,6 +119,14 @@ public class RouteItem {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public boolean isObject() {
+        return isObject;
+    }
+
+    public void setObject(boolean object) {
+        isObject = object;
     }
 
     public LatLng getLatLng() {

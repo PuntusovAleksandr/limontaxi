@@ -41,7 +41,7 @@ public interface ApiTaxiClient {
     @PUT("account/changepassword")
     Call<ResponseBody> changePassword(@Body ChangePasswordRequest request);
 
-    @GET("geodata/streets/search")
+    @GET("geodata/search")
     Call<GetAutoCompleteResponse> getAutocompleteRequest(@Query("q") String search);
 
     @GET("geodata/search")

@@ -36,6 +36,7 @@ import taxi.lemon.R;
 import taxi.lemon.api.new_api.ApiTaxiClient;
 import taxi.lemon.api.new_api.AuthorizationRequest;
 import taxi.lemon.api.new_api.AuthorizationResponse;
+import taxi.lemon.api.new_api.GetAutoCompleteResponse;
 import taxi.lemon.api.new_api.ServiceGenerator;
 import taxi.lemon.models.House;
 import taxi.lemon.models.RouteItem;
@@ -104,8 +105,10 @@ public class PlaceAutocompleteAdapter
 //        textView1.setText(item.getAddress());
         if(item.getHouses() != null) {
             textView1.setText(item.getStreet());
-        } else {
+        } else if (!item.isObject()) {
             textView1.setText(item.getAddress());
+        } else {
+            textView1.setText(item.getStreet());
         }
         return row;
     }
@@ -135,7 +138,7 @@ public class PlaceAutocompleteAdapter
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 if (results != null && results.count > 0) {
 
-                    if(mResultList.size() == 1) {
+                    if(mResultList.size() == 1 && !mResultList.get(0).isObject()) {
                         RouteItem singleStreetRouteItem = mResultList.get(0);
                         ArrayList<RouteItem> items = new ArrayList<>();
                         for(House house : singleStreetRouteItem.getHouses()) {
@@ -171,6 +174,7 @@ public class PlaceAutocompleteAdapter
         try {
 //            Response<ArrayList<RouteItem>> results = client.getAutocompleteRequest(string).execute();
 //            return client.getAutocompleteRequest(string, "houses").execute().body().getAutocomplete();
+//            GetAutoCompleteResponse res = client.getAutocompleteRequest(string).execute().body();
             ArrayList<RouteItem> items = client.getAutocompleteRequest(string).execute().body().getAutocomplete();
             return items;
         } catch (IOException e) {

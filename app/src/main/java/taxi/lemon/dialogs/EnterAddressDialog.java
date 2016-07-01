@@ -127,34 +127,6 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
         return string.matches(".*[a-zA-Zа-яА-ЯёЁ]+(\\s*[a-zA-Zа-яА-ЯёЁ]*)*.*");
     }
 
-    private void getLatLng(String addr) {
-        ApiClient.getInstance().getLatLng(addr, new ApiClient.ApiCallback<GeoCodingResponse>() {
-            @Override
-            public void response(GeoCodingResponse response) {
-                if (response.isOK()) {
-                    address = response.getAddress();
-                    latLng = response.getLatLng();
-
-                    if (isLatLngValid()) {
-                        mListener.OnDialogPositiveClick(getDialog(), createBundle());
-                    } else {
-                        setError(R.string.err_cant_get_lat_lng);
-                    }
-                }
-            }
-
-            @Override
-            public void error() {
-
-            }
-
-            @Override
-            public void noInternetConnection() {
-                ApiClient.getInstance().showAlert(getActivity());
-            }
-        });
-    }
-
     private void setError(int errorRes) {
         latLng = null;
         tilAddress.setError(getString(errorRes));
@@ -208,6 +180,13 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
                 (int) res.getDimension(R.dimen.dialog_content_horizontal_margin),
                 (int) res.getDimension(R.dimen.dialog_content_bottom_margin)
         );
+        adb.setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                address = mAutoCompleteTextView.getText().toString();
+                mListener.OnDialogPositiveClick(dialog, createBundle());
+            }
+        });
         adb.setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

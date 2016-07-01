@@ -12,9 +12,11 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GcmListenerService;
+import com.google.gson.Gson;
 
 import taxi.lemon.R;
 import taxi.lemon.activities.MainActivity;
+import taxi.lemon.models.RouteItem;
 
 public class OrderGcmListenerService extends GcmListenerService {
     private static final String CLOSE_REASON_SEARCH_SEARCH_FIND_CHANGE = "-1";
@@ -24,6 +26,10 @@ public class OrderGcmListenerService extends GcmListenerService {
     private static final String CLOSE_REASON_NO_CAR = "4";
     @Override
     public void onMessageReceived(String s, Bundle bundle) {
+        String from = bundle.getString("route_address_from");
+        String to = bundle.getString("route_address_to");
+        RouteItem fromItem = new Gson().fromJson(from, RouteItem.class);
+        RouteItem toItem = new Gson().fromJson(to, RouteItem.class);
         String close_reason = bundle.getString("close_reason");
         String order_car_info = bundle.getString("order_car_info");
         String message = null;

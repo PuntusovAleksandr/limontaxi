@@ -64,4 +64,7 @@ public interface ApiTaxiClient {
 
     @POST("account/restore")
     Call<ResponseBody> restorePassword(@Body RestorePasswordRequest request);
+
+    @PUT("weborders/cancel")
+    Call<ResponseBody> cancelOrder(@Body CancelOrderRequest request);
 }

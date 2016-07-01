@@ -80,7 +80,7 @@ public class PlaceAutocompleteAdapter
      */
     @Override
     public int getCount() {
-        return mResultList.size();
+        return mResultList == null ? 0 : mResultList.size();
     }
 
     /**

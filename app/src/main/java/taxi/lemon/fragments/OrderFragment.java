@@ -48,6 +48,7 @@ import taxi.lemon.api.new_api.MakeOrderRequest;
 import taxi.lemon.api.new_api.MakeOrderResponse;
 import taxi.lemon.api.new_api.ServiceGenerator;
 import taxi.lemon.api.old_api.ApiClient;
+import taxi.lemon.api.old_api.GeoCodingResponse;
 import taxi.lemon.dialogs.ChooseDialog;
 import taxi.lemon.dialogs.DialogButtonsListener;
 import taxi.lemon.dialogs.EnterAddressDialog;
@@ -534,19 +535,23 @@ public class OrderFragment
 //            if (!city.isEmpty()) {
 //                setCity(city);
 //            } else {
-            int index = data.getInt(EnterAddressDialog.ARGS_INDEX, -1);
+            final int index = data.getInt(EnterAddressDialog.ARGS_INDEX, -1);
 
             String address = data.getString(EnterAddressDialog.ARGS_ADDRESS);
             LatLng latLng = data.getParcelable(EnterAddressDialog.ARGS_LAT_LNG);
 
-            RouteItem item = new RouteItem(address, latLng);
+            if(latLng != null) {
+                RouteItem item = new RouteItem(address, latLng);
 
-            if (index < 0) {
-                mAdapter.addItem(item);
+                if (index < 0) {
+                    mAdapter.addItem(item);
+                } else {
+                    mAdapter.updateItem(item, index);
+                }
             } else {
-                mAdapter.updateItem(item, index);
+                getLatLng(address, index);
             }
-//            }
+
         }
         dialog.cancel();
     }
@@ -587,6 +592,38 @@ public class OrderFragment
             @Override
             public void onFailure(Call<GetOrderCostResponse> call, Throwable t) {
                 mListener.displayProgress(false);
+            }
+        });
+    }
+
+    private void getLatLng(String addr, final int index) {
+        ApiClient.getInstance().getLatLng(addr, new ApiClient.ApiCallback<GeoCodingResponse>() {
+            @Override
+            public void response(final GeoCodingResponse response) {
+                if (response.isOK()) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            RouteItem item = new RouteItem(response.getAddress(), response.getLatLng());
+
+                            if (index < 0) {
+                                mAdapter.addItem(item);
+                            } else {
+                                mAdapter.updateItem(item, index);
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void error() {
+
+            }
+
+            @Override
+            public void noInternetConnection() {
+                ApiClient.getInstance().showAlert(getActivity());
             }
         });
     }

@@ -83,5 +83,6 @@ public class MakeOrderRequest {
         this.receipt = order.isReceiptNeed();
         this.route = order.getRoute();
         this.appRegistrationToken = appRegistrationToken;
+        this.addCost = order.getAddCost();
     }
 }

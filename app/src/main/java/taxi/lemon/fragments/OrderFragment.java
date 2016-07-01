@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -601,18 +602,21 @@ public class OrderFragment
             @Override
             public void response(final GeoCodingResponse response) {
                 if (response.isOK()) {
-                    LatLng la = response.getLatLng();
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            RouteItem item = new RouteItem(response.getAddress(), response.getLatLng());
-                            if (index < 0) {
-                                mAdapter.addItem(item);
-                            } else {
-                                mAdapter.updateItem(item, index);
+                    if(response.getLatLng() != null) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                RouteItem item = new RouteItem(response.getAddress(), response.getLatLng());
+                                if (index < 0) {
+                                    mAdapter.addItem(item);
+                                } else {
+                                    mAdapter.updateItem(item, index);
+                                }
                             }
-                        }
-                    });
+                        });
+                    } else {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.of_wrong_address), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 

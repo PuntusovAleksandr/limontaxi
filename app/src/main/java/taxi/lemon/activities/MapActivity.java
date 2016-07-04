@@ -2,15 +2,22 @@ package taxi.lemon.activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -246,90 +253,102 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         getAddress(marker.getPosition());
     }
 
-//    /**
+    //    /**
 //     * Check permissions
 //     */
-//    private void checkPermissions() {
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-//            checkLocationService();
-//        } else {
-//            if (ContextCompat.checkSelfPermission(this,
-//                    Manifest.permission.ACCESS_FINE_LOCATION)
-//                    != PackageManager.PERMISSION_GRANTED) {
-//                logger("not granted");
-//                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-//                    logger("shouldn't request permissions");
-//                } else {
-//                    logger("request permissions");
-//                    ActivityCompat.requestPermissions(this,
-//                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-//                            MapActivity.REQUEST_ACCESS_FINE_LOCATION);
-//                }
-//            } else {
-//                logger("granted");
-//                mMap.setMyLocationEnabled(true);
+    private void checkPermissions() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            checkLocationService();
+        } else {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                logger("not granted");
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    logger("shouldn't request permissions");
+                } else {
+                    logger("request permissions");
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            MapActivity.REQUEST_ACCESS_FINE_LOCATION);
+                }
+            } else {
+                logger("granted");
+                mMap.setMyLocationEnabled(true);
 //                mMap.setOnMyLocationChangeListener(this);
-//            }
-//        }
-//    }
-//
-//    /**
-//     * Check is location service enabled or not
-//     */
-//    private void checkLocationService() {
-//        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//        boolean gps_enabled = false;
-//        boolean network_enabled = false;
-//
-//        try {
-//            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-//        } catch(Exception ex) {}
-//
-//        try {
-//            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-//        } catch(Exception ex) {}
-//
-//        if (!gps_enabled && !network_enabled) {
-//            showDialog();
-//        } else {
-//            mMap.setMyLocationEnabled(true);
+            }
+        }
+    }
+
+    /**
+     * Check is location service enabled or not
+     */
+    private void checkLocationService() {
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        boolean gps_enabled = false;
+        boolean network_enabled = false;
+
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (Exception ex) {
+        }
+
+        try {
+            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch (Exception ex) {
+        }
+
+        if (!gps_enabled && !network_enabled) {
+            showDialog();
+        } else {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            mMap.setMyLocationEnabled(true);
 //            mMap.setOnMyLocationChangeListener(this);
-//        }
-//
-//    }
+        }
 
-//    /**
-//     * Show dialog with settings button
-//     */
-//    private void showDialog() {
-//        AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.AppTheme_Dialog);
-//        dialog.setMessage(getResources().getString(R.string.gps_network_not_enabled));
-//        dialog.setPositiveButton(getResources().getString(R.string.open_location_settings), new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-//                // TODO Auto-generated method stub
-//                Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                startActivity(myIntent);
-//                //get gps
-//            }
-//        });
-//        dialog.show();
-//    }
+    }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-//        logger("onRequestPermissionsResult");
-//        switch (requestCode) {
-//            case MapActivity.REQUEST_ACCESS_FINE_LOCATION:
-//                logger("REQUEST_ACCESS_FINE_LOCATION");
-//                if (grantResults.length > 0
-//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    logger("PERMISSION_GRANTED");
-////                    checkLocationService();
-//                }
-//                break;
-//        }
-//    }
+    /**
+     * Show dialog with settings button
+     */
+    private void showDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.AppTheme_Dialog);
+        dialog.setMessage(getResources().getString(R.string.gps_network_not_enabled));
+        dialog.setPositiveButton(getResources().getString(R.string.open_location_settings), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                // TODO Auto-generated method stub
+                Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(myIntent);
+                //get gps
+            }
+        });
+        dialog.show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        logger("onRequestPermissionsResult");
+        switch (requestCode) {
+            case MapActivity.REQUEST_ACCESS_FINE_LOCATION:
+                logger("REQUEST_ACCESS_FINE_LOCATION");
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    logger("PERMISSION_GRANTED");
+                    checkLocationService();
+                }
+                break;
+        }
+    }
 
     /**
      * Show or hide progress bar

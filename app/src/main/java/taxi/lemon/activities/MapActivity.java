@@ -275,7 +275,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
             } else {
                 logger("granted");
-                mMap.setMyLocationEnabled(true);
+                if(mMap != null) {
+//                    mMap.setMyLocationEnabled(true);
+                    setUpMap();
+                }
 //                mMap.setOnMyLocationChangeListener(this);
             }
         }
@@ -312,7 +315,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 // for ActivityCompat#requestPermissions for more details.
                 return;
             }
-            mMap.setMyLocationEnabled(true);
+            if(mMap != null) {
+//                mMap.setMyLocationEnabled(true);
+                setUpMap();
+            }
 //            mMap.setOnMyLocationChangeListener(this);
         }
 

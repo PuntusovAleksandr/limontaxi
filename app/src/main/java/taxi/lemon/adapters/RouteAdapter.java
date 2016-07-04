@@ -2,6 +2,8 @@ package taxi.lemon.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,6 +26,7 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.ViewHolder> 
     private ArrayList<RouteItem> route;
     private OnEditButtonClicked mEditButtonClickListener;
     private OnDataChanged mDataChangedListener;
+    private Handler mHandler;
 
     public interface OnEditButtonClicked {
         void clicked(int position);
@@ -32,6 +35,7 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.ViewHolder> 
     public RouteAdapter(ArrayList<RouteItem> route, OnEditButtonClicked  mEditButtonClickListener) {
         this.route = route;
         this.mEditButtonClickListener = mEditButtonClickListener;
+        mHandler = new Handler(Looper.getMainLooper());
     }
 
     @Override
@@ -137,9 +141,14 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.ViewHolder> 
 
         @Override
         public void onItemClear() {
-            notifyDataSetChanged();
-            mDataChangedListener.dataChanged();
-            card.setCardBackgroundColor(Color.WHITE);
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    notifyDataSetChanged();
+                    mDataChangedListener.dataChanged();
+                    card.setCardBackgroundColor(Color.WHITE);
+                }
+            });
         }
     }
 }

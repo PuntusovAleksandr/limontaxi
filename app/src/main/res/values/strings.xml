@@ -54,6 +54,7 @@
     <string name="lf_hint_password">Пароль</string>
     <string name="lf_auto_login">Входить автоматически</string>
     <string name="lf_btn_login">Войти</string>
+    <string name="lf_unauthorized">Неверный логин и/или пароль</string>
     <!--<string name="lf_btn_register">Регистрация</string>-->
     <!--<string name="lf_btn_skip">Пропустить</string>-->
     <string name="lf_tv_forgot_password"><u>Забыли пароль?</u></string>
@@ -192,6 +193,7 @@
     <!--MapActivity-->
     <string name="ma_title_pick_address">Выбор адреса</string>
     <string name="ma_try_to_detect_location">Определение местоположения…</string>
+    <string name="ma_finish_message">Для продолжения нужно включить GPS</string>
     <!--ChooseEditModeDialog-->
     <string name="cemd_title_edit_mode">Продолжить используя:</string>
     <string name="cemd_mode_type">Ввести используя диалог</string>

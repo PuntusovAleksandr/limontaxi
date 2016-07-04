@@ -43,7 +43,7 @@ import retrofit2.Response;
  */
 public class LoginFragment extends BasePagerFragment implements View.OnClickListener {
     public static final String TAG = LoginFragment.class.getSimpleName();
-    // this fields, because server api don't allow make request getAddress and egtAutocomplete for unregister user
+    // this fields added, because server api don't allow make request getAddress and egtAutocomplete for unregister user
     public static final String UNREGISTER_USER_PHONE = "380672685892";
     public static final String UNREGISTER_USER_PASSWORD = "newpass";
 
@@ -271,7 +271,7 @@ public class LoginFragment extends BasePagerFragment implements View.OnClickList
                             String.valueOf(response.body().getApartment()));
                     openMainActivity(true);
                 } else {
-                    Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(App.getContext(), getResources().getString(R.string.lf_unauthorized), Toast.LENGTH_LONG).show();
                 }
             }
 

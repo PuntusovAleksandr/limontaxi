@@ -68,7 +68,7 @@ public class OrderGcmListenerService extends GcmListenerService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle("Order info")
+                .setContentTitle(getResources().getString(R.string.oia_order_info))
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

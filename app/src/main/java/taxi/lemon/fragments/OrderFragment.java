@@ -688,7 +688,7 @@ public class OrderFragment
                     Order.getInstance().resetOrder();
                     setAdapter();
                 } else {
-
+                    Toast.makeText(getActivity(), getResources().getString(R.string.of_order_not_make), Toast.LENGTH_SHORT).show();
                 }
             }
 

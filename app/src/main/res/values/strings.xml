@@ -90,6 +90,7 @@
     <string name="of_from_map">С карты</string>
     <string name="of_handle">Вручную</string>
     <string name="of_wrong_address">Некорректный адрес</string>
+    <string name="of_order_not_make">Заказ не создан, проверьте правильность введенных данных</string>
     <!--EnterCommentDialog-->
     <string name="ecd_title_comment">Комментарий</string>
     <string name="ecd_et_comment">Комментарий для водителя</string>

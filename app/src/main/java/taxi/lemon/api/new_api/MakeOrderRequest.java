@@ -65,7 +65,7 @@ public class MakeOrderRequest {
     @SerializedName("app_registration_token")
     private String appRegistrationToken;
 
-    @SerializedName("route_address_entrance _from")
+    @SerializedName("route_address_entrance_from")
     private String entrance;
 
     public MakeOrderRequest(Order order, String userFullName, String appRegistrationToken) {

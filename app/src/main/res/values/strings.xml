@@ -228,7 +228,11 @@
     <!--PUSH service-->
     <string name="search_car">Поиск машины</string>
     <string name="find_car">Машина найдена</string>
-    <string name="refuse_order">Заказ отменен</string>
+    <!--<string name="refuse_order">Заказ отменен</string>-->
+    <string name="refuse_by_passenger">Заказ отменен пассажиром</string>
+    <string name="refuse_by_driver">Заказ отменен водителем</string>
+    <string name="refuse_by_dispatcher">Заказ отменен диспетчером</string>
+    <string name="refuse_no_car">Заказ отменен. Нет машины</string>
 
     <!--OrderInfoActivity-->
     <string name="oia_cancel_order">Отменить заказ</string>

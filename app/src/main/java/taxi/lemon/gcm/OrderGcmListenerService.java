@@ -43,7 +43,7 @@ public class OrderGcmListenerService extends GcmListenerService {
                 message = getResources().getString(R.string.find_car);
             }
         } else {
-            message = getResources().getString(R.string.refuse_order);
+//            message = getResources().getString(R.string.refuse_order);
         }
 
         sendNotification(message, orderId, from, to, orderCarInfo, driverPhone, closeReason);
@@ -60,6 +60,20 @@ public class OrderGcmListenerService extends GcmListenerService {
             intent.putExtra(OrderInfoActivity.EXTRA_DRIVER_PHONE, driverPhone);
         } else {
             intent.setClass(this, MainActivity.class);
+            switch (reason) {
+                case CLOSE_REASON_PASSENGER_REFUSES:
+                    message = getResources().getString(R.string.refuse_by_passenger);
+                    break;
+                case CLOSE_REASON_DRIVER_REFUSES:
+                    message = getResources().getString(R.string.refuse_by_driver);
+                    break;
+                case CLOSE_REASON_DISPATCHER_REFUSES:
+                    message = getResources().getString(R.string.refuse_by_dispatcher);
+                    break;
+                case CLOSE_REASON_NO_CAR:
+                    message = getResources().getString(R.string.refuse_no_car);
+                    break;
+            }
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,

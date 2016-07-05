@@ -597,7 +597,7 @@ public class OrderFragment
         });
     }
 
-    private void getLatLng(String addr, final int index) {
+    private void getLatLng(final String addr, final int index) {
         ApiClient.getInstance().getLatLng(addr, new ApiClient.ApiCallback<GeoCodingResponse>() {
             @Override
             public void response(final GeoCodingResponse response) {
@@ -606,7 +606,7 @@ public class OrderFragment
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                RouteItem item = new RouteItem(response.getAddress(), response.getLatLng());
+                                RouteItem item = new RouteItem(addr, response.getLatLng());
                                 if (index < 0) {
                                     mAdapter.addItem(item);
                                 } else {

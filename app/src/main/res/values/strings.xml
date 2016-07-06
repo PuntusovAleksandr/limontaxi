@@ -243,5 +243,6 @@
     <string name="oia_call_to_driver">Позвонить водителю</string>
     <string name="oia_order_cancel_failed">Не удалось отменить заказ</string>
     <string name="oia_order_cancel_success">Заказ отменен</string>
+    <string name="oia_order_time">Время подачи</string>
 
 </resources>

@@ -34,6 +34,7 @@ public class OrderGcmListenerService extends GcmListenerService {
         String closeReason = bundle.getString("close_reason");
         String orderCarInfo = bundle.getString("order_car_info");
         String driverPhone = bundle.getString("driver_phone");
+        String orderTime = bundle.getString("required_time");
         String message = null;
 
         if(closeReason.equals(CLOSE_REASON_SEARCH_SEARCH_FIND_CHANGE)) {
@@ -46,10 +47,10 @@ public class OrderGcmListenerService extends GcmListenerService {
 //            message = getResources().getString(R.string.refuse_order);
         }
 
-        sendNotification(message, orderId, from, to, orderCarInfo, driverPhone, closeReason);
+        sendNotification(message, orderId, from, to, orderCarInfo, driverPhone, closeReason, orderTime);
     }
 
-    private void sendNotification(String message, String orderId, String addressFrom, String addressTo, String orderInfo, String driverPhone, String reason) {
+    private void sendNotification(String message, String orderId, String addressFrom, String addressTo, String orderInfo, String driverPhone, String reason, String orderTime) {
         Intent intent = new Intent();
         if(reason.equals(CLOSE_REASON_SEARCH_SEARCH_FIND_CHANGE)) {
             intent.setClass(this, OrderInfoActivity.class);
@@ -58,6 +59,7 @@ public class OrderGcmListenerService extends GcmListenerService {
             intent.putExtra(OrderInfoActivity.EXTRA_ADDRESS_TO, addressTo);
             intent.putExtra(OrderInfoActivity.EXTRA_ORDER_INFO, orderInfo);
             intent.putExtra(OrderInfoActivity.EXTRA_DRIVER_PHONE, driverPhone);
+            intent.putExtra(OrderInfoActivity.EXTRA_ORDER_TIME, orderTime);
         } else {
             intent.setClass(this, MainActivity.class);
             switch (reason) {

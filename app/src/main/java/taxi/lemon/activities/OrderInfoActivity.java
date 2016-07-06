@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,19 +34,23 @@ public class OrderInfoActivity extends AppCompatActivity implements View.OnClick
     public static final String EXTRA_ADDRESS_TO = "address to";
     public static final String EXTRA_ORDER_INFO = "order info";
     public static final String EXTRA_DRIVER_PHONE = "driver phone";
+    public static final String EXTRA_ORDER_TIME = "order time";
 
     private String orderId;
     private String addressFrom;
     private String addresTo;
     private String orderInfo;
     private String driverPhone;
+    private String orderTime;
 
     private CardView cardFrom;
     private CardView cardTo;
     private CardView cardInfo;
+    private CardView cardOrderTime;
     private TextView tvAddressFrom;
     private TextView tvAddressTo;
     private TextView tvOrderInfo;
+    private TextView tvOrderTime;
     private Button bCancelOrder;
     private Button bCallToDriver;
 
@@ -64,6 +70,7 @@ public class OrderInfoActivity extends AppCompatActivity implements View.OnClick
         addresTo = convert(addresTo);
         orderInfo = getIntent().getStringExtra(EXTRA_ORDER_INFO);
         driverPhone = getIntent().getStringExtra(EXTRA_DRIVER_PHONE);
+        orderTime = getIntent().getStringExtra(EXTRA_ORDER_TIME);
     }
 
     private String convert(String item) {
@@ -81,9 +88,11 @@ public class OrderInfoActivity extends AppCompatActivity implements View.OnClick
         cardFrom = (CardView) findViewById(R.id.card_from);
         cardTo = (CardView) findViewById(R.id.card_to);
         cardInfo = (CardView) findViewById(R.id.card_order_info);
+        cardOrderTime = (CardView) findViewById(R.id.card_order_time);
         tvAddressFrom = (TextView) findViewById(R.id.tv_address_from);
         tvAddressTo = (TextView) findViewById(R.id.tv_address_to);
         tvOrderInfo = (TextView) findViewById(R.id.tv_order_info);
+        tvOrderTime = (TextView) findViewById(R.id.tv_order_time);
         bCancelOrder = (Button) findViewById(R.id.b_cancel_order);
         bCancelOrder.setOnClickListener(this);
         bCallToDriver = (Button) findViewById(R.id.b_call_to_driver);
@@ -108,6 +117,10 @@ public class OrderInfoActivity extends AppCompatActivity implements View.OnClick
         }
         if(driverPhone != null) {
             bCallToDriver.setVisibility(View.VISIBLE);
+        }
+        if(orderTime != null) {
+            cardOrderTime.setVisibility(View.VISIBLE);
+            tvOrderTime.setText(orderTime);
         }
     }
 

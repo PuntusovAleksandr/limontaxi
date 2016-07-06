@@ -49,7 +49,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         holder.tvCost.setText(history.get(position).getCost());
         String route = "";
         for (RouteItem item : history.get(position).getRoute()) {
-            route += item.getStreet() + " " + item.getNumber() + "\n";
+            if(item.getNumber() != null) {
+                route += item.getStreet() + " " + item.getNumber() + "\n";
+            } else {
+                route += item.getStreet() + "\n";
+            }
         }
         holder.tvRoute.setText(route);
         holder.tvDate.setText(history.get(position).getDate());

@@ -569,11 +569,6 @@ public class OrderFragment
     @Override
     public void dataChanged() {
         if (mAdapter.getItemCount() > 0) {
-//            for(RouteItem item : mAdapter.getRoute()) {
-//                if(item.getLatLng() == null) {
-//                    getLatLng();
-//                }
-//            }
             getOrderCost();
         } else {
             setOrderCost("0");

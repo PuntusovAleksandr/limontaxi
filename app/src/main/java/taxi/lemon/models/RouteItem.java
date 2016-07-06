@@ -143,6 +143,8 @@ public class RouteItem {
 
     public void setLatLng(LatLng latLng) {
         this.latLng = latLng;
+        this.lat = latLng.latitude;
+        this.lng = latLng.longitude;
     }
 
     public String getStringLatLng() {

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,6 +29,7 @@ import taxi.lemon.api.new_api.ApiTaxiClient;
 import taxi.lemon.api.new_api.GetOrdersReportResponse;
 import taxi.lemon.api.new_api.ServiceGenerator;
 import taxi.lemon.api.old_api.ApiClient;
+import taxi.lemon.api.old_api.GeoCodingResponse;
 import taxi.lemon.events.MessageEvent;
 import taxi.lemon.models.HistoryItem;
 import taxi.lemon.models.Order;
@@ -66,6 +68,36 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
             EventBus.getDefault().post(new MessageEvent(MessageEvent.EVENT_MAKE_ORDER_FROM_HISTORY));
         }
     };
+
+    private void getLatLng(final String addr, final RouteItem item) {
+        ApiClient.getInstance().getLatLng(addr, new ApiClient.ApiCallback<GeoCodingResponse>() {
+            @Override
+            public void response(final GeoCodingResponse response) {
+                if (response.isOK()) {
+                    if(response.getLatLng() != null) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                item.setLatLng(response.getLatLng());
+                            }
+                        });
+                    } else {
+//                        Toast.makeText(getActivity(), getResources().getString(R.string.of_wrong_address), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void error() {
+
+            }
+
+            @Override
+            public void noInternetConnection() {
+                ApiClient.getInstance().showAlert(getActivity());
+            }
+        });
+    }
 
     public OrdersHistoryFragment() {
         // Required empty public constructor
@@ -247,6 +279,11 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
                 if(response.isSuccessful()) {
                     RecyclerView.Adapter mAdapter = new HistoryAdapter(response.body(), onItemClickListener);
                     mRecyclerView.setAdapter(mAdapter);
+                    for(HistoryItem item : ((HistoryAdapter) mAdapter).getHistory()) {
+                        for (RouteItem item1 : item.getRoute()) {
+                            getLatLng(item1.getStreet(), item1);
+                        }
+                    }
                 } else {
                     Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
                 }

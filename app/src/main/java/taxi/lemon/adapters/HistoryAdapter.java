@@ -98,4 +98,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         }
     }
 
+    public ArrayList<HistoryItem> getHistory() {
+        return history;
+    }
 }

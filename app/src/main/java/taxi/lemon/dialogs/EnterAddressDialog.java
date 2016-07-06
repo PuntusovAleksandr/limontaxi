@@ -221,7 +221,7 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
             mAutoCompleteTextView.setSelection(address.length());
 
             if (!item.isObject() && !containHouseNumber(address)) {
-                setError(R.string.error_no_street);
+                setError(R.string.error_no_house_number);
             } else {
                 mListener.OnDialogPositiveClick(getDialog(), createBundle());
             }

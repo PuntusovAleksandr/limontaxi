@@ -19,6 +19,7 @@ import taxi.lemon.activities.MainActivity;
 import taxi.lemon.activities.OrderInfoActivity;
 import taxi.lemon.models.Order;
 import taxi.lemon.models.RouteItem;
+import taxi.lemon.utils.SharedPreferencesManager;
 
 public class OrderGcmListenerService extends GcmListenerService {
     private static final String CLOSE_REASON_SEARCH_SEARCH_FIND_CHANGE = "-1";
@@ -77,6 +78,8 @@ public class OrderGcmListenerService extends GcmListenerService {
                     break;
             }
         }
+        boolean isUserLoggedIn = SharedPreferencesManager.getInstance().isUserLoggedIn();
+        intent.putExtra(MainActivity.EXTRA_IS_USER_LOGGED_IN, isUserLoggedIn);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);

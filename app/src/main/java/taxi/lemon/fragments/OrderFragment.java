@@ -101,8 +101,8 @@ public class OrderFragment
 
 //        isMenuOpen = false;
 //
-//        final FloatingActionButton fabMenu = (FloatingActionButton) v.findViewById(R.id.fab_menu);
-//        fabMenu.setOnClickListener(this);
+        final FloatingActionButton fabMenu = (FloatingActionButton) v.findViewById(R.id.fab_menu);
+        fabMenu.setOnClickListener(this);
 //
 //        v.findViewById(R.id.fab_open_map).setOnClickListener(this);
 //        v.findViewById(R.id.fab_type_address).setOnClickListener(this);
@@ -441,24 +441,24 @@ public class OrderFragment
 //        Order.getInstance().setCityId(1);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.preferences_menu, menu);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.preferences_menu, menu);
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.preferences:
-                getActivity().startActivity(new Intent(getActivity(), PreferencesActivity.class));
-                break;
-
-            default:
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.preferences:
+//                getActivity().startActivity(new Intent(getActivity(), PreferencesActivity.class));
+//                break;
+//
+//            default:
+//                break;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -504,9 +504,10 @@ public class OrderFragment
             case R.id.b_from_input:
                 openEnterAddressDialog(null);
                 break;
-//            case R.id.fab_menu:
+            case R.id.fab_menu:
+                getActivity().startActivity(new Intent(getActivity(), PreferencesActivity.class));
 //                animateFabMenuAppearance();
-//                break;
+                break;
 //            case R.id.fab_type_address:
 //                animateFabMenuAppearance();
 //                openEnterAddressDialog(null);

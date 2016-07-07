@@ -113,6 +113,7 @@
     <string name="item_profile">Профиль</string>
     <string name="guest">Гость</string>
     <string name="call_to_dispatcher">Позвонить в диспетчерскую</string>
+    <string name="item_login">Войти</string>
     <!--ProfileFragment-->
     <string name="pf_title_profile">Профиль</string>
     <string name="pf_login">Логин:</string>

@@ -161,6 +161,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //            showNotifyPhoneItem(false);
         } else if(id == R.id.nav_call_dispatcher) {
             ChooseDispatcherPhoneDialog.newInstance().show(getFragmentManager(), null);
+        } else if(id == R.id.nav_login) {
+            Intent loginIntent = new Intent();
+            loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            loginIntent.setClass(this, LoginActivity.class);
+            startActivity(loginIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -206,6 +211,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             navigationView.getMenu().findItem(R.id.nav_history).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_profile).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
         }
     }
 

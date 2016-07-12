@@ -25,8 +25,8 @@ public class GetAutoCompleteResponse {
         for (RouteItem item : geoStreets.streets) {
             item.setObject(false);
         }
-        items.addAll(geoObjects.objects);
         items.addAll(geoStreets.streets);
+        items.addAll(geoObjects.objects);
         return items;
     }
 

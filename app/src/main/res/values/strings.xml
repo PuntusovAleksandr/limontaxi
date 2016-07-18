@@ -230,6 +230,7 @@
     <!--PUSH service-->
     <string name="search_car">Поиск машины</string>
     <string name="find_car">Машина найдена</string>
+    <string name="change_car">Замена машины</string>
     <!--<string name="refuse_order">Заказ отменен</string>-->
     <string name="refuse_by_passenger">Заказ отменен пассажиром</string>
     <string name="refuse_by_driver">Заказ отменен водителем</string>

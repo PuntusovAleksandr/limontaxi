@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -120,7 +122,14 @@ public class OrderInfoActivity extends AppCompatActivity implements View.OnClick
         }
         if(orderTime != null) {
             cardOrderTime.setVisibility(View.VISIBLE);
-            tvOrderTime.setText(orderTime);
+            SimpleDateFormat serverFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            SimpleDateFormat appFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+            try {
+                Date date = serverFormat.parse(orderTime);
+                tvOrderTime.setText(appFormat.format(date));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
 

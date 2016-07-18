@@ -2,27 +2,23 @@ package taxi.lemon.gcm;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GcmListenerService;
-import com.google.gson.Gson;
 
 import taxi.lemon.R;
 import taxi.lemon.activities.MainActivity;
 import taxi.lemon.activities.OrderInfoActivity;
-import taxi.lemon.models.Order;
-import taxi.lemon.models.RouteItem;
 import taxi.lemon.utils.SharedPreferencesManager;
 
 public class OrderGcmListenerService extends GcmListenerService {
-    private static final String CLOSE_REASON_SEARCH_SEARCH_FIND_CHANGE = "-1";
+    private static final String CLOSE_REASON_SEARCH_OR_FIND = "-1";
+    private static final String CLOSE_REASON_CHANGE = "?";
     private static final String CLOSE_REASON_PASSENGER_REFUSES = "1";
     private static final String CLOSE_REASON_DRIVER_REFUSES = "2";
     private static final String CLOSE_REASON_DISPATCHER_REFUSES = "3";
@@ -38,7 +34,10 @@ public class OrderGcmListenerService extends GcmListenerService {
         String orderTime = bundle.getString("required_time");
         String message = null;
 
-        if(closeReason.equals(CLOSE_REASON_SEARCH_SEARCH_FIND_CHANGE)) {
+        if (closeReason.equals(CLOSE_REASON_CHANGE)) {
+            message = getResources().getString(R.string.change_car);
+        }
+        else if(closeReason.equals(CLOSE_REASON_SEARCH_OR_FIND)) {
             if(orderCarInfo == null) {
                 message = getResources().getString(R.string.search_car);
             } else {
@@ -53,7 +52,7 @@ public class OrderGcmListenerService extends GcmListenerService {
 
     private void sendNotification(String message, String orderId, String addressFrom, String addressTo, String orderInfo, String driverPhone, String reason, String orderTime) {
         Intent intent = new Intent();
-        if(reason.equals(CLOSE_REASON_SEARCH_SEARCH_FIND_CHANGE)) {
+        if(reason.equals(CLOSE_REASON_SEARCH_OR_FIND) || reason.equals(CLOSE_REASON_CHANGE)) {
             intent.setClass(this, OrderInfoActivity.class);
             intent.putExtra(OrderInfoActivity.EXTRA_ORDER_ID, orderId);
             intent.putExtra(OrderInfoActivity.EXTRA_ADDRESS_FROM, addressFrom);

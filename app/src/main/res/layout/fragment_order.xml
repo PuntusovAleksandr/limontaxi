@@ -51,17 +51,17 @@
             <!--app:elevation="6dp"-->
             <!--app:borderWidth="0dp"/>-->
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_add"
-            android:layout_margin="@dimen/fab_margin"
-            app:fabSize="normal"
-            app:elevation="6dp"
-            app:borderWidth="0dp"
-            app:layout_behavior="digitalpromo.cabsdemo.utils.FloatingActionButtonBehavior"
-            />
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fab_menu"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_add"-->
+            <!--android:layout_margin="@dimen/fab_margin"-->
+            <!--app:fabSize="normal"-->
+            <!--app:elevation="6dp"-->
+            <!--app:borderWidth="0dp"-->
+            <!--app:layout_behavior="digitalpromo.cabsdemo.utils.FloatingActionButtonBehavior"-->
+            <!--/>-->
 
     </LinearLayout>
 
@@ -71,7 +71,10 @@
         android:weightSum="2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_toolbar">
+        android:gravity="bottom"
+        android:layout_above="@+id/ll_dops"
+        android:layout_marginBottom="-4dp"
+        >
 
         <Button
             android:id="@+id/b_from_map"
@@ -96,6 +99,27 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_dops"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_toolbar"
+        android:gravity="bottom"
+        >
+
+        <Button
+            android:id="@+id/fab_menu"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/of_settings_dop"
+            android:textColor="@color/mdtp_white"
+            android:textAllCaps="true"
+            style="@style/AppTheme.Button"
+            />
+
+    </LinearLayout>
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/bottom_toolbar"
         android:layout_width="match_parent"
@@ -112,25 +136,25 @@
             android:padding="10dp"
             >
 
-            <TextView
-                android:id="@+id/tv_title_city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Город:"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/bottom_toolbar_text_size"
-                />
+            <!--<TextView-->
+                <!--android:id="@+id/tv_title_city"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Город:"-->
+                <!--android:textColor="@color/textColorPrimary"-->
+                <!--android:textSize="@dimen/bottom_toolbar_text_size"-->
+                <!--/>-->
 
-            <TextView
-                android:id="@+id/tv_city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/tv_cost"
-                android:layout_alignLeft="@+id/tv_cost"
-                android:text="@string/pa_notify_phone_undefined"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/bottom_toolbar_text_size"
-                />
+            <!--<TextView-->
+                <!--android:id="@+id/tv_city"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignStart="@+id/tv_cost"-->
+                <!--android:layout_alignLeft="@+id/tv_cost"-->
+                <!--android:text="@string/pa_notify_phone_undefined"-->
+                <!--android:textColor="@color/textColorPrimary"-->
+                <!--android:textSize="@dimen/bottom_toolbar_text_size"-->
+                <!--/>-->
 
             <TextView
                 android:id="@+id/tv_title_cost"
@@ -139,7 +163,7 @@
                 android:layout_below="@+id/tv_title_phone"
                 android:text="Стоимость:"
                 android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/bottom_toolbar_text_size"
+                android:textSize="@dimen/exec_status_text_size"
                 />
 
             <TextView
@@ -153,17 +177,16 @@
                 android:layout_marginStart="10dp"
                 android:text="0"
                 android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/bottom_toolbar_text_size"
+                android:textSize="@dimen/exec_status_text_size"
                 />
 
             <TextView
                 android:id="@+id/tv_title_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_title_city"
                 android:text="Телефон:"
                 android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/bottom_toolbar_text_size"
+                android:textSize="@dimen/exec_status_text_size"
                 />
 
             <TextView
@@ -171,11 +194,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/pa_notify_phone_undefined"
-                android:layout_below="@+id/tv_city"
                 android:layout_alignStart="@+id/tv_cost"
                 android:layout_alignLeft="@+id/tv_cost"
                 android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/bottom_toolbar_text_size"
+                android:textSize="@dimen/exec_status_text_size"
                 />
 
         </RelativeLayout>

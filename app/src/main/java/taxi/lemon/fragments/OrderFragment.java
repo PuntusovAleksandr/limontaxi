@@ -16,6 +16,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -28,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,7 +84,7 @@ public class OrderFragment
     private FragmentsInteractionListener mListener;
 
     private TextView tvOrderCost;
-    private TextView tvCity;
+//    private TextView tvCity;
     private TextView tvUserPhone;
 
 //    private boolean isMenuOpen;
@@ -101,7 +103,7 @@ public class OrderFragment
 
 //        isMenuOpen = false;
 //
-        final FloatingActionButton fabMenu = (FloatingActionButton) v.findViewById(R.id.fab_menu);
+        final Button fabMenu = (Button) v.findViewById(R.id.fab_menu);
         fabMenu.setOnClickListener(this);
 //
 //        v.findViewById(R.id.fab_open_map).setOnClickListener(this);
@@ -149,8 +151,8 @@ public class OrderFragment
 
         Toolbar bottomToolbar = (Toolbar) v.findViewById(R.id.bottom_toolbar);
 
-        tvCity = (TextView) bottomToolbar.findViewById(R.id.tv_city);
-        tvCity.setText("Киев");
+//        tvCity = (TextView) bottomToolbar.findViewById(R.id.tv_city);
+//        tvCity.setText("Киев");
         tvUserPhone = (TextView) bottomToolbar.findViewById(R.id.tv_phone);
         tvOrderCost = (TextView) bottomToolbar.findViewById(R.id.tv_cost);
 
@@ -688,6 +690,7 @@ public class OrderFragment
 //                    notificationManager.notify(1, builder.build());
                     Order.getInstance().resetOrder();
                     setAdapter();
+                    showSuccessDialog();
                 } else {
                     Toast.makeText(getActivity(), getResources().getString(R.string.of_order_not_make), Toast.LENGTH_SHORT).show();
                 }
@@ -801,5 +804,13 @@ public class OrderFragment
                 dialog.show(getFragmentManager(), EnterDataDialog.TAG);
                 break;
         }
+    }
+
+    private void showSuccessDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getString(R.string.of_order_in_proccess));
+        builder.setMessage(getString(R.string.of_wait_for_result));
+        builder.setPositiveButton("OK", null);
+        builder.create().show();
     }
 }

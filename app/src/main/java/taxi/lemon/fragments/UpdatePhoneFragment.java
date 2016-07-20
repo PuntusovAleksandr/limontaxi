@@ -1,6 +1,7 @@
 package taxi.lemon.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import com.androidquery.AQuery;
 
 import taxi.lemon.App;
 import taxi.lemon.R;
+import taxi.lemon.activities.LoginActivity;
 import taxi.lemon.api.new_api.ApiTaxiClient;
 import taxi.lemon.api.new_api.ChangePhoneRequest;
 import taxi.lemon.api.new_api.GetConfirmCodeForChangePhoneRequest;
@@ -184,7 +186,8 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
 
     private void confirmPhoneChanging(String code) {
         mListener.displayProgress(true);
-        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class);
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class,
+                SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
         Call<ResponseBody> call = client.changePhoneRequest(new ChangePhoneRequest(newPhone, code));
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -192,7 +195,9 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
                 mListener.displayProgress(false);
                 if(response.isSuccessful()) {
                     SharedPreferencesManager.getInstance().saveUserLogin(newPhone);
-                    getActivity().finish();
+                    Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+                    loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(loginIntent);
                 } else {
                     Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
                 }
@@ -208,8 +213,9 @@ public class UpdatePhoneFragment extends BaseFragment implements View.OnClickLis
 
     private void getConfirmCode() {
         mListener.displayProgress(true);
-        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class);
-        Call<ResponseBody> call = client.getConfirmCodeForChangePhone(new GetConfirmCodeForChangePhoneRequest(SharedPreferencesManager.getInstance().loadUserLogin()));
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(),
+                SharedPreferencesManager.getInstance().loadUserPassword());
+        Call<ResponseBody> call = client.getConfirmCodeForChangePhone(new GetConfirmCodeForChangePhoneRequest(newPhone));
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

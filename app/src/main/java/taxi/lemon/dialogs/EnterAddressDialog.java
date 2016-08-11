@@ -19,8 +19,6 @@ import com.google.android.gms.maps.model.LatLng;
 
 import taxi.lemon.R;
 import taxi.lemon.adapters.PlaceAutocompleteAdapter;
-import taxi.lemon.api.old_api.ApiClient;
-import taxi.lemon.api.old_api.GeoCodingResponse;
 import taxi.lemon.models.RouteItem;
 import taxi.lemon.views.DelayAutoCompleteTextView;
 
@@ -213,7 +211,12 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             final RouteItem item = mAdapter.getItem(position);
-            address = item.getAddress() == null ? item.getStreet() : item.getAddress();
+            address = item.getAddress();
+            mAdapter.searchHomes(false, item);
+            if (address== null) {
+                address = item.getStreet();
+                mAdapter.searchHomes(true, item);
+            }
             latLng = item.getLatLng();
             Log.i(TAG, "Autocomplete item selected: " + address);
 

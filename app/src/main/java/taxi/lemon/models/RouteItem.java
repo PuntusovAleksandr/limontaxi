@@ -172,4 +172,10 @@ public class RouteItem {
     public String getNumber() {
         return number;
     }
+
+    public void setNumber(String mNumber) {
+        number = mNumber;
+    }
+
+
 }

@@ -44,7 +44,7 @@ public interface ApiTaxiClient {
 
     @Headers("Accept-Language: RU")
     @GET("geodata/search")
-    Call<GetAutoCompleteResponse> getAutocompleteRequest(@Query("q") String search);
+    Call<GetAutoCompleteResponse> getAutocompleteRequest(@Query("q") String search, @Query("limit") int limit);
 
     @Headers("Accept-Language: RU")
     @GET("geodata/streets/search")

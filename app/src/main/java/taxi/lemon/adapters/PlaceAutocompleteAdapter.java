@@ -42,7 +42,7 @@ import taxi.lemon.utils.SharedPreferencesManager;
  * Adapter that handles Autocomplete requests from the Places Geo Data API.
  * {@link AutocompletePrediction} results from the API are frozen and stored directly in this
  * adapter. (See {@link AutocompletePrediction#freeze()}.)
- * <p>
+ * <p/>
  * Note that this adapter requires a valid {@link com.google.android.gms.common.api.GoogleApiClient}.
  * The API client must be maintained in the encapsulating Activity, including all lifecycle and
  * connection states. The API client must be connected with the {@link Places#GEO_DATA_API} API.
@@ -53,6 +53,8 @@ public class PlaceAutocompleteAdapter
      * Current results returned by this adapter.
      */
     private ArrayList<RouteItem> mResultList;
+    private boolean searchHome;
+    private RouteItem searchItem;
 
 //    private int city;
 
@@ -87,6 +89,11 @@ public class PlaceAutocompleteAdapter
         return mResultList.get(position);
     }
 
+    public void searchHomes(boolean searchHome, RouteItem mItem) {
+        this.searchHome = searchHome;
+        this.searchItem = mItem;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = super.getView(position, convertView, parent);
@@ -99,7 +106,7 @@ public class PlaceAutocompleteAdapter
 
         TextView textView1 = (TextView) row.findViewById(R.id.tv_address);
 //        textView1.setText(item.getAddress());
-        if(item.getHouses() != null) {
+        if (item.getHouses() != null) {
             textView1.setText(item.getStreet());
         } else if (!item.isObject()) {
             textView1.setText(item.getAddress());
@@ -134,11 +141,14 @@ public class PlaceAutocompleteAdapter
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 if (results != null && results.count > 0) {
 
-                    if(mResultList.size() == 1 && !mResultList.get(0).isObject()) {
+                    if (mResultList.size() == 1 && !mResultList.get(0).isObject()) {
                         RouteItem singleStreetRouteItem = mResultList.get(0);
                         ArrayList<RouteItem> items = new ArrayList<>();
-                        for(House house : singleStreetRouteItem.getHouses()) {
-                            items.add(new RouteItem(singleStreetRouteItem.getStreet() + ", " + house.getHouse(), new LatLng(house.getLat(), house.getLng())));
+                        for (House house : singleStreetRouteItem.getHouses()) {
+                            RouteItem object = new RouteItem(singleStreetRouteItem.getStreet() + ", " + house.getHouse(), new LatLng(house.getLat(), house.getLng()));
+                            object.setObject(true);
+                            object.setNumber(house.getHouse());
+                            items.add(object);
                         }
                         mResultList.clear();
                         mResultList.addAll(items);
@@ -173,7 +183,19 @@ public class PlaceAutocompleteAdapter
 //            Response<ArrayList<RouteItem>> results = client.getAutocompleteRequest(string).execute();
 //            return client.getAutocompleteRequest(string, "houses").execute().body().getAutocomplete();
 //            GetAutoCompleteResponse res = client.getAutocompleteRequest(string).execute().body();
-            ArrayList<RouteItem> items = client.getAutocompleteRequest(string).execute().body().getAutocomplete();
+            ArrayList<RouteItem> items = new ArrayList<>();
+            if (!searchHome) {
+                items = client.getAutocompleteRequest(string, 20).execute().body().getAutocomplete();
+            } else {
+                if (!string.equalsIgnoreCase(searchItem.getStreet())) {
+                    searchHome = false;
+                }
+                if (items.size() > 0) {
+                    items.clear();
+                }
+                items.add(searchItem);
+            }
+
             return items;
         } catch (IOException e) {
             e.printStackTrace();

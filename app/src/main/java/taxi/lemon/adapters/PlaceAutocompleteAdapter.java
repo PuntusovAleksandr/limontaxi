@@ -31,12 +31,8 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import retrofit2.Call;
 import taxi.lemon.R;
 import taxi.lemon.api.new_api.ApiTaxiClient;
-import taxi.lemon.api.new_api.AuthorizationRequest;
-import taxi.lemon.api.new_api.AuthorizationResponse;
-import taxi.lemon.api.new_api.GetAutoCompleteResponse;
 import taxi.lemon.api.new_api.ServiceGenerator;
 import taxi.lemon.models.House;
 import taxi.lemon.models.RouteItem;
@@ -144,7 +140,9 @@ public class PlaceAutocompleteAdapter
                         for(House house : singleStreetRouteItem.getHouses()) {
                             items.add(new RouteItem(singleStreetRouteItem.getStreet() + ", " + house.getHouse(), new LatLng(house.getLat(), house.getLng())));
                         }
-                        mResultList = items;
+                        mResultList.clear();
+                        mResultList.addAll(items);
+                        notifyDataSetInvalidated();
                     }
                     // The API returned at least one result, update the data.
                     notifyDataSetChanged();

@@ -1,19 +1,18 @@
 package taxi.lemon.api.new_api;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import retrofit2.http.Field;
-import retrofit2.http.Path;
-import taxi.lemon.models.HistoryItem;
-import taxi.lemon.models.UserProfile;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
+import taxi.lemon.models.HistoryItem;
+import taxi.lemon.models.UserProfile;
 
 /**
  * Created by Администратор on 10.06.2016.
@@ -43,8 +42,13 @@ public interface ApiTaxiClient {
     @PUT("account/changepassword")
     Call<ResponseBody> changePassword(@Body ChangePasswordRequest request);
 
+    @Headers("Accept-Language: RU")
     @GET("geodata/search")
     Call<GetAutoCompleteResponse> getAutocompleteRequest(@Query("q") String search);
+
+    @Headers("Accept-Language: RU")
+    @GET("geodata/streets/search")
+    Call<GetAutoCompleteResponse> getStritsAutocompleteRequest(@Query("q") String search);
 
     @GET("geodata/search")
     Call<GetAddressResponse> getAddress(@Query("lat") String lat, @Query("lng") String lng);

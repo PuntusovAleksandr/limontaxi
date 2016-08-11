@@ -75,8 +75,13 @@ public class RouteItem {
         this();
         setAddress(address);
         setLatLng(latLng);
-        this.lat = latLng.latitude;
-        this.lng = latLng.longitude;
+        if (latLng != null) {
+            this.lat = latLng.latitude;
+            this.lng = latLng.longitude;
+        } else {
+            this.lat = 0.0;
+            this.lng = 0.0;
+        }
         this.street = address;
     }
 
@@ -143,8 +148,13 @@ public class RouteItem {
 
     public void setLatLng(LatLng latLng) {
         this.latLng = latLng;
-        this.lat = latLng.latitude;
-        this.lng = latLng.longitude;
+        if (latLng != null) {
+            this.lat = latLng.latitude;
+            this.lng = latLng.longitude;
+        } else {
+            this.lat = 0.0;
+            this.lng = 0.0;
+        }
     }
 
     public String getStringLatLng() {

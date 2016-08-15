@@ -1,29 +1,24 @@
 package taxi.lemon.activities;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.gcm.GcmReceiver;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -35,6 +30,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import taxi.lemon.App;
 import taxi.lemon.R;
 import taxi.lemon.api.new_api.ApiTaxiClient;
@@ -46,13 +44,10 @@ import taxi.lemon.fragments.MyLocationFragment;
 import taxi.lemon.fragments.OrderFragment;
 import taxi.lemon.fragments.OrdersHistoryFragment;
 import taxi.lemon.fragments.ProfileFragment;
+import taxi.lemon.gcm.GetGcmTokenIntentService;
 import taxi.lemon.models.Order;
 import taxi.lemon.models.UserProfile;
-import taxi.lemon.gcm.GetGcmTokenIntentService;
 import taxi.lemon.utils.SharedPreferencesManager;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentsInteractionListener {
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -147,7 +142,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } else if (id == R.id.nav_share) {
             share();
         } else if (id == R.id.nav_comment) {
-            rateUpApp();
+            ChooseDispatcherPhoneDialog.newInstance(ChooseDispatcherPhoneDialog.ARRAY_COMMENT).show(getFragmentManager(), null);
+//            rateUpApp();
         } else if (id == R.id.nav_logout) {
             SharedPreferencesManager.getInstance().saveAutoLoginFlag(false);
             SharedPreferencesManager.getInstance().saveUserLoggedInFlag(false);
@@ -160,7 +156,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             ft.replace(R.id.content_container, new ProfileFragment()).commit();
 //            showNotifyPhoneItem(false);
         } else if(id == R.id.nav_call_dispatcher) {
-            ChooseDispatcherPhoneDialog.newInstance().show(getFragmentManager(), null);
+            ChooseDispatcherPhoneDialog.newInstance(ChooseDispatcherPhoneDialog.ARRAY_PHONE).show(getFragmentManager(), null);
         } else if(id == R.id.nav_login) {
             Intent loginIntent = new Intent();
             loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -332,29 +328,29 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
-    /**
-     * Launch the Play Store with your App page already opened
-     */
-    private void rateUpApp() {
-        Uri uri = Uri.parse("market://details?id=" + getApplicationInfo().packageName);
-        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-        // To count with Play market backstack, After pressing back button,
-        // to taken back to our application, we need to add following flags to intent.
-        int flags = Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            flags |= Intent.FLAG_ACTIVITY_NEW_DOCUMENT;
-        } else {
-            //noinspection deprecation
-            flags |= Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET;
-        }
-        goToMarket.addFlags(flags);
-        try {
-            startActivity(goToMarket);
-        } catch (ActivityNotFoundException e) {
-            startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://play.google.com/store/apps/details?id=" + getApplicationInfo().packageName)));
-        }
-    }
+//    /**
+//     * Launch the Play Store with your App page already opened
+//     */
+//    private void rateUpApp() {
+//        Uri uri = Uri.parse("market://details?id=" + getApplicationInfo().packageName);
+//        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+//        // To count with Play market backstack, After pressing back button,
+//        // to taken back to our application, we need to add following flags to intent.
+//        int flags = Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            flags |= Intent.FLAG_ACTIVITY_NEW_DOCUMENT;
+//        } else {
+//            //noinspection deprecation
+//            flags |= Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET;
+//        }
+//        goToMarket.addFlags(flags);
+//        try {
+//            startActivity(goToMarket);
+//        } catch (ActivityNotFoundException e) {
+//            startActivity(new Intent(Intent.ACTION_VIEW,
+//                    Uri.parse("http://play.google.com/store/apps/details?id=" + getApplicationInfo().packageName)));
+//        }
+//    }
 
     /**
      * Get user's profile

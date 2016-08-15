@@ -230,6 +230,14 @@
         <item>380442375858</item>
     </string-array>
 
+ <!--ChooseDispatcherComments-->
+    <string name="choose_sen_comments">Выберите способ</string>
+    <string-array name="comments_list">
+        <item>Перейти на Google play</item>
+        <item>Отправить письмо по почте</item>
+        <item>Перейти на сайт</item>
+    </string-array>
+
     <!--PUSH service-->
     <string name="search_car">Поиск машины</string>
     <string name="find_car">Машина найдена</string>
@@ -249,5 +257,9 @@
     <string name="oia_order_cancel_failed">Не удалось отменить заказ</string>
     <string name="oia_order_cancel_success">Заказ отменен</string>
     <string name="oia_order_time">Время подачи</string>
+    <string name="comments_text">Отзыв</string>
+    <string name="mail_limon_taxi">lemon.taxi.kiev@gmail.com</string>
+    <string name="title_comment">Передайте свой текст здесь</string>
+    <string name="client_mail_not_found">There are no email clients installed.</string>
 
 </resources>

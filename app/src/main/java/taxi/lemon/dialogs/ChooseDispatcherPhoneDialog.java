@@ -66,7 +66,7 @@ public class ChooseDispatcherPhoneDialog extends DialogFragment implements Adapt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (arrayKey == ARRAY_PHONE) {
-            Uri dispatcherNumber = Uri.parse("tel:" + phones.get(position));
+            Uri dispatcherNumber = Uri.parse("tel:+" + phones.get(position));
             Intent i = new Intent(Intent.ACTION_DIAL, dispatcherNumber);
             startActivity(i);
         } else {

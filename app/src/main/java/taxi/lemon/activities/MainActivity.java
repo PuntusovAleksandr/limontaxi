@@ -204,10 +204,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (!isUserLoggedIn) {
             setUserName(getString(R.string.guest));
             navigationView.getHeaderView(0).findViewById(R.id.tv_name).setVisibility(View.VISIBLE);
-            // TODO: 17.08.2016 скрыл ссписок истории
-//            navigationView.getMenu().findItem(R.id.nav_history).setVisible(false);
-
-
+            navigationView.getMenu().findItem(R.id.nav_history).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_profile).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);

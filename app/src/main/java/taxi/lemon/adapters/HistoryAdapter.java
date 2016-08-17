@@ -20,6 +20,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     public interface OnItemClickListener {
         void clicked(HistoryItem item);
+
+        void deleteItemHistory(HistoryItem mItem);
     }
 
     public HistoryAdapter(ArrayList<HistoryItem> history, OnItemClickListener listener) {
@@ -40,27 +42,31 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-//        holder.mHistoryItem.setStatusText(history.get(position).getExecutionStatus());
-//        holder.mHistoryItem.setCostText(history.get(position).getCost());
-//        holder.mHistoryItem.setStartAddressText(history.get(position).getStartAddress());
-//        holder.mHistoryItem.setEndAddressText(history.get(position).getEndAddress());
-//        holder.mHistoryItem.setDateText(history.get(position).getDate());
-        holder.tvStatus.setText(history.get(position).getExecutionStatus());
-        holder.tvCost.setText(history.get(position).getCost());
+
+        final HistoryItem historyItem = history.get(position);
+
+        holder.tvStatus.setText(historyItem.getExecutionStatus());
+        holder.tvCost.setText(historyItem.getCost());
         String route = "";
-        for (RouteItem item : history.get(position).getRoute()) {
-            if(item.getNumber() != null) {
+        for (RouteItem item : historyItem.getRoute()) {
+            if (item.getNumber() != null) {
                 route += item.getStreet() + " " + item.getNumber() + "\n";
             } else {
                 route += item.getStreet() + "\n";
             }
         }
         holder.tvRoute.setText(route);
-        holder.tvDate.setText(history.get(position).getDate());
+        holder.tvDate.setText(historyItem.getDate());
+        holder.btnRemovOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.deleteItemHistory(historyItem);
+            }
+        });
         holder.btnMakeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.clicked(history.get(position));
+                mListener.clicked(historyItem);
             }
         });
     }
@@ -85,7 +91,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         public TextView tvCost;
         public TextView tvRoute;
         public TextView tvDate;
-        public Button btnMakeOrder;
+        public Button btnMakeOrder,
+                btnRemovOrder;
 
         public ViewHolder(View v) {
             super(v);
@@ -95,6 +102,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             tvRoute = (TextView) v.findViewById(R.id.tv_route);
             tvDate = (TextView) v.findViewById(R.id.tv_date);
             btnMakeOrder = (Button) v.findViewById(R.id.btn_make_order);
+            btnRemovOrder = (Button) v.findViewById(R.id.btn_remove_order);
         }
     }
 

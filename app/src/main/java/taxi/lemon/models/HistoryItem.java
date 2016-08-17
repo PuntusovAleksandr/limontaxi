@@ -35,6 +35,16 @@ public class HistoryItem {
     @SerializedName("execution_status")
     private String executionStatus;
 
+    private boolean showHistory;
+
+    public boolean isShowHistory() {
+        return showHistory;
+    }
+
+    public void setShowHistory(boolean mShowHistory) {
+        showHistory = mShowHistory;
+    }
+
     public String getOrderId() {
         return orderId;
     }

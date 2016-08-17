@@ -1,66 +1,54 @@
-<!--<digitalpromo.cabsdemo.views.HistoryItemView-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="50dp"-->
-    <!--android:background="#aaa"-->
-    <!--/>-->
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardElevation="4dp"
+    card_view:cardUseCompatPadding="true"
     card_view:contentPadding="10dp"
-    card_view:contentPaddingBottom="0dp"
-    card_view:cardUseCompatPadding="true">
+    card_view:contentPaddingBottom="0dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/tv_status"
-            android:text="STATUS"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             style="@style/AppTheme.PreferencesSection"
-            />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="STATUS"/>
 
         <TextView
             android:id="@+id/tv_cost"
+            style="@style/AppTheme.PreferencesSection"
             android:layout_width="wrap_content"
-            android:text="COST"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:textColor="@color/colorAccent"
-            style="@style/AppTheme.PreferencesSection"
-            />
+            android:text="COST"
+            android:textColor="@color/colorAccent"/>
 
         <TextView
             android:id="@+id/tv_route"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@id/tv_status"
             android:text="START ADDRESS"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:textSize="@dimen/address_text_size"
-            />
+            android:textSize="@dimen/address_text_size"/>
 
         <TextView
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DATE"
-            android:layout_below="@+id/tv_route"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:textSize="@dimen/date_text_size"
-            />
+            android:layout_below="@+id/tv_route"
+            android:text="DATE"
+            android:textSize="@dimen/date_text_size"/>
 
         <View
             android:id="@+id/divider"
@@ -71,16 +59,25 @@
             android:background="@android:color/darker_gray"/>
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_make_order"
+            android:id="@+id/btn_remove_order"
+            style="@style/AppTheme.BorderlessButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ohf_make_order"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/divider"
+            android:text="@string/ohf_remove_order"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_make_order"
+            style="@style/AppTheme.BorderlessButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            style="@style/AppTheme.BorderlessButton"
-            />
-    </RelativeLayout>
+            android:layout_below="@+id/divider"
+            android:text="@string/ohf_make_order"/>
 
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

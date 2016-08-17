@@ -1,6 +1,7 @@
 package taxi.lemon.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,14 +15,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
+import SETTINGS.SettingsApp;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import taxi.lemon.App;
 import taxi.lemon.R;
 import taxi.lemon.adapters.HistoryAdapter;
@@ -30,15 +36,13 @@ import taxi.lemon.api.new_api.GetOrdersReportResponse;
 import taxi.lemon.api.new_api.ServiceGenerator;
 import taxi.lemon.api.old_api.ApiClient;
 import taxi.lemon.api.old_api.GeoCodingResponse;
+import taxi.lemon.dialogs.DialogDeleteItemHistory;
 import taxi.lemon.events.MessageEvent;
 import taxi.lemon.models.HistoryItem;
 import taxi.lemon.models.Order;
 import taxi.lemon.models.RouteItem;
 import taxi.lemon.utils.FormatUtils;
 import taxi.lemon.utils.SharedPreferencesManager;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,12 +50,22 @@ import retrofit2.Response;
  * {@link FragmentsInteractionListener} interface
  * to handle interaction events.
  */
-public class OrdersHistoryFragment extends BaseFragment implements DatePickerDialog.OnDateSetListener {
+public class OrdersHistoryFragment extends BaseFragment implements DatePickerDialog.OnDateSetListener,
+        DialogDeleteItemHistory.ListenerDeleteHistoryItem {
+
+    /**
+     * The Shared preferences.
+     */
+    SharedPreferences sharedPreferences;
+
     public static final String TAG = OrdersHistoryFragment.class.getSimpleName();
 
     private FragmentsInteractionListener mListener;
 
     private RecyclerView mRecyclerView;
+
+
+    private ArrayList<HistoryItem> body;
 
     private HistoryAdapter.OnItemClickListener onItemClickListener = new HistoryAdapter.OnItemClickListener() {
         @Override
@@ -67,14 +81,24 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
 
             EventBus.getDefault().post(new MessageEvent(MessageEvent.EVENT_MAKE_ORDER_FROM_HISTORY));
         }
+
+        @Override
+        public void deleteItemHistory(HistoryItem mItem) {
+            showDialog(mItem);
+        }
+
     };
+
+    private void showDialog(HistoryItem mItem) {
+        new DialogDeleteItemHistory(getContext(), mItem, this).show();
+    }
 
     private void getLatLng(final String addr, final RouteItem item) {
         ApiClient.getInstance().getLatLng(addr, new ApiClient.ApiCallback<GeoCodingResponse>() {
             @Override
             public void response(final GeoCodingResponse response) {
                 if (response.isOK()) {
-                    if(response.getLatLng() != null) {
+                    if (response.getLatLng() != null) {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -160,6 +184,7 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
 
     /**
      * Show date picker dialog (library)
+     *
      * @param calendar calendar instance
      */
     private void showDateDialog(Calendar calendar) {
@@ -170,14 +195,6 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
         DatePickerDialog date = DatePickerDialog.newInstance(this, year, month, day);
 
         date.setAccentColor(getResources().getColor(R.color.colorAccent));
-
-//        Calendar[] daysRange = new Calendar[3];
-//
-//        for (int i = 0; i < daysRange.length; i++) {
-//            daysRange[i] = calendar;
-//            logger(calendar.toString());
-//            calendar.add(Calendar.DAY_OF_MONTH, 1);
-//        }
         date.show(getActivity().getFragmentManager(), "DatePickerDialog");
     }
 
@@ -185,7 +202,12 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_orders_history, container, false);
+        View inflate = inflater.inflate(R.layout.fragment_orders_history, container, false);
+
+        sharedPreferences = getActivity().
+                getSharedPreferences(SettingsApp.FILE_NAME, Context.MODE_PRIVATE);
+
+        return inflate;
     }
 
     @Override
@@ -228,7 +250,7 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
             @Override
             public void onResponse(Call<GetOrdersReportResponse> call, Response<GetOrdersReportResponse> response) {
                 mListener.displayProgress(false);
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
 
                 }
             }
@@ -238,30 +260,6 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
                 mListener.displayProgress(false);
             }
         });
-//        ApiClient.getInstance().getOrdersReport(date, new ApiClient.ApiCallback<GetOrdersHistoryResponse>() {
-//            @Override
-//            public void response(GetOrdersHistoryResponse response) {
-//                mListener.displayProgress(false);
-//                if (response.isOK()) {
-//                    // specify an adapter (see also next example)
-//                    RecyclerView.Adapter mAdapter = new HistoryAdapter(response.getHistory(), onItemClickListener);
-//                    mRecyclerView.setAdapter(mAdapter);
-//                } else {
-//                    Toast.makeText(App.getContext(), response.getErrorMessage(), Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void error() {
-//                mListener.displayProgress(false);
-//            }
-//
-//            @Override
-//            public void noInternetConnection() {
-//                mListener.displayProgress(false);
-//                ApiClient.getInstance().showAlert(getActivity());
-//            }
-//        });
     }
 
     private void getReportForToday() {
@@ -276,13 +274,17 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
         call.enqueue(new Callback<ArrayList<HistoryItem>>() {
             @Override
             public void onResponse(Call<ArrayList<HistoryItem>> call, Response<ArrayList<HistoryItem>> response) {
-                if(response.isSuccessful()) {
-                    RecyclerView.Adapter mAdapter = new HistoryAdapter(response.body(), onItemClickListener);
-                    mRecyclerView.setAdapter(mAdapter);
-                    for(HistoryItem item : ((HistoryAdapter) mAdapter).getHistory()) {
-                        for (RouteItem item1 : item.getRoute()) {
-                            getLatLng(item1.getStreet(), item1);
-                        }
+                if (response.isSuccessful()) {
+                    body = response.body();
+//                    RecyclerView.Adapter mAdapter = new HistoryAdapter(body, onItemClickListener);
+//                    mRecyclerView.setAdapter(mAdapter);
+//                    for (HistoryItem item : ((HistoryAdapter) mAdapter).getHistory()) {
+////                        for (RouteItem item1 : item.getRoute()) {
+////                            getLatLng(item1.getStreet(), item1);
+////                        }
+//                    }
+                    if (body != null) {
+                        updateListHistoryItems();
                     }
                 } else {
                     Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
@@ -295,4 +297,51 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
             }
         });
     }
- }
+
+
+    // delete from list history items
+    @Override
+    public void deleteFromList(HistoryItem mItem) {
+        Set<String> listException = SettingsApp.getListException(sharedPreferences);
+        listException.add(mItem.getDate());
+        Set<String> newList = new HashSet<>();
+        newList.addAll(listException);
+        SettingsApp.setListException(newList, sharedPreferences);
+        updateListHistoryItems();
+    }
+
+    private ArrayList<HistoryItem> historyItems;
+    private RecyclerView.Adapter mAdapter;
+
+    private void updateListHistoryItems() {
+        Set<String> listException = SettingsApp.getListException(sharedPreferences);
+        if (historyItems == null) {
+            historyItems = new ArrayList<>();
+        } else {
+            historyItems.clear();
+        }
+        if (listException.size() > 0) {
+            for (HistoryItem item : body) {
+                item.setShowHistory(true);
+            }
+            for (HistoryItem item : body) {
+                for (String str : listException) {
+                    if (str.equalsIgnoreCase(item.getDate())) {
+                        item.setShowHistory(false);
+                    }
+                }
+            }
+            for (HistoryItem item : body) {
+                if (item.isShowHistory()) {
+                    historyItems.add(item);
+                }
+            }
+        } else historyItems.addAll(body);
+
+        if (mAdapter != null) {
+            mAdapter = null;
+        }
+        mAdapter = new HistoryAdapter(historyItems, onItemClickListener);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+}

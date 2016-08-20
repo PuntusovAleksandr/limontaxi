@@ -110,9 +110,7 @@ public class OrderGcmListenerService extends GcmListenerService {
         boolean isUserLoggedIn = SharedPreferencesManager.getInstance().isUserLoggedIn();
         intent.putExtra(MainActivity.EXTRA_IS_USER_LOGGED_IN, isUserLoggedIn);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                | Intent.FLAG_ACTIVITY_SINGLE_TOP
-//                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 1 /* Request code */, intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

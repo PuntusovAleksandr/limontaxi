@@ -24,7 +24,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-import SETTINGS.SettingsApp;
+import taxi.lemon.SETTINGS.SettingsApp;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

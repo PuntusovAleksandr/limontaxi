@@ -262,5 +262,6 @@
     <string name="title_comment">Передайте свой текст здесь</string>
     <string name="client_mail_not_found">There are no email clients installed.</string>
     <string name="ohf_remove_order">УДАЛИТЬ</string>
+    <string name="for_exit_from_app">Для выхода нажмите кнопку назад еще раз</string>
 
 </resources>

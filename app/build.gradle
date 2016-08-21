@@ -38,14 +38,14 @@ android {
         applicationId 'taxi.lemon'
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 3
-        versionName "1.1"
+        versionCode 4
+        versionName "1.1.1"
         multiDexEnabled true
 //        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 //            signingConfig signingConfigs.config
         }

@@ -36,6 +36,7 @@
     <string name="showcase_text">Для добавления адреса используйте эту кнопку</string>
     <string name="error_field_must_not_be_blank">Это поле не должно быть пустым.</string>
     <string name="error_invalid_phone_format">Неверный формат (38 (ХХХ) ХХХ-ХХ-ХХ).</string>
+    <string name="error_invalid_pass_format">Неверный формат пароля. \nМинимум 6 знаков, одна латинская буква и одна цифра</string>
     <string name="error_passwords_mismatch">Пароли не совпадают.</string>
     <string name="err_cant_get_lat_lng">Не удалось получить координаты.</string>
     <string name="error_no_house_number">Укажите номер дома.</string>

@@ -15,6 +15,10 @@ import android.widget.Toast;
 
 import com.androidquery.AQuery;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import taxi.lemon.App;
 import taxi.lemon.R;
 import taxi.lemon.api.new_api.ApiTaxiClient;
@@ -22,10 +26,6 @@ import taxi.lemon.api.new_api.GetConfirmCodeRequest;
 import taxi.lemon.api.new_api.RegisterUserRequest;
 import taxi.lemon.api.new_api.ServiceGenerator;
 import taxi.lemon.utils.PhoneUtils;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -143,8 +143,12 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
                 phone = PhoneUtils.replaceNonDigitCharacters(phone);
 
                 if (!isFieldsEmpty(name, phone, password, confirmPassword, confirmCode) && isPasswordsMatch(password, confirmPassword)) {
-                    if (PhoneUtils.isPhoneValid(phone)) {
-                        register(name, phone, password, confirmPassword, confirmCode);
+                    if (PhoneUtils.isPhoneValid(phone) ) {
+                        if (PhoneUtils.isPassValid(password)) {
+                            register(name, phone, password, confirmPassword, confirmCode);
+                        } else {
+                            Toast.makeText(getActivity(), R.string.error_invalid_pass_format, Toast.LENGTH_LONG).show();
+                        }
                     } else {
                         tilPhone.setError(getString(R.string.error_invalid_phone_format));
                     }
@@ -273,6 +277,7 @@ public class RegisterFragment extends BasePagerFragment implements View.OnClickL
                     mListener.displayProgress(false);
                     mRegSuccessListener.onRegSuccess();
                 } else {
+                    System.out.println("REGISTERED ERROR " + response.raw());
                     Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
                 }
             }

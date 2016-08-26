@@ -1,101 +1,64 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="taxi.lemon.fragments.OrderFragment"
-    >
+    tools:context="taxi.lemon.fragments.OrderFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_route_list"
-        android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_toolbar"/>
+        android:layout_above="@+id/bottom_toolbar"
+        android:scrollbars="vertical"/>
 
     <LinearLayout
         android:id="@+id/ll_fabs_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal|bottom"
+        android:layout_above="@+id/bottom_toolbar"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignWithParentIfMissing="true"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="50dp"
         android:layout_marginRight="5dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_above="@+id/bottom_toolbar"
-        android:layout_alignWithParentIfMissing="true"
-        >
-
-        <!--<android.support.design.widget.FloatingActionButton-->
-            <!--android:id="@+id/fab_open_map"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/ic_map"-->
-            <!--android:layout_margin="@dimen/fab_mini_margin"-->
-            <!--app:fabSize="mini"-->
-            <!--app:elevation="6dp"-->
-            <!--app:borderWidth="0dp"-->
-            <!--/>-->
-
-        <!--<android.support.design.widget.FloatingActionButton-->
-            <!--android:id="@+id/fab_type_address"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/ic_edit_white"-->
-            <!--android:layout_margin="@dimen/fab_mini_margin"-->
-            <!--app:fabSize="mini"-->
-            <!--app:elevation="6dp"-->
-            <!--app:borderWidth="0dp"/>-->
-
-        <!--<android.support.design.widget.FloatingActionButton-->
-            <!--android:id="@+id/fab_menu"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/ic_add"-->
-            <!--android:layout_margin="@dimen/fab_margin"-->
-            <!--app:fabSize="normal"-->
-            <!--app:elevation="6dp"-->
-            <!--app:borderWidth="0dp"-->
-            <!--app:layout_behavior="digitalpromo.cabsdemo.utils.FloatingActionButtonBehavior"-->
-            <!--/>-->
+        android:gravity="center_horizontal|bottom"
+        android:orientation="vertical">
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/of_order_buttons_wrapper"
-        android:orientation="horizontal"
-        android:weightSum="2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom"
         android:layout_above="@+id/ll_dops"
         android:layout_marginBottom="-4dp"
-        >
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <Button
             android:id="@+id/b_from_map"
-            android:layout_weight="1"
+            style="@style/AppTheme.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/of_from_map"
-            android:textColor="@color/mdtp_white"
             android:textAllCaps="true"
-            style="@style/AppTheme.Button"
-            />
+            android:textColor="@color/mdtp_white"/>
 
         <Button
             android:id="@+id/b_from_input"
-            android:layout_weight="1"
+            style="@style/AppTheme.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/of_handle"
-            android:textColor="@color/mdtp_white"
             android:textAllCaps="true"
-            style="@style/AppTheme.Button" />
+            android:textColor="@color/mdtp_white"/>
 
     </LinearLayout>
 
@@ -104,168 +67,144 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_toolbar"
-        android:gravity="bottom"
-        >
+        android:gravity="bottom">
 
         <Button
             android:id="@+id/fab_menu"
-            android:layout_weight="1"
+            style="@style/AppTheme.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/of_settings_dop"
-            android:textColor="@color/mdtp_white"
             android:textAllCaps="true"
-            style="@style/AppTheme.Button"
-            />
+            android:textColor="@color/mdtp_white"/>
 
     </LinearLayout>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/bottom_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
+        android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
+        android:minHeight="?attr/actionBarSize"
         android:theme="@style/AppTheme.AppBarOverlay"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        >
+        app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            >
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/shadow_height"
+            android:paddingBottom="@dimen/shadow_height">
 
-            <!--<TextView-->
-                <!--android:id="@+id/tv_title_city"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Город:"-->
-                <!--android:textColor="@color/textColorPrimary"-->
-                <!--android:textSize="@dimen/bottom_toolbar_text_size"-->
-                <!--/>-->
+            <View
+                android:id="@+id/view_center"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_centerInParent="true"/>
 
-            <!--<TextView-->
-                <!--android:id="@+id/tv_city"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignStart="@+id/tv_cost"-->
-                <!--android:layout_alignLeft="@+id/tv_cost"-->
-                <!--android:text="@string/pa_notify_phone_undefined"-->
-                <!--android:textColor="@color/textColorPrimary"-->
-                <!--android:textSize="@dimen/bottom_toolbar_text_size"-->
-                <!--/>-->
-
-            <TextView
-                android:id="@+id/tv_title_cost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_title_phone"
-                android:text="Стоимость:"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/exec_status_text_size"
-                />
-
-            <TextView
-                android:id="@+id/tv_cost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_phone"
-                android:layout_toRightOf="@+id/tv_title_cost"
-                android:layout_toEndOf="@+id/tv_title_cost"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:text="0"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/exec_status_text_size"
-                />
-
-            <TextView
-                android:id="@+id/tv_title_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Телефон:"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/exec_status_text_size"
-                />
-
-            <TextView
-                android:id="@+id/tv_phone"
+            <LinearLayout
+                android:id="@+id/ll_toolbar_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/pa_notify_phone_undefined"
-                android:layout_alignStart="@+id/tv_cost"
-                android:layout_alignLeft="@+id/tv_cost"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/exec_status_text_size"
-                />
+                android:layout_above="@+id/view_center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_title_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/card_view_padding"
+                    android:layout_weight="2"
+                    android:text="@string/phone"
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="@dimen/mdtp_day_number_size"/>
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_cost"
+                    android:layout_alignStart="@+id/tv_cost"
+                    android:layout_weight="1"
+                    android:text="@string/pa_notify_phone_undefined"
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="@dimen/exec_status_text_size"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_toolbar_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_title_cost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/card_view_padding"
+                    android:layout_weight="2"
+                    android:text="@string/cost"
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="@dimen/mdtp_day_number_size"/>
+
+                <TextView
+                    android:id="@+id/tv_cost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="@dimen/exec_status_text_size"/>
+
+
+            </LinearLayout>
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_title_cost"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/tv_title_phone"-->
+            <!--android:text="@string/cost"-->
+            <!--android:textColor="@color/textColorPrimary"-->
+            <!--android:textSize="@dimen/mdtp_day_number_size"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_cost"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/tv_phone"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginStart="10dp"-->
+            <!--android:layout_toEndOf="@+id/tv_title_cost"-->
+            <!--android:layout_toRightOf="@+id/tv_title_cost"-->
+            <!--android:text="0"-->
+            <!--android:textColor="@color/textColorPrimary"-->
+            <!--android:textSize="@dimen/exec_status_text_size"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_title_phone"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/phone"-->
+            <!--android:textColor="@color/textColorPrimary"-->
+            <!--android:textSize="@dimen/mdtp_day_number_size"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_phone"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignLeft="@+id/tv_cost"-->
+            <!--android:layout_alignStart="@+id/tv_cost"-->
+            <!--android:text="@string/pa_notify_phone_undefined"-->
+            <!--android:textColor="@color/textColorPrimary"-->
+            <!--android:textSize="@dimen/exec_status_text_size"/>-->
 
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 
-    <!--<FrameLayout-->
-        <!--android:id="@+id/fl_order_container"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!-->-->
-
-        <!--<android.support.v7.widget.RecyclerView-->
-            <!--android:id="@+id/rv_route_list"-->
-            <!--android:scrollbars="vertical"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--/>-->
-
-        <!--<com.github.clans.app.FloatingActionButton-->
-            <!--android:id="@+id/fab_dummy"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="bottom|end"-->
-            <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
-            <!--android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
-            <!--android:layout_marginBottom="@dimen/activity_vertical_margin"-->
-            <!--android:visibility="invisible"-->
-            <!--/>-->
-
-
-
-    <!--</FrameLayout>-->
-
-    <!--<com.github.clans.app.FloatingActionMenu-->
-        <!--android:id="@+id/fam_add_address"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:menu_labels_style="@style/MenuLabelsStyle"-->
-        <!--app:menu_labels_showAnimation="@anim/jump_from_down"-->
-        <!--app:menu_labels_hideAnimation="@anim/jump_to_down"-->
-        <!--app:menu_animationDelayPerItem="0"-->
-        <!--app:menu_colorNormal="@color/fab_green_primary"-->
-        <!--app:menu_colorPressed="@color/fab_green_primary_dark"-->
-        <!--app:menu_colorRipple="@color/fab_green_primary_ripple"-->
-        <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
-        <!--android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
-        <!--android:layout_marginBottom="@dimen/activity_vertical_margin"-->
-        <!--app:layout_anchor="@+id/rv_route_list"-->
-        <!--app:layout_anchorGravity="bottom|end"-->
-        <!--app:layout_behavior="digitalpromo.cabsdemo.utils.FloatingActionButtonBehavior">-->
-
-        <!--<com.github.clans.app.FloatingActionButton-->
-            <!--android:id="@+id/fab_open_map"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/ic_map"-->
-            <!--app:fab_label="@string/fab_label_choose_on_map"-->
-            <!--style="@style/MenuButtonsStyle" />-->
-
-        <!--<com.github.clans.app.FloatingActionButton-->
-            <!--android:id="@+id/fab_type_address"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/ic_type_address"-->
-            <!--app:fab_label="@string/fab_label_type_address"-->
-            <!--style="@style/MenuButtonsStyle" />-->
-
-    <!--</com.github.clans.app.FloatingActionMenu>-->
 
 </RelativeLayout>

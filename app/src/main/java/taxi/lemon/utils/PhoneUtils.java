@@ -39,7 +39,8 @@ public class PhoneUtils {
      */
     public static boolean isPassValid(String mPassword) {
         Log.d(TAG, "isPassValid() called with: " + "mPassword = [" + mPassword + "]");
-        String REGULAR_PASS = "(?=(.*[0-9]))(?=.*[a-z])(?=(.*)).{6,30}";
+        String REGULAR_PASS = "(?=.*[A-z])(?=(.*)).{7,30}";
+//        String REGULAR_PASS = "(?=(.*[0-9]))(?=.*[a-z])(?=(.*)).{6,30}";
 //        if (mPassword.length() < PASS_DIGITS_COUNT) {
 //            return false;
 //        } else if (!mPassword.matches(REGULAR_PASS)) {

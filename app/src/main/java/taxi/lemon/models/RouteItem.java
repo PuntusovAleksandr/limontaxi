@@ -54,6 +54,31 @@ public class RouteItem {
 //        this.latLng = new LatLng(0, 0);
 //    }
 
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double mLat) {
+        lat = mLat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double mLng) {
+        lng = mLng;
+    }
+
+    public void setStreet(String mStreet) {
+        street = mStreet;
+    }
+
+    public void setHouses(ArrayList<House> mHouses) {
+        houses = mHouses;
+    }
+
     public RouteItem() {
         this.street = "";
         this.latLng = new LatLng(0, 0);

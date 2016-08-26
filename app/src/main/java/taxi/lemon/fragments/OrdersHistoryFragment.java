@@ -21,21 +21,20 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
 
-import taxi.lemon.SETTINGS.SettingsApp;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import taxi.lemon.App;
 import taxi.lemon.R;
+import taxi.lemon.SETTINGS.SettingsApp;
 import taxi.lemon.adapters.HistoryAdapter;
 import taxi.lemon.api.new_api.ApiTaxiClient;
 import taxi.lemon.api.new_api.GetOrdersReportResponse;
 import taxi.lemon.api.new_api.ServiceGenerator;
 import taxi.lemon.api.old_api.ApiClient;
 import taxi.lemon.api.old_api.GeoCodingResponse;
+import taxi.lemon.data_base.imol.ServiceDImpl;
 import taxi.lemon.dialogs.DialogDeleteItemHistory;
 import taxi.lemon.events.MessageEvent;
 import taxi.lemon.models.HistoryItem;
@@ -276,15 +275,11 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
             public void onResponse(Call<ArrayList<HistoryItem>> call, Response<ArrayList<HistoryItem>> response) {
                 if (response.isSuccessful()) {
                     body = response.body();
-//                    RecyclerView.Adapter mAdapter = new HistoryAdapter(body, onItemClickListener);
-//                    mRecyclerView.setAdapter(mAdapter);
-//                    for (HistoryItem item : ((HistoryAdapter) mAdapter).getHistory()) {
-////                        for (RouteItem item1 : item.getRoute()) {
-////                            getLatLng(item1.getStreet(), item1);
-////                        }
-//                    }
                     if (body != null) {
-                        updateListHistoryItems();
+
+                        if (ServiceDImpl.getServise(getActivity()).addFromServer(body)) {
+                            updateListHistoryItems();
+                        }
                     }
                 } else {
                     Toast.makeText(App.getContext(), response.message(), Toast.LENGTH_LONG).show();
@@ -302,11 +297,8 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
     // delete from list history items
     @Override
     public void deleteFromList(HistoryItem mItem) {
-        Set<String> listException = SettingsApp.getListException(sharedPreferences);
-        listException.add(mItem.getDate());
-        Set<String> newList = new HashSet<>();
-        newList.addAll(listException);
-        SettingsApp.setListException(newList, sharedPreferences);
+
+        ServiceDImpl.getServise(getActivity()).deleteHistoryItem(mItem);
         updateListHistoryItems();
     }
 
@@ -314,29 +306,12 @@ public class OrdersHistoryFragment extends BaseFragment implements DatePickerDia
     private RecyclerView.Adapter mAdapter;
 
     private void updateListHistoryItems() {
-        Set<String> listException = SettingsApp.getListException(sharedPreferences);
         if (historyItems == null) {
             historyItems = new ArrayList<>();
         } else {
             historyItems.clear();
         }
-        if (listException.size() > 0) {
-            for (HistoryItem item : body) {
-                item.setShowHistory(true);
-            }
-            for (HistoryItem item : body) {
-                for (String str : listException) {
-                    if (str.equalsIgnoreCase(item.getDate())) {
-                        item.setShowHistory(false);
-                    }
-                }
-            }
-            for (HistoryItem item : body) {
-                if (item.isShowHistory()) {
-                    historyItems.add(item);
-                }
-            }
-        } else historyItems.addAll(body);
+        historyItems = ServiceDImpl.getServise(getActivity()).getHistoryItems();
 
         if (mAdapter != null) {
             mAdapter = null;

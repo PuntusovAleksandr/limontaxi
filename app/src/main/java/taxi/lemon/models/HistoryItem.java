@@ -37,6 +37,42 @@ public class HistoryItem {
 
     private boolean showHistory;
 
+    public void setOrderId(String mOrderId) {
+        orderId = mOrderId;
+    }
+
+    public String getRequiredTime() {
+        return requiredTime;
+    }
+
+    public void setRequiredTime(String mRequiredTime) {
+        requiredTime = mRequiredTime;
+    }
+
+    public String getOrderCost() {
+        return orderCost;
+    }
+
+    public void setOrderCost(String mOrderCost) {
+        orderCost = mOrderCost;
+    }
+
+    public void setUserFullName(String mUserFullName) {
+        userFullName = mUserFullName;
+    }
+
+    public void setUserPhone(String mUserPhone) {
+        userPhone = mUserPhone;
+    }
+
+    public void setCloseReason(int mCloseReason) {
+        closeReason = mCloseReason;
+    }
+
+    public void setExecutionStatus(String mExecutionStatus) {
+        executionStatus = mExecutionStatus;
+    }
+
     public boolean isShowHistory() {
         return showHistory;
     }

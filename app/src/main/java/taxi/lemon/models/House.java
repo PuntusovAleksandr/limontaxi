@@ -15,6 +15,10 @@ public class House {
     @SerializedName("lng")
     private double lng;
 
+    public void setHouse(String mHouse) {
+        house = mHouse;
+    }
+
     public double getLat() {
         return lat;
     }

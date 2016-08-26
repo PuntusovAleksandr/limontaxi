@@ -11,6 +11,9 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
+//realm
+apply plugin: 'realm-android'
+
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
@@ -23,6 +26,8 @@ android {
 //            keyPassword 'RjHdbC41189'
 //            storeFile file('C:/Users/Takeitez/Desktop/keys/cabs_demo.jks')
 //            storePassword 'RjHdbC41189'
+//            380672685892
+//            newpass
 //        }
 //    }
 

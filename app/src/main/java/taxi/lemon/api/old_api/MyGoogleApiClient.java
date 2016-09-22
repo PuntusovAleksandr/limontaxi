@@ -64,7 +64,7 @@ public class MyGoogleApiClient {
         try {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, listener);
         } catch (SecurityException e) {
-            throw new SecurityException("Application has no permissions for Location");
+//            throw new SecurityException("Application has no permissions for Location");
         }
     }
 

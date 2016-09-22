@@ -8,9 +8,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -24,7 +24,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -39,6 +38,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import taxi.lemon.R;
 import taxi.lemon.api.new_api.ApiTaxiClient;
 import taxi.lemon.api.new_api.GetAddressResponse;
@@ -47,9 +49,6 @@ import taxi.lemon.api.old_api.ApiClient;
 import taxi.lemon.api.old_api.MyGoogleApiClient;
 import taxi.lemon.models.RouteItem;
 import taxi.lemon.utils.SharedPreferencesManager;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMapClickListener, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     public static final String TAG = MapActivity.class.getSimpleName();
@@ -388,9 +387,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         myGoogleApiClient.stopLocationUpdates(this);
     }
 
+    LocationListener mListener = this;
     @Override
     public void onConnected(Bundle bundle) {
-        myGoogleApiClient.startLocationUpdates(this);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                myGoogleApiClient.startLocationUpdates(mListener);
+            }
+        }, 1000);
+//        myGoogleApiClient.startLocationUpdates(this);
     }
 
     @Override

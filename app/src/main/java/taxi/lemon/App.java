@@ -9,6 +9,7 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.ndk.CrashlyticsNdk;
 import io.fabric.sdk.android.Fabric;
 
 
@@ -28,12 +29,21 @@ public class App extends MultiDexApplication implements Application.ActivityLife
     @Override
     public void onCreate() {
         super.onCreate();
-        Fabric.with(this, new Crashlytics());
+        Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
 
         App.context = this.getApplicationContext();
 
         registerActivityLifecycleCallbacks(this);
     }
+
+    private void logUser() {
+        // TODO: Use the current user's information
+        // You can call any combination of these three methods
+        Crashlytics.setUserIdentifier("12345");
+        Crashlytics.setUserEmail("user@fabric.io");
+        Crashlytics.setUserName("Test User");
+    }
+
 
     public static Context getContext() {
         return context;

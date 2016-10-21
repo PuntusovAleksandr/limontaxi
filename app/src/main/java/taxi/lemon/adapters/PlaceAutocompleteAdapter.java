@@ -178,7 +178,8 @@ public class PlaceAutocompleteAdapter
     private ArrayList<RouteItem> getAutocomplete(String string) {
 //        ArrayList<RouteItem> results = ApiClient.getInstance().getAutocomplete(city, string);
 
-        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
+        ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class,
+                SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
         try {
 //            Response<ArrayList<RouteItem>> results = client.getAutocompleteRequest(string).execute();
 //            return client.getAutocompleteRequest(string, "houses").execute().body().getAutocomplete();

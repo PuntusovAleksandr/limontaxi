@@ -65,7 +65,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.6@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }
     compile 'com.android.support:appcompat-v7:24.0.0-beta1'
@@ -90,4 +90,13 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:9.0.2'
     compile 'com.google.android.gms:play-services-appindexing:9.0.2'
     compile 'com.google.android.gms:play-services-location:9.0.2'
+    compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.5@aar') {
+        transitive = true;
+    }
+}
+
+crashlytics {
+    enableNdk true
+    androidNdkOut 'src/main/obj'
+    androidNdkLibsOut 'src/main/libs'
 }

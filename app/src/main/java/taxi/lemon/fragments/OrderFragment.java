@@ -1,7 +1,5 @@
 package taxi.lemon.fragments;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,11 +9,8 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,12 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +31,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import taxi.lemon.R;
 import taxi.lemon.activities.MapActivity;
 import taxi.lemon.activities.PreferencesActivity;
@@ -62,11 +57,6 @@ import taxi.lemon.models.Order;
 import taxi.lemon.models.RouteItem;
 import taxi.lemon.models.UserProfile;
 import taxi.lemon.utils.SharedPreferencesManager;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import uk.co.deanwild.materialshowcaseview.IShowcaseListener;
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -582,7 +572,8 @@ public class OrderFragment
     private void getOrderCost() {
         mListener.displayProgress(true);
         ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
-        Call<GetOrderCostResponse> call = client.getOrderCost(new GetOrderCostRequest(Order.getInstance()));
+        GetOrderCostRequest request = new GetOrderCostRequest(Order.getInstance());
+        Call<GetOrderCostResponse> call = client.getOrderCost(request);
         call.enqueue(new Callback<GetOrderCostResponse>() {
             @Override
             public void onResponse(Call<GetOrderCostResponse> call, Response<GetOrderCostResponse> response) {
@@ -672,7 +663,8 @@ public class OrderFragment
         mListener.displayProgress(true);
         ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
         String userFullName = UserProfile.getInstance() != null ? UserProfile.getInstance().getFullName() : "Unauthorized";
-        Call<MakeOrderResponse> call = client.makeOrder(new MakeOrderRequest(Order.getInstance(), userFullName, SharedPreferencesManager.getInstance().loadGcmToken()));
+        MakeOrderRequest request = new MakeOrderRequest(Order.getInstance(), userFullName, SharedPreferencesManager.getInstance().loadGcmToken());
+        Call<MakeOrderResponse> call = client.makeOrder(request);
         call.enqueue(new Callback<MakeOrderResponse>() {
             @Override
             public void onResponse(Call<MakeOrderResponse> call, Response<MakeOrderResponse> response) {

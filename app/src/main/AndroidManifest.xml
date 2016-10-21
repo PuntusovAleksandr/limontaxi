@@ -71,8 +71,8 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="bbf9a3c96b3028ff317ea62c9019d985557d32dd" />
-
+            android:value="081a45e1f0cbebf2755eba040c6ad6f0255aa0ee"
+            />
         <!-- GCM section -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

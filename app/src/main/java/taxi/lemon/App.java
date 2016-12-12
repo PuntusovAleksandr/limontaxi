@@ -10,6 +10,9 @@ import android.support.multidex.MultiDexApplication;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 import io.fabric.sdk.android.Fabric;
 
 
@@ -34,6 +37,10 @@ public class App extends MultiDexApplication implements Application.ActivityLife
         App.context = this.getApplicationContext();
 
         registerActivityLifecycleCallbacks(this);
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+
     }
 
     private void logUser() {
@@ -61,12 +68,12 @@ public class App extends MultiDexApplication implements Application.ActivityLife
 
     @Override
     public void onActivityResumed(Activity activity) {
-
+        AppEventsLogger.activateApp(this);
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-
+        AppEventsLogger.deactivateApp(this);
     }
 
     @Override

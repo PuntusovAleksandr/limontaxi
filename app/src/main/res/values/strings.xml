@@ -3,6 +3,8 @@
     <string name="content_logo">Logo</string>
     <string name="content_icon">Icon</string>
 
+    <string name="facebook_app_id" translatable="false">576985365837437</string>
+
     <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
         AIzaSyCYtxuZCdviIJIDI7rck5HJNNO7m-jf1Yg
     </string>

@@ -48,8 +48,8 @@ android {
         applicationId 'taxi.lemon'
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 7
-        versionName "1.1.4"
+        versionCode 8
+        versionName "1.1.5"
         multiDexEnabled true
 //        signingConfig signingConfigs.config
     }

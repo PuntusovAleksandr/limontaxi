@@ -11,9 +11,12 @@ import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -32,6 +35,27 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
 
     private DialogButtonsListener mListener;
 
+    private TextWatcher watcherHose = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (s.length() > 0) {
+                tilAddress.setError(null);
+                tilAddress.setErrorEnabled(false);
+            } else {
+                setError(R.string.error_no_house_number);
+            }
+        }
+    };
     private TextWatcher mTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -53,6 +77,7 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
     private DelayAutoCompleteTextView mAutoCompleteTextView;
     private PlaceAutocompleteAdapter mAdapter;
     private TextInputLayout tilAddress;
+    private EditText et_house;
 
     private String address;
     private LatLng latLng;
@@ -61,6 +86,7 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
 
     /**
      * Create new instance of EnterAddressDialog and take title as argument
+     *
      * @param title - title of dialog
      * @return instance of EnterAddressDialog
      */
@@ -74,7 +100,24 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
     }
 
     /**
+     * Create new instance of EnterAddressDialog and take title as argument
+     *
+     * @param title - title of dialog
+     * @return instance of EnterAddressDialog
+     */
+    public static EnterAddressDialog newInstanceAdd(int title, int index) {
+        Bundle args = new Bundle();
+        args.putInt(ARGS_TITLE, title);
+        args.putInt(ARGS_INDEX, index);
+
+        EnterAddressDialog fragment = new EnterAddressDialog();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    /**
      * Create new instance of EnterAddressDialog and take index of edited item as argument
+     *
      * @param index - index of edited item
      * @return instance of EnterAddressDialog
      */
@@ -89,6 +132,7 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
 
     /**
      * Check whether lat and lng valid or not
+     *
      * @return true if valid, false - otherwise
      */
     private boolean isLatLngValid() {
@@ -97,18 +141,39 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
 
     /**
      * Create bundle with data
+     *
      * @return bundle with address and its coordinates
      */
     private Bundle createBundle() {
         Bundle data = new Bundle();
+        data.putInt(ARGS_INDEX, index);
+        if (!containHouseNumber(address) && !itemIsObject) {
+            String house = et_house.getText().toString();
+            latLng = getLocations(address, house);
+            address = address + " " + house;
+            if (latLng.longitude == 0.0 || latLng.longitude == 0.0) {
+                address = "";
+                latLng = null;
+                Toast toast = Toast.makeText(getContext(),
+                        R.string.address_not_exist,
+                        Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            }
+        }
         data.putString(ARGS_ADDRESS, address);
         data.putParcelable(ARGS_LAT_LNG, latLng);
-        data.putInt(ARGS_INDEX, index);
         return data;
+    }
+
+    private LatLng getLocations(String mAddress, String mHouse) {
+        LatLng latLng = mAdapter.getLLatLngFromAddress(mAddress, mHouse);
+        return latLng;
     }
 
     /**
      * Check whether input string contains house number
+     *
      * @param string input string
      * @return true if string contains house number, false - otherwise
      */
@@ -118,6 +183,7 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
 
     /**
      * Check whether input string contains street name
+     *
      * @param string input string
      * @return true if string contains street name, false - otherwise
      */
@@ -147,6 +213,8 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
         View view = inflater.inflate(R.layout.dialog_enter_address, null);
 
         tilAddress = (TextInputLayout) view.findViewById(R.id.til_address);
+        et_house = (EditText) view.findViewById(R.id.et_house);
+        et_house.addTextChangedListener(watcherHose);
 
         mAutoCompleteTextView = (DelayAutoCompleteTextView) view.findViewById(R.id.actv_address);
         mAutoCompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
@@ -196,6 +264,9 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
         return adb.create();
     }
 
+    private boolean itemIsObject = false;
+
+    private int mPosition;
     /**
      * Listener that handles selections from suggestions from the AutoCompleteTextView that
      * displays Place suggestions.
@@ -209,11 +280,11 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
             = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            mPosition = position;
             final RouteItem item = mAdapter.getItem(position);
             address = item.getAddress();
             mAdapter.searchHomes(false, item);
-            if (address== null) {
+            if (address == null) {
                 address = item.getStreet();
                 mAdapter.searchHomes(true, item);
             }
@@ -224,13 +295,20 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
             mAutoCompleteTextView.setSelection(address.length());
 
             if (!item.isObject() && !containHouseNumber(address)) {
-                setError(R.string.error_no_house_number);
+                itemIsObject = false;
+                if (et_house.getText().toString().length() < 1)
+                    setError(R.string.error_no_house_number);
+                et_house.requestFocus();
+                et_house.setFocusable(true);
+                et_house.setCursorVisible(true);
+                et_house.setVisibility(View.VISIBLE);
             } else {
+                itemIsObject = true;
                 mListener.OnDialogPositiveClick(getDialog(), createBundle());
+                et_house.setVisibility(View.GONE);
             }
         }
     };
-
 
 
     private void logger(String text) {

@@ -1,0 +1,8 @@
+Ip and port - 95.67.73.202:6969
+
+Mail - LemonTaxiApp@gmail.com
+Password - hardPassLTAemaxpp6969
+
+For GCM:
+	Server API Key - AIzaSyDyvM0PbYhOt1kOMfOFzegye8y46iQRVmI
+	Sender ID - 1057740731258

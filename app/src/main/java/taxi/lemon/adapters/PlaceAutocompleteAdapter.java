@@ -31,8 +31,11 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Response;
 import taxi.lemon.R;
 import taxi.lemon.api.new_api.ApiTaxiClient;
+import taxi.lemon.api.new_api.GetAutoCompleteResponse;
 import taxi.lemon.api.new_api.ServiceGenerator;
 import taxi.lemon.models.House;
 import taxi.lemon.models.RouteItem;
@@ -55,6 +58,23 @@ public class PlaceAutocompleteAdapter
     private ArrayList<RouteItem> mResultList;
     private boolean searchHome;
     private RouteItem searchItem;
+
+    public LatLng getLLatLngFromAddress(String mAddress, String mHouse) {
+        LatLng latLng = new LatLng(0, 0);
+        searchHome = true;
+        ArrayList<RouteItem> routeItems = getAutocomplete(mAddress);
+        if (routeItems.size() > 0) {
+            for (RouteItem item : routeItems) {
+                ArrayList<House> houses = item.getHouses();
+                for (House house : houses) {
+                    if (house.getHouse().equalsIgnoreCase(mHouse)) {
+                        latLng = new LatLng(house.getLat(), house.getLng());
+                    }
+                }
+            }
+        }
+        return latLng;
+    }
 
 //    private int city;
 
@@ -186,7 +206,10 @@ public class PlaceAutocompleteAdapter
 //            GetAutoCompleteResponse res = client.getAutocompleteRequest(string).execute().body();
             ArrayList<RouteItem> items = new ArrayList<>();
             if (!searchHome) {
-                items = client.getAutocompleteRequest(string, 20).execute().body().getAutocomplete();
+                Call<GetAutoCompleteResponse> autocompleteRequest = client.getAutocompleteRequest(string, 1000);
+                Response<GetAutoCompleteResponse> execute = autocompleteRequest.execute();
+                GetAutoCompleteResponse body = execute.body();
+                items = body.getAutocomplete();
             } else {
                 if (!string.equalsIgnoreCase(searchItem.getStreet())) {
                     searchHome = false;

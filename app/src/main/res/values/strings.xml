@@ -91,7 +91,7 @@
     <string name="of_call">Заказать</string>
     <string name="of_notify_phone">Телефон для обратной связи</string>
     <string name="of_from_map">С карты</string>
-    <string name="of_handle">Вручную</string>
+    <string name="of_handle">Откуда / Куда</string>
     <string name="of_settings_dop">Дополнительные услуги</string>
     <string name="of_wrong_address">Некорректный адрес</string>
     <string name="of_order_not_make">Заказ не создан, проверьте правильность введенных данных</string>
@@ -269,5 +269,6 @@
     <string name="sity_kiev">Город: Киев</string>
     <string name="cost">Стоимость:</string>
     <string name="phone">Телефон:</string>
+    <string name="address_not_exist">Такого адреса нет в базе запросов \nПожалуйста, уточните адрес.</string>
 
 </resources>

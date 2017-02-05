@@ -74,7 +74,7 @@ public class OrderFragment
     private FragmentsInteractionListener mListener;
 
     private TextView tvOrderCost;
-//    private TextView tvCity;
+    //    private TextView tvCity;
     private TextView tvUserPhone;
 
 //    private boolean isMenuOpen;
@@ -378,6 +378,7 @@ public class OrderFragment
 
     /**
      * Init icon for under layer views
+     *
      * @return Bitmap with icon or null if something went wrong
      */
     private Bitmap getIcon() {
@@ -534,7 +535,7 @@ public class OrderFragment
             String address = data.getString(EnterAddressDialog.ARGS_ADDRESS);
             LatLng latLng = data.getParcelable(EnterAddressDialog.ARGS_LAT_LNG);
 
-            if(latLng != null) {
+            if (latLng != null) {
                 RouteItem item = new RouteItem(address, latLng);
 
                 if (index < 0) {
@@ -578,7 +579,7 @@ public class OrderFragment
             @Override
             public void onResponse(Call<GetOrderCostResponse> call, Response<GetOrderCostResponse> response) {
                 mListener.displayProgress(false);
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     Order.getInstance().setCost(response.body().getOrderCost());
                     setOrderCost(String.valueOf(response.body().getOrderCost() + " " + response.body().getCurrency()));
                 }
@@ -596,7 +597,7 @@ public class OrderFragment
             @Override
             public void response(final GeoCodingResponse response) {
                 if (response.isOK()) {
-                    if(response.getLatLng() != null) {
+                    if (response.getLatLng() != null) {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -628,6 +629,7 @@ public class OrderFragment
 
     /**
      * Check whether city was chosen or not.
+     *
      * @return true if it was and false - otherwise
      */
 //    private boolean isCityChosen() {
@@ -658,7 +660,6 @@ public class OrderFragment
 //            }
 //        });
 //    }
-
     private void makeOrder() {
         mListener.displayProgress(true);
         ApiTaxiClient client = ServiceGenerator.createTaxiService(ApiTaxiClient.class, SharedPreferencesManager.getInstance().loadUserLogin(), SharedPreferencesManager.getInstance().loadUserPassword());
@@ -669,7 +670,7 @@ public class OrderFragment
             @Override
             public void onResponse(Call<MakeOrderResponse> call, Response<MakeOrderResponse> response) {
                 mListener.displayProgress(false);
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
 //                    NotificationCompat.Builder builder =
 //                            new NotificationCompat.Builder(getContext())
 //                            .setSmallIcon(R.drawable.ic_notification)
@@ -708,7 +709,7 @@ public class OrderFragment
                 String address = data.getStringExtra(MapActivity.EXTRA_ADDRESS);
                 LatLng latLng = data.getParcelableExtra(MapActivity.EXTRA_LAT_LNG);
 
-                RouteItem item = new RouteItem(address,latLng);
+                RouteItem item = new RouteItem(address, latLng);
 
                 if (index >= 0) {
                     mAdapter.updateItem(item, index);
@@ -721,24 +722,26 @@ public class OrderFragment
 
     /**
      * Open dialog to enter an address
+     *
      * @param index - need for edit mode, can be null for add mode
      */
     private void openEnterAddressDialog(@Nullable Integer index) {
 //        if (isCityChosen()) {
-        if (index != null) {
-            EnterAddressDialog dialog = EnterAddressDialog.newInstanceEdit(index);
-            dialog.setCancelable(true);
-            dialog.setTargetFragment(getTarget(), 1);
-            dialog.show(getFragmentManager(), EnterAddressDialog.TAG);
-        } else {
-            EnterAddressDialog dialog = EnterAddressDialog.newInstanceAdd(
-                    (mAdapter.getItemCount() > 0) ?
-                            R.string.ead_title_end_address : R.string.ead_title_start_address
-            );
-            dialog.setCancelable(false);
-            dialog.setTargetFragment(getTarget(), 1);
-            dialog.show(getFragmentManager(), EnterAddressDialog.TAG);
-        }
+//        if (index != null) {
+//            EnterAddressDialog dialog = EnterAddressDialog.newInstanceEdit(index);
+//            dialog.setCancelable(true);
+//            dialog.setTargetFragment(getTarget(), 1);
+//            dialog.show(getFragmentManager(), EnterAddressDialog.TAG);
+//        } else {
+        int res = R.string.ead_title_start_address;
+        if (index == null || index > 0)
+            res = (mAdapter.getItemCount() > 0) ? R.string.ead_title_end_address : R.string.ead_title_start_address;
+        EnterAddressDialog dialog =
+                EnterAddressDialog.newInstanceAdd(res, (index == null) ? -1 : index);
+        dialog.setCancelable(false);
+        dialog.setTargetFragment(getTarget(), 1);
+        dialog.show(getFragmentManager(), EnterAddressDialog.TAG);
+//        }
 //        } else {
 //            getCities();
 //        }
@@ -746,6 +749,7 @@ public class OrderFragment
 
     /**
      * Open map to choose an address
+     *
      * @param index - need for edit mode, can be null for add mode
      */
     private void openMap(@Nullable Integer index) {

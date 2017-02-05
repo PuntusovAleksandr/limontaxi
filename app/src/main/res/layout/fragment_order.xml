@@ -11,7 +11,7 @@
         android:id="@+id/rv_route_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_toolbar"
+        android:layout_above="@+id/of_order_buttons_wrapper"
         android:scrollbars="vertical"/>
 
     <LinearLayout

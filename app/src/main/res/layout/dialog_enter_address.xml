@@ -1,42 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    >
+    android:orientation="vertical">
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/til_address"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
         <taxi.lemon.views.DelayAutoCompleteTextView
             android:id="@+id/actv_address"
-            android:inputType="text"
             style="@style/AppTheme.Dialog.EditText"
-            android:hint="@string/ead_actv_address"/>
+            android:hint="@string/ead_actv_address"
+            android:inputType="text"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:contentDescription="@string/pwb"
-            />
+            android:contentDescription="@string/pwb"/>
+        <!--android:src="@drawable/powered_by_google_light"-->
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_house"
+            style="@style/AppTheme.Dialog.EditText"
+            android:hint="@string/ead_et_house"
+            android:inputType="textPassword|textVisiblePassword"
+            android:paddingLeft="12dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:contentDescription="@string/pwb"/>
         <!--android:src="@drawable/powered_by_google_light"-->
     </android.support.design.widget.TextInputLayout>
 
     <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!-->-->
-        <!--<EditText-->
-            <!--android:id="@+id/et_house"-->
-            <!--android:inputType="text"-->
-            <!--style="@style/AppTheme.Dialog.EditText"-->
-            <!--android:hint="@string/ead_et_house"-->
-            <!--/>-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!-->-->
+    <!--<EditText-->
+    <!--android:id="@+id/et_house"-->
+    <!--android:inputType="text"-->
+    <!--style="@style/AppTheme.Dialog.EditText"-->
+    <!--android:hint="@string/ead_et_house"-->
+    <!--/>-->
     <!--</android.support.design.widget.TextInputLayout>-->
 
 </LinearLayout>

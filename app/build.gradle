@@ -42,15 +42,15 @@ android {
         javaMaxHeapSize "4g" // 2g should be also OK
     }
 
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 24
+    buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId 'taxi.lemon'
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 8
         versionName "1.1.5"
-        multiDexEnabled true
+        multiDexEnabled false
 //        signingConfig signingConfigs.config
     }
     buildTypes {
@@ -73,12 +73,11 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }
-    compile 'com.android.support:appcompat-v7:+'
     compile 'com.android.support:design:+'
     compile 'com.android.support:support-v4:+'
     compile 'com.android.support:cardview-v7:+'
     compile 'com.googlecode.android-query:android-query:0.25.9'
-//    compile 'com.google.android.gms:play-services:9.0.2'
+    //    compile 'com.google.android.gms:play-services:9.0.2'
     compile 'com.github.clans:fab:1.6.2'
     compile 'com.wdullaer:materialdatetimepicker:2.1.0'
     compile 'me.zhanghai.android.materialprogressbar:library:1.1.4'
@@ -89,8 +88,9 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
     compile 'com.android.support:multidex:1.0.1'
-//    compile 'com.google.android.gms:play-services-ads:9.0.2'
-//    compile 'com.google.android.gms:play-services-auth:9.0.2'
+    //    compile 'com.google.android.gms:play-services-ads:9.0.2'
+
+    //    compile 'com.google.android.gms:play-services-auth:9.0.2'
     compile 'com.google.android.gms:play-services-gcm:9.0.2'
     compile 'com.google.android.gms:play-services-maps:9.0.2'
     compile 'com.google.android.gms:play-services-appindexing:9.0.2'
@@ -98,8 +98,8 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.5@aar') {
         transitive = true;
     }
-
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.android.support:appcompat-v7:25.1.1'
 }
 
 crashlytics {

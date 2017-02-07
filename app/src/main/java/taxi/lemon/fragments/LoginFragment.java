@@ -88,7 +88,7 @@ public class LoginFragment extends BasePagerFragment implements View.OnClickList
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        if(SharedPreferencesManager.getInstance().loadUserLogin().equals(UNREGISTER_USER_PHONE)) {
+        if (SharedPreferencesManager.getInstance().loadUserLogin().equals(UNREGISTER_USER_PHONE)) {
             SharedPreferencesManager.getInstance().saveUserLogin("");
             SharedPreferencesManager.getInstance().saveUserPassword("");
         }
@@ -119,7 +119,7 @@ public class LoginFragment extends BasePagerFragment implements View.OnClickList
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.skip:
-                if(SharedPreferencesManager.getInstance().loadUserLogin().isEmpty() && SharedPreferencesManager.getInstance().loadUserPassword().isEmpty()) {
+                if (SharedPreferencesManager.getInstance().loadUserLogin().isEmpty() && SharedPreferencesManager.getInstance().loadUserPassword().isEmpty()) {
                     SharedPreferencesManager.getInstance().saveUserLogin("380672685892");
                     SharedPreferencesManager.getInstance().saveUserPassword("newpass");
                 }
@@ -166,7 +166,8 @@ public class LoginFragment extends BasePagerFragment implements View.OnClickList
 
     /**
      * Check whether fields are empty or not
-     * @param login login field
+     *
+     * @param login    login field
      * @param password password field
      * @return true if fields ain't empty, false - otherwise
      */
@@ -214,6 +215,7 @@ public class LoginFragment extends BasePagerFragment implements View.OnClickList
 
     /**
      * Start main activity
+     *
      * @param isUserLoggedIn extra flag, true - if user was logged, else - false
      */
     private void openMainActivity(boolean isUserLoggedIn) {
@@ -252,7 +254,8 @@ public class LoginFragment extends BasePagerFragment implements View.OnClickList
 
     /**
      * Call user auth request
-     * @param login user's login
+     *
+     * @param login    user's login
      * @param password user's password
      */
     private void login(final String login, final String password) {
@@ -262,8 +265,9 @@ public class LoginFragment extends BasePagerFragment implements View.OnClickList
         call.enqueue(new Callback<AuthorizationResponse>() {
             @Override
             public void onResponse(Call<AuthorizationResponse> call, Response<AuthorizationResponse> response) {
-                mListener.displayProgress(false);
-                if(response.isSuccessful()) {
+                if (mListener != null)
+                    mListener.displayProgress(false);
+                if (response.isSuccessful()) {
                     SharedPreferencesManager.getInstance().saveUserLogin(login);
                     SharedPreferencesManager.getInstance().saveUserPassword(password);
                     SharedPreferencesManager.getInstance().saveUserAddress(response.body().getRouteAddress(),

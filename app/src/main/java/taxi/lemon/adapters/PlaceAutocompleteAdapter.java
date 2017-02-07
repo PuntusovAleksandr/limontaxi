@@ -211,7 +211,8 @@ public class PlaceAutocompleteAdapter
                 GetAutoCompleteResponse body = execute.body();
                 items = body.getAutocomplete();
             } else {
-                if (!string.equalsIgnoreCase(searchItem.getStreet())) {
+                String street = (searchItem.getStreet() == null ? "" : searchItem.getStreet());
+                if (!string.equalsIgnoreCase(street)) {
                     searchHome = false;
                 }
                 if (items.size() > 0) {

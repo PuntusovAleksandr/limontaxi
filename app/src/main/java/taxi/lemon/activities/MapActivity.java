@@ -395,7 +395,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void run() {
                 myGoogleApiClient.startLocationUpdates(mListener);
             }
-        }, 1000);
+        }, 2000);
 //        myGoogleApiClient.startLocationUpdates(this);
     }
 

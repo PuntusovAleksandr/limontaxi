@@ -63,7 +63,7 @@ public class PlaceAutocompleteAdapter
         LatLng latLng = new LatLng(0, 0);
         searchHome = true;
         ArrayList<RouteItem> routeItems = getAutocomplete(mAddress);
-        if (routeItems.size() > 0) {
+        if (routeItems != null && routeItems.size() > 0) {
             for (RouteItem item : routeItems) {
                 ArrayList<House> houses = item.getHouses();
                 for (House house : houses) {
@@ -211,6 +211,7 @@ public class PlaceAutocompleteAdapter
                 GetAutoCompleteResponse body = execute.body();
                 items = body.getAutocomplete();
             } else {
+                if (searchItem == null) return null;
                 String street = (searchItem.getStreet() == null ? "" : searchItem.getStreet());
                 if (!string.equalsIgnoreCase(street)) {
                     searchHome = false;

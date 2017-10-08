@@ -149,6 +149,7 @@ public class EnterAddressDialog extends DialogFragment implements PlaceAutocompl
         data.putInt(ARGS_INDEX, index);
         if (!containHouseNumber(address) && !itemIsObject) {
             String house = et_house.getText().toString();
+            if (address ==null) address = "";
             latLng = getLocations(address, house);
             address = address + " " + house;
             if (latLng.longitude == 0.0 || latLng.longitude == 0.0) {

@@ -35,21 +35,27 @@ android {
 //    password face book  lemon.taxi.kiev@gmail.com123654789654123
 //        }
 //    }
-
+    signingConfigs {
+        config {
+            keyAlias 'lemon-taxi'
+            keyPassword 'hardPass@pasS11'
+            storeFile file('C:/AndroidPROJECTS/ProDevs/limontaxi/LIMON_KEY.jks')
+            storePassword 'hardPass@pasS11'
+        }
+    }
     dexOptions {
         incremental = true;
         preDexLibraries = false
         javaMaxHeapSize "4g" // 2g should be also OK
     }
-
     compileSdkVersion 24
     buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId 'taxi.lemon'
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 10
-        versionName "1.1.0"
+        versionCode 11
+        versionName "1.1.11"
         multiDexEnabled false
 //        signingConfig signingConfigs.config
     }
@@ -57,7 +63,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.config
+            signingConfig signingConfigs.config
         }
         debug {
 //            signingConfig signingConfigs.config
@@ -106,4 +112,15 @@ crashlytics {
     enableNdk true
     androidNdkOut 'src/main/obj'
     androidNdkLibsOut 'src/main/libs'
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.3.0'
+            }
+        }
+    }
 }

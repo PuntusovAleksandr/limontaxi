@@ -281,6 +281,8 @@ public class LoginFragment extends BasePagerFragment implements View.OnClickList
 
             @Override
             public void onFailure(Call<AuthorizationResponse> call, Throwable t) {
+                if (mListener == null) return;
+
                 mListener.displayProgress(false);
                 ApiClient.getInstance().showAlert(getActivity());
             }

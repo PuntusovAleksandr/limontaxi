@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Администратор on 10.06.2016.
  */
 public class ServiceGenerator {
-    private static final String TAXI_SERVICE_BASE_URL = "http://95.67.73.202:6969/api/";
+    private static final String TAXI_SERVICE_BASE_URL = "http://185.46.150.170:6969/api/";
 
     private static OkHttpClient.Builder httpClientTaxi = new OkHttpClient.Builder();
 

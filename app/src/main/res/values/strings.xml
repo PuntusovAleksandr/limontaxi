@@ -16,13 +16,13 @@
     </string>-->
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
-         AIzaSyBOXETKKhcN9v6tecLVbq2HHsgjdCNKUQQ
+         AIzaSyA-mE4U-ndORGvOr7KOhbUraEgSeBZ0iaY
     </string>
     <string name="geocoding_key" templateMergeStrategy="preserve" translatable="false">
-         AIzaSyAYdW1YNRpwRvKffdHAMP_IJX2z2S7Bx-w
+         AIzaSyA-mE4U-ndORGvOr7KOhbUraEgSeBZ0iaY
     </string>
     <string name="directions_key" templateMergeStrategy="preserve" translatable="false">
-         AIzaSyAi7QM0UglZdIeZHnzBoTGnTOr3MGSevvI
+        AIzaSyA-mE4U-ndORGvOr7KOhbUraEgSeBZ0iaY
     </string>
     <string name="gcm_senderId">
         1057740731258
@@ -233,7 +233,7 @@
         <item>380442375858</item>
     </string-array>
 
- <!--ChooseDispatcherComments-->
+    <!--ChooseDispatcherComments-->
     <string name="choose_sen_comments">Выберите способ</string>
     <string-array name="comments_list">
         <item>Перейти на Google play</item>
